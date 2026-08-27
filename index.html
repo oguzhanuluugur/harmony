@@ -25,6 +25,46 @@
   <meta name="twitter:description" content="Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur." />
   <meta name="twitter:image" content="https://harmonyatolye.com/og-image.jpg" />
 
+  <!-- ============================================================
+       Google Analytics (gtag.js)
+       Aktif etmek için: Bu bloğun yorumunu kaldırın ve her iki yerde
+       de "GA_MEASUREMENT_ID" yazan kısmı kendi Ölçüm Kimliğinizle
+       (G-XXXXXXXXXX) değiştirin.
+       ============================================================ -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+  -->
+
+  <!-- ============================================================
+       Meta Pixel Code
+       Aktif etmek için: Bu bloğun yorumunu kaldırın ve her iki yerde
+       de "YOUR_PIXEL_ID" yazan kısmı kendi Piksel Kimliğinizle
+       değiştirin.
+       ============================================================ -->
+  <!--
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+  /></noscript>
+  -->
+
   <link rel="icon" type="image/png" href="brand/harmony-logo.png" />
   <link rel="apple-touch-icon" href="brand/harmony-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1998,8 +2038,25 @@
 
     const WHATSAPP_URL = 'https://wa.me/905377818524?text=Merhaba,%20Harmony%20at%C3%B6lyeleri%20hakk%C4%B1nda%20bilgi%20almak%20ve%20kay%C4%B1t%20olu%C5%9Fturmak%20istiyorum.';
 
+    function trackWhatsappClick() {
+      // Meta Pixel 'Contact' event
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Contact');
+      }
+      // Google Analytics custom event
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'generate_lead', {
+          event_category: 'engagement',
+          event_label: 'WhatsApp_Click',
+        });
+      }
+    }
+
     document.querySelectorAll('[data-whatsapp-cta]').forEach((el) => {
-      el.addEventListener('click', () => window.open(WHATSAPP_URL, '_blank'));
+      el.addEventListener('click', () => {
+        trackWhatsappClick();
+        window.open(WHATSAPP_URL, '_blank');
+      });
     });
 
     const faqTriggers = document.querySelectorAll('#sss .faq-trigger');
