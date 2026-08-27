@@ -26,8 +26,10 @@ http
     const filePath = path.join(root, urlPath);
     fs.readFile(filePath, (err, data) => {
       if (err) {
-        res.writeHead(404);
-        res.end("Not found");
+        fs.readFile(path.join(root, "404.html"), (err404, data404) => {
+          res.writeHead(404, { "Content-Type": "text/html" });
+          res.end(err404 ? "Not found" : data404);
+        });
         return;
       }
       const ext = path.extname(filePath);
