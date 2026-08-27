@@ -129,7 +129,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
         Dashboard
       </a>
-      <a href="#" data-nav="atolyeler" class="admin-nav-link">
+      <a href="#" data-nav="workshops" class="admin-nav-link">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
         Atölyeler
       </a>
@@ -137,11 +137,11 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></svg>
         Blog &amp; Yayınlar
       </a>
-      <a href="#" data-nav="galeri" class="admin-nav-link">
+      <a href="#" data-nav="gallery" class="admin-nav-link">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         Galeri
       </a>
-      <a href="#" data-nav="ayarlar" class="admin-nav-link">
+      <a href="#" data-nav="settings" class="admin-nav-link">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
         Ayarlar
       </a>
@@ -164,7 +164,7 @@
         <button id="sidebar-toggle" type="button" aria-label="Menüyü aç" class="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 text-ink-600 transition-colors hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 lg:hidden">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
         </button>
-        <h1 class="font-display text-lg font-semibold tracking-[-0.01em] text-ink-900 sm:text-xl">Genel Bakış</h1>
+        <h1 id="view-title" class="font-display text-lg font-semibold tracking-[-0.01em] text-ink-900 sm:text-xl">Genel Bakış</h1>
       </div>
 
       <div class="flex items-center gap-3">
@@ -176,6 +176,9 @@
     </header>
 
     <main class="p-5 sm:p-8">
+
+    <!-- ============ VIEW: dashboard ============ -->
+    <section data-view="dashboard">
 
       <!-- Stat cards -->
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -324,6 +327,180 @@
         </div>
       </div>
 
+    </section>
+
+    <!-- ============ VIEW: workshops ============ -->
+    <section data-view="workshops" class="hidden">
+      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div class="relative w-full sm:max-w-xs">
+            <svg class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="workshop-search" type="text" placeholder="Atölye ara..." class="w-full rounded-lg border border-ink-200 bg-white py-2.5 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <button type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Yeni Ekle
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead>
+              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                <th class="px-6 py-3">Atölye Adı</th>
+                <th class="px-6 py-3">Yaş Grubu</th>
+                <th class="px-6 py-3">Tarih</th>
+                <th class="px-6 py-3">Fiyat</th>
+                <th class="px-6 py-3">Durum</th>
+                <th class="px-6 py-3 text-right">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="workshops-table-body" class="divide-y divide-ink-100">
+              <!-- rows injected below via .workshop-row-template pattern (static markup, repeated) -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: blog ============ -->
+    <section data-view="blog" class="hidden">
+      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <h2 class="font-display text-lg font-semibold text-ink-900">Tüm Yazılar</h2>
+          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Yeni Yazı Ekle
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead>
+              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                <th class="px-6 py-3">Görsel</th>
+                <th class="px-6 py-3">Başlık</th>
+                <th class="px-6 py-3">Kategori</th>
+                <th class="px-6 py-3">Tarih</th>
+                <th class="px-6 py-3 text-right">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-ink-100">
+              <tr class="transition-colors hover:bg-ink-50/60">
+                <td class="px-6 py-3">
+                  <span class="block h-12 w-16 overflow-hidden rounded-lg bg-ink-50">
+                    <img src="workshop-photos/renkli-kutular-sehri.jpg" alt="" class="h-full w-full object-cover" />
+                  </span>
+                </td>
+                <td class="max-w-xs px-6 py-3 font-semibold text-ink-800">Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?</td>
+                <td class="px-6 py-3">
+                  <span class="rounded-full bg-clay-100 px-2.5 py-1 text-xs font-bold text-clay-700">Pedagoji</span>
+                </td>
+                <td class="px-6 py-3 text-ink-500">12 Mayıs 2026</td>
+                <td class="px-6 py-3">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <button type="button" aria-label="Düzenle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </button>
+                    <button type="button" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="transition-colors hover:bg-ink-50/60">
+                <td class="px-6 py-3">
+                  <span class="block h-12 w-16 overflow-hidden rounded-lg bg-ink-50">
+                    <img src="workshop-photos/kent-bize-ne-soyler.jpg" alt="" class="h-full w-full object-cover" />
+                  </span>
+                </td>
+                <td class="max-w-xs px-6 py-3 font-semibold text-ink-800">Erken Yaşta Şehir Farkındalığı: Geleceğin Kentlerini Kim Kuracak?</td>
+                <td class="px-6 py-3">
+                  <span class="rounded-full bg-mustard-100 px-2.5 py-1 text-xs font-bold text-mustard-600">Kent Bilinci</span>
+                </td>
+                <td class="px-6 py-3 text-ink-500">28 Nisan 2026</td>
+                <td class="px-6 py-3">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <button type="button" aria-label="Düzenle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </button>
+                    <button type="button" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="transition-colors hover:bg-ink-50/60">
+                <td class="px-6 py-3">
+                  <span class="block h-12 w-16 overflow-hidden rounded-lg bg-ink-50">
+                    <img src="workshop-photos/donusen-sehir.jpg" alt="" class="h-full w-full object-cover" />
+                  </span>
+                </td>
+                <td class="max-w-xs px-6 py-3 font-semibold text-ink-800">Oyun mu, Tasarım mı? Atık Malzemelerden Ekolojik Şehirlere</td>
+                <td class="px-6 py-3">
+                  <span class="rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600">Sürdürülebilirlik</span>
+                </td>
+                <td class="px-6 py-3 text-ink-500">15 Nisan 2026</td>
+                <td class="px-6 py-3">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <button type="button" aria-label="Düzenle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </button>
+                    <button type="button" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: gallery ============ -->
+    <section data-view="gallery" class="hidden">
+      <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-ink-500">Çocukların ürettiği eserler — Dijital Sergi bölümünde görüntülenir.</p>
+        <button type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+          Yeni Görsel Yükle
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <!-- gallery-thumb items injected via repeated markup below -->
+      </div>
+    </section>
+
+    <!-- ============ VIEW: settings ============ -->
+    <section data-view="settings" class="hidden">
+      <div class="max-w-xl rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
+        <form id="settings-form" class="space-y-5">
+          <div>
+            <label for="setting-title" class="mb-2 block text-sm font-semibold text-ink-700">Site Başlığı</label>
+            <input id="setting-title" type="text" value="Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="setting-phone" class="mb-2 block text-sm font-semibold text-ink-700">İletişim Numarası</label>
+            <input id="setting-phone" type="text" value="0537 781 85 24" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="setting-message" class="mb-2 block text-sm font-semibold text-ink-700">WhatsApp Mesaj Taslağı</label>
+            <textarea id="setting-message" rows="4" class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Merhaba, Harmony atölyeleri hakkında bilgi almak ve kayıt oluşturmak istiyorum.</textarea>
+          </div>
+          <div class="flex items-center gap-4 pt-2">
+            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+              Kaydet
+            </button>
+            <span id="settings-success" class="hidden text-sm font-semibold text-sage-600">Ayarlar kaydedildi.</span>
+          </div>
+        </form>
+      </div>
+    </section>
+
     </main>
   </div>
 </div>
@@ -347,14 +524,111 @@
   });
   sidebarBackdrop.addEventListener('click', closeSidebar);
 
-  // Nav active-state switching (visual only — no routing wired up yet)
+  // ---- Tab / view state ----
+  let activeTab = 'dashboard';
+
+  const viewTitles = {
+    dashboard: 'Genel Bakış',
+    workshops: 'Atölye Yönetimi',
+    blog: 'Blog ve Yayın Yönetimi',
+    gallery: 'Dijital Sergi Yönetimi',
+    settings: 'Sistem Ayarları',
+  };
+
+  function setActiveTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll('[data-view]').forEach((view) => {
+      view.classList.toggle('hidden', view.dataset.view !== tab);
+    });
+    document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
+      link.classList.toggle('active', link.dataset.nav === tab);
+    });
+    document.getElementById('view-title').textContent = viewTitles[tab] || '';
+    closeSidebar();
+  }
+
   document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      document.querySelectorAll('.admin-nav-link[data-nav]').forEach((l) => l.classList.remove('active'));
-      link.classList.add('active');
-      closeSidebar();
+      setActiveTab(link.dataset.nav);
     });
+  });
+
+  // ---- Icon helpers (Lucide-style, matching the rest of the panel) ----
+  const editIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>';
+  const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+
+  // ---- Workshops view: full table + live search ----
+  const workshops = [
+    { name: 'Düşler Parkı', age: '4-6 Yaş', date: '6 & 27 Haziran 2026', price: '500 TL', status: 'active' },
+    { name: 'Doğadaki Evim', age: '4-6 Yaş', date: '13 & 28 Haziran 2026', price: '500 TL', status: 'active' },
+    { name: 'Renkli Kutular Şehri', age: '4-6 Yaş', date: '7 & 20 Haziran 2026', price: '500 TL', status: 'active' },
+    { name: 'Şekiller Şehirde', age: '4-6 Yaş', date: '14 Haziran 2026', price: '500 TL', status: 'active' },
+    { name: 'Kent Bize Ne Söyler?', age: '7-10 Yaş', date: '6 & 21 Haziran 2026', price: '650 TL', status: 'active' },
+    { name: 'Eski Evler Yeni Hayaller', age: '7-10 Yaş', date: '13 & 27 Haziran 2026', price: '650 TL', status: 'active' },
+    { name: 'Dönüşen Şehir', age: '7-10 Yaş', date: '7 & 20 Haziran 2026', price: '650 TL', status: 'active' },
+    { name: 'Şehir Haritamı Tasarlıyorum', age: '7-10 Yaş', date: '14 Haziran 2026', price: '650 TL', status: 'draft' },
+    { name: 'Dönüşen Şehir', age: '11-14 Yaş', date: '21 Haziran 2026', price: '800 TL', status: 'active' },
+    { name: 'Kent Bize Ne Söyler?', age: '11-14 Yaş', date: '28 Haziran 2026', price: '800 TL', status: 'draft' },
+  ];
+
+  function statusBadge(status) {
+    return status === 'active'
+      ? '<span class="inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600"><span class="h-1.5 w-1.5 rounded-full bg-sage-500"></span>Aktif</span>'
+      : '<span class="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-2.5 py-1 text-xs font-bold text-ink-500"><span class="h-1.5 w-1.5 rounded-full bg-ink-400"></span>Taslak</span>';
+  }
+
+  function renderWorkshops(filter = '') {
+    const tbody = document.getElementById('workshops-table-body');
+    const q = filter.trim().toLocaleLowerCase('tr');
+    const rows = workshops.filter((w) => w.name.toLocaleLowerCase('tr').includes(q));
+
+    tbody.innerHTML = rows.map((w) => `
+      <tr class="transition-colors hover:bg-ink-50/60">
+        <td class="px-6 py-4 font-semibold text-ink-800">${w.name}</td>
+        <td class="px-6 py-4 text-ink-500">${w.age}</td>
+        <td class="px-6 py-4 text-ink-500">${w.date}</td>
+        <td class="px-6 py-4 font-medium text-ink-800">${w.price}</td>
+        <td class="px-6 py-4">${statusBadge(w.status)}</td>
+        <td class="px-6 py-4">
+          <div class="flex items-center justify-end gap-1.5">
+            <button type="button" aria-label="Düzenle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">${editIconSvg}</button>
+            <button type="button" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">${trashIconSvg}</button>
+          </div>
+        </td>
+      </tr>
+    `).join('') || `<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
+  }
+
+  renderWorkshops();
+  document.getElementById('workshop-search').addEventListener('input', (e) => renderWorkshops(e.target.value));
+
+  // ---- Gallery view: uploaded pieces grid ----
+  const galleryImages = [
+    'atölyecalismalari/atölye1.jpg', 'atölyecalismalari/atölye3.jpg', 'atölyecalismalari/atölye5.jpg',
+    'atölyecalismalari/atölye6.jpg', 'atölyecalismalari/atölye7.jpg', 'atölyecalismalari/atölye8.jpg',
+    'atölyecalismalari/atölye10.jpg', 'atölyecalismalari/atölye13.jpg', 'atölyecalismalari/atölye14.jpg',
+    'atölyecalismalari/atölye18.jpg', 'atölyecalismalari/atölye19.jpg', 'atölyecalismalari/atölye20.jpg',
+  ];
+
+  const galleryGrid = document.querySelector('[data-view="gallery"] .grid');
+  galleryGrid.innerHTML = galleryImages.map((src, i) => `
+    <div class="group relative aspect-square overflow-hidden rounded-xl border border-ink-100 bg-ink-50">
+      <img src="${src}" alt="Sergilenen eser ${i + 1}" class="h-full w-full object-cover" />
+      <div class="absolute inset-0 flex items-start justify-end bg-ink-900/0 p-2 transition-colors duration-200 group-hover:bg-ink-900/20">
+        <button type="button" aria-label="Görseli sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg bg-white/0 text-white opacity-0 shadow-soft transition-all duration-200 hover:bg-red-500 hover:text-white group-hover:bg-white/95 group-hover:text-red-500 group-hover:opacity-100">${trashIconSvg}</button>
+      </div>
+    </div>
+  `).join('');
+
+  // ---- Settings view: mock save ----
+  const settingsForm = document.getElementById('settings-form');
+  const settingsSuccess = document.getElementById('settings-success');
+  settingsForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    settingsSuccess.classList.remove('hidden');
+    clearTimeout(settingsForm._hideTimer);
+    settingsForm._hideTimer = setTimeout(() => settingsSuccess.classList.add('hidden'), 3000);
   });
 </script>
 
