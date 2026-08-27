@@ -1,0 +1,2044 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1A2E40" />
+
+  <title>Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri</title>
+  <meta name="description" content="Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur." />
+
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://harmonyatolye.com/" />
+  <meta property="og:title" content="Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri" />
+  <meta property="og:description" content="Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur." />
+  <meta property="og:image" content="https://harmonyatolye.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="tr_TR" />
+
+  <!-- Twitter Card (bonus: same preview on X) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri" />
+  <meta name="twitter:description" content="Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur." />
+  <meta name="twitter:image" content="https://harmonyatolye.com/og-image.jpg" />
+
+  <link rel="icon" type="image/png" href="brand/harmony-logo.png" />
+  <link rel="apple-touch-icon" href="brand/harmony-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clay: {
+              50: '#fdf5f0',
+              100: '#fae6d9',
+              200: '#f3c8ab',
+              300: '#eba576',
+              400: '#e28449',
+              500: '#d1652c',
+              600: '#b04f20',
+              700: '#8c3e1c',
+              800: '#70331b',
+              900: '#5c2b19',
+            },
+            ink: {
+              50: '#f4f5f6',
+              100: '#e4e6e9',
+              200: '#c3c8cf',
+              300: '#9aa2ad',
+              400: '#6b7480',
+              500: '#4c5561',
+              600: '#3a414c',
+              700: '#2b303a',
+              800: '#1d2129',
+              900: '#14171d',
+            },
+            sage: {
+              50: '#f2f6f3',
+              100: '#dfeadf',
+              500: '#5c8a6b',
+              600: '#476d54',
+            },
+            mustard: {
+              100: '#f6e8c4',
+              200: '#eed69a',
+              300: '#e2bd63',
+              500: '#c99a2e',
+              600: '#a97c20',
+            }
+          },
+          fontFamily: {
+            display: ['"Fraunces"', 'serif'],
+            sans: ['"Manrope"', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 2px 8px -2px rgba(28,22,15,0.08), 0 1px 2px -1px rgba(28,22,15,0.06)',
+            'lifted': '0 20px 40px -12px rgba(176,79,32,0.22), 0 8px 16px -8px rgba(28,22,15,0.12)',
+            'card': '0 1px 3px 0 rgba(28,22,15,0.07), 0 1px 2px -1px rgba(28,22,15,0.06)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .font-display {
+      font-family: 'Fraunces', serif;
+    }
+
+    .noise::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .city-shape {
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-16px);
+      }
+    }
+
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hero-float {
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-float-slow {
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-spin-slow {
+      animation: spin-slow 22s linear infinite;
+    }
+
+    .hero-spin-slower {
+      animation: spin-slow 28s linear infinite;
+    }
+
+    .card-hover {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-6px);
+    }
+
+    .filter-btn {
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .filter-btn:active {
+      transform: scale(0.97);
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #d1652c;
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .cta-btn:active {
+      transform: translateY(0px) scale(0.98);
+    }
+
+    .gallery-item {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+    }
+  </style>
+</head>
+
+<body class="bg-[#fbf8f4] text-ink-800 antialiased">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-[#fbf8f4]/90 backdrop-blur-md border-b border-ink-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      <a href="#top" class="flex items-center gap-3 group">
+        <span
+          class="block h-16 w-16 shrink-0 rounded-full overflow-hidden shadow-soft transition-transform duration-300 group-hover:scale-105">
+          <img src="brand/harmony-logo.png" alt="Harmony - Urban Lab for Children" class="h-full w-full object-cover" />
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-9 text-[15px] font-medium text-ink-600">
+        <a href="#hakkimizda" class="nav-link py-1">Hakkımızda</a>
+        <a href="#atolyeler" class="nav-link active py-1 text-clay-600">Atölyeler</a>
+        <a href="#blog" class="nav-link py-1">Blog</a>
+        <a href="#iletisim" class="nav-link py-1">İletişim</a>
+      </nav>
+
+      <button type="button" data-whatsapp-cta
+        class="cta-btn hidden sm:inline-flex items-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold pl-5 pr-4 py-3 shadow-soft hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+        Hemen Kaydol
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </button>
+
+      <button id="menu-toggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu"
+        class="md:hidden flex h-10 w-10 items-center justify-center rounded-lg border border-ink-200 text-ink-700 hover:border-clay-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-clay-500 transition-colors">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="7" y2="7" />
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="17" y2="17" />
+        </svg>
+        <svg id="icon-close" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav id="mobile-menu"
+      class="hidden md:hidden border-t border-ink-100 bg-[#fbf8f4] px-6 py-5 flex flex-col gap-4 text-[15px] font-medium text-ink-600">
+      <a href="#hakkimizda" class="py-1">Hakkımızda</a>
+      <a href="#atolyeler" class="py-1 text-clay-600">Atölyeler</a>
+      <a href="#blog" class="py-1">Blog</a>
+      <a href="#iletisim" class="py-1">İletişim</a>
+      <button type="button" data-whatsapp-cta
+        class="cta-btn inline-flex items-center justify-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold px-5 py-3 shadow-soft mt-1">
+        Hemen Kaydol
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 noise"></div>
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 -z-10 h-[520px] w-[820px] rounded-full opacity-60 blur-3xl"
+      style="background: radial-gradient(circle at 30% 30%, rgba(209,101,44,0.16), transparent 60%), radial-gradient(circle at 70% 60%, rgba(92,138,107,0.14), transparent 55%);">
+    </div>
+
+    <div class="relative">
+      <!-- Floating background shapes -->
+      <div class="hidden md:block absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <svg class="hero-float absolute left-[2%] lg:left-[6%] top-[6%] text-clay-300/40" style="animation-delay:-1s"
+          width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M5.5 10v9a1 1 0 0 0 1 1H17.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <svg class="hero-spin-slow absolute left-[4%] lg:left-[9%] top-[58%] text-ink-300/35" width="60" height="60"
+          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="12,3 21,20 3,20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+
+        <svg class="hero-float-slow absolute left-0 lg:left-[2%] top-[32%] text-mustard-300/50"
+          style="animation-delay:-3s" width="46" height="24" viewBox="0 0 46 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="44" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+          <line x1="8" y1="1" x2="8" y2="7" stroke="currentColor" stroke-width="1.4" />
+          <line x1="16" y1="1" x2="16" y2="10" stroke="currentColor" stroke-width="1.4" />
+          <line x1="24" y1="1" x2="24" y2="7" stroke="currentColor" stroke-width="1.4" />
+          <line x1="32" y1="1" x2="32" y2="10" stroke="currentColor" stroke-width="1.4" />
+          <line x1="40" y1="1" x2="40" y2="7" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+
+        <svg class="hero-float-slow absolute right-[2%] lg:right-[6%] top-[8%] text-ink-300/35"
+          style="animation-delay:-4s" width="64" height="40" viewBox="0 0 64 40" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 30a9 9 0 0 1-1-17.9 12 12 0 0 1 23-3.6A10 10 0 0 1 50 30Z" stroke="currentColor"
+            stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+
+        <svg class="hero-spin-slower absolute right-0 lg:right-[3%] top-[44%] text-mustard-300/45" width="54"
+          height="54" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+          <rect x="13" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+          <rect x="8" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+
+        <svg class="hero-float absolute right-[5%] lg:right-[10%] top-[64%] text-clay-300/40"
+          style="animation-delay:-5s" width="40" height="40" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-6 lg:px-10 pt-20 pb-6 text-center relative z-10">
+        <p
+          class="inline-flex items-center gap-2 text-clay-600 font-semibold text-[13px] tracking-[0.14em] uppercase mb-7">
+          <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+          Keşfet &nbsp;•&nbsp; Hayal Et &nbsp;•&nbsp; Tasarla &nbsp;•&nbsp; Paylaş!
+        </p>
+
+        <div class="relative flex items-center justify-center gap-5 sm:gap-10">
+          <svg class="city-shape hidden sm:block shrink-0 text-ink-200" width="64" height="72" viewBox="0 0 64 72"
+            fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="30" width="16" height="38" rx="2" stroke="currentColor" stroke-width="2" />
+            <rect x="24" y="14" width="18" height="54" rx="2" stroke="currentColor" stroke-width="2" />
+            <rect x="46" y="40" width="14" height="28" rx="2" stroke="currentColor" stroke-width="2" />
+            <path d="M29 14 33 6 37 14" stroke="#d1652c" stroke-width="2" stroke-linejoin="round" />
+            <line x1="9" y1="38" x2="9" y2="42" stroke="currentColor" stroke-width="2" />
+            <line x1="15" y1="38" x2="15" y2="42" stroke="currentColor" stroke-width="2" />
+            <line x1="29" y1="24" x2="29" y2="28" stroke="currentColor" stroke-width="2" />
+            <line x1="37" y1="24" x2="37" y2="28" stroke="currentColor" stroke-width="2" />
+          </svg>
+
+          <h1
+            class="font-display font-semibold text-[2.6rem] leading-[1.08] sm:text-6xl lg:text-[4.2rem] tracking-[-0.03em] text-ink-900">
+            Çocuklar İçin<br />
+            Şehir Tasarım<br />
+            Atölyeleri
+          </h1>
+
+          <svg class="city-shape hidden sm:block shrink-0 text-ink-200" width="64" height="72" viewBox="0 0 64 72"
+            fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="14" cy="46" r="11" stroke="currentColor" stroke-width="2" />
+            <path d="M14 35v22M3 46h22" stroke="currentColor" stroke-width="1.4" opacity="0.6" />
+            <rect x="32" y="10" width="26" height="58" rx="2" stroke="currentColor" stroke-width="2" />
+            <line x1="39" y1="20" x2="39" y2="24" stroke="currentColor" stroke-width="2" />
+            <line x1="48" y1="20" x2="48" y2="24" stroke="#5c8a6b" stroke-width="2" />
+            <line x1="39" y1="30" x2="39" y2="34" stroke="currentColor" stroke-width="2" />
+            <line x1="48" y1="30" x2="48" y2="34" stroke="currentColor" stroke-width="2" />
+          </svg>
+        </div>
+
+        <p class="mt-8 max-w-2xl mx-auto text-[17px] leading-[1.7] text-ink-500">
+          <span class="font-semibold text-ink-800">Harmony,</span> gözlem, keşif, hayal ve tasarım süreçleriyle 4-14 yaş
+          arası çocukları şehirle buluşturan
+          <span class="font-semibold text-ink-800">Yaratıcı bir Öğrenme Platformudur.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="relative">
+      <div class="hidden md:block absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <svg class="hero-float-slow absolute left-0 lg:left-[3%] top-[4%] text-mustard-300/50"
+          style="animation-delay:-2s" width="46" height="46" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M5.5 10v9a1 1 0 0 0 1 1H17.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg class="hero-spin-slower absolute left-[2%] lg:left-[7%] top-[62%] text-clay-300/40" width="42" height="42"
+          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+        <svg class="hero-float absolute right-0 lg:right-[4%] top-[10%] text-ink-300/35" style="animation-delay:-3s"
+          width="58" height="36" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 30a9 9 0 0 1-1-17.9 12 12 0 0 1 23-3.6A10 10 0 0 1 50 30Z" stroke="currentColor"
+            stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+        <svg class="hero-spin-slow absolute right-[2%] lg:right-[8%] top-[58%] text-mustard-300/45" width="48"
+          height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="12,3 21,20 3,20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 pb-24 relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
+            <img src="gallery-photos/gallery-2.png" alt="Bir çocuk büyüteçle şehir maketini inceliyor"
+              class="h-full w-full object-cover mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </figure>
+          <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
+            <img src="gallery-photos/gallery-3.png" alt="Bir çocuk şehir tasarımını çiziyor"
+              class="h-full w-full object-cover mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </figure>
+          <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
+            <img src="gallery-photos/gallery-4.png" alt="Bir çocuk minyatür binaları yerleştiriyor"
+              class="h-full w-full object-cover mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </figure>
+        </div>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
+            <img src="gallery-photos/gallery-1.png" alt="Bir çocuk atölyede şehir maketi üzerinde çalışıyor"
+              class="h-full w-full object-cover mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </figure>
+          <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
+            <img src="gallery-photos/gallery-5.png" alt="Bir grup çocuk birlikte şehir maketi tasarlıyor"
+              class="h-full w-full object-cover mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative skyline -->
+    <div class="relative w-full h-56 sm:h-72 lg:h-80 overflow-hidden" aria-hidden="true">
+      <video class="absolute inset-0 h-full w-full object-cover mix-blend-multiply opacity-90"
+        style="object-position: center 54%;" src="media/skyline.mp4" autoplay loop muted playsinline></video>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="hakkimizda" class="bg-[#faf8f5] py-20 sm:py-24">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Visual -->
+        <div class="relative">
+          <div class="absolute -top-5 -left-5 h-full w-full rounded-tl-[4rem] rounded-br-[4rem] bg-clay-100"
+            aria-hidden="true"></div>
+          <figure class="relative rounded-tl-[4rem] rounded-br-[4rem] overflow-hidden shadow-lifted aspect-[4/5]">
+            <img src="brand/harmony-de.png" alt="Harmony'de: Duy, Gör, Tanı, Üret, Tasarla"
+              class="h-full w-full object-cover" />
+          </figure>
+        </div>
+
+        <!-- Content -->
+        <div>
+          <p
+            class="inline-flex items-center gap-2 text-clay-600 font-semibold text-[13px] tracking-[0.14em] uppercase mb-4">
+            <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+            Kurucumuz Hakkında
+          </p>
+          <h2
+            class="font-display font-semibold text-3xl sm:text-[2.6rem] tracking-[-0.02em] leading-[1.15] text-ink-900">
+            Hakkımızda
+          </h2>
+
+          <p class="mt-7 border-l-4 border-clay-400 pl-5 text-xl sm:text-2xl font-semibold text-ink-800 leading-snug">
+            Akademik bilgi, yaratıcı üretim ve çocukların hayal gücü aynı zeminde buluşuyor.
+          </p>
+
+          <div class="mt-8 space-y-5 text-[17px] leading-[1.7] text-ink-500">
+            <p>Yıldız Teknik Üniversitesi Şehir ve Bölge Planlama Bölümü'nde lisans, yüksek lisans ve doktora
+              eğitimlerini tamamlayan Seçil Avcıoğlu'nun akademik çalışmaları kentsel hafıza, göç ve kentsel
+              dayanıklılık konularına odaklanmaktadır.</p>
+            <p>Şehir Planlama ve kentsel tasarım alanında sektörel deneyiminin yanı sıra ulusal ve uluslararası
+              platformlarda tasarım, koruma ve mekân üretimi üzerine çalışmalara katılarak; akademik alanda Göç ve Kent,
+              Kentsel Proje Yönetimi ve Tarihi Kent Planlaması derslerini misafir öğretim görevlisi olarak yürütmüştür.
+            </p>
+            <p>2026 yılı Ocak ayı itibarıyla kurucusu olduğu Harmony Planlama ve Kentsel Tasarım Atölyesi bünyesinde
+              planlama, danışmanlık ve proje üretim çalışmalarını sürdürmekte; ayrıca çocuklara yönelik kentsel tasarım
+              ve şehir planlama temalı atölye programları ile erken yaşta mekânsal farkındalık ve kent bilinci
+              oluşturmayı amaçlayan eğitimler gerçekleştirmektedir.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSHOPS -->
+  <section id="atolyeler" class="relative overflow-hidden border-t border-ink-100 bg-white">
+    <div class="hidden md:block absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+      <svg class="hero-float absolute left-0 lg:left-[4%] top-[6%] text-clay-200/60" style="animation-delay:-1s"
+        width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 11.5 12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M5.5 10v9a1 1 0 0 0 1 1H17.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <svg class="hero-spin-slow absolute left-[3%] lg:left-[8%] top-[30%] text-mustard-200/70" width="56" height="56"
+        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+        <rect x="13" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+        <rect x="8" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+      <svg class="hero-float-slow absolute left-0 lg:left-[5%] top-[58%] text-ink-200/60" style="animation-delay:-4s"
+        width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+      <svg class="hero-float-slow absolute right-0 lg:right-[4%] top-[10%] text-ink-200/60" style="animation-delay:-2s"
+        width="60" height="38" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 30a9 9 0 0 1-1-17.9 12 12 0 0 1 23-3.6A10 10 0 0 1 50 30Z" stroke="currentColor" stroke-width="1.6"
+          stroke-linejoin="round" />
+      </svg>
+      <svg class="hero-spin-slower absolute right-[2%] lg:right-[7%] top-[34%] text-clay-200/60" width="46" height="24"
+        viewBox="0 0 46 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="44" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+        <line x1="8" y1="1" x2="8" y2="7" stroke="currentColor" stroke-width="1.4" />
+        <line x1="16" y1="1" x2="16" y2="10" stroke="currentColor" stroke-width="1.4" />
+        <line x1="24" y1="1" x2="24" y2="7" stroke="currentColor" stroke-width="1.4" />
+        <line x1="32" y1="1" x2="32" y2="10" stroke="currentColor" stroke-width="1.4" />
+        <line x1="40" y1="1" x2="40" y2="7" stroke="currentColor" stroke-width="1.4" />
+      </svg>
+      <svg class="hero-float absolute right-[3%] lg:right-[9%] top-[62%] text-mustard-200/70"
+        style="animation-delay:-5s" width="50" height="50" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,3 21,20 3,20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 py-20 relative z-10">
+      <h2
+        class="font-display font-semibold text-center text-3xl sm:text-[2.6rem] tracking-[-0.02em] leading-[1.15] text-ink-900 max-w-2xl mx-auto">
+        Yaratıcı Şehir Tasarım Atölyelerimiz
+      </h2>
+
+      <!-- Filter bar -->
+      <div id="filter-bar" class="mt-10 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Yaş filtreleri">
+        <button data-filter="all"
+          class="filter-btn rounded-full px-5 py-2.5 text-sm font-semibold bg-clay-500 text-white shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600"
+          role="tab" aria-selected="true">Tümü</button>
+        <button data-filter="4-6"
+          class="filter-btn rounded-full px-5 py-2.5 text-sm font-semibold border border-ink-200 text-ink-600 hover:border-clay-400 hover:text-clay-600 active:bg-clay-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+          role="tab" aria-selected="false">4-6 Yaş</button>
+        <button data-filter="7-10"
+          class="filter-btn rounded-full px-5 py-2.5 text-sm font-semibold border border-ink-200 text-ink-600 hover:border-clay-400 hover:text-clay-600 active:bg-clay-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+          role="tab" aria-selected="false">7-10 Yaş</button>
+        <button data-filter="11-14"
+          class="filter-btn rounded-full px-5 py-2.5 text-sm font-semibold border border-ink-200 text-ink-600 hover:border-clay-400 hover:text-clay-600 active:bg-clay-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+          role="tab" aria-selected="false">11-14 Yaş</button>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+        <!-- Card 1 -->
+        <article data-age="4-6">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/dusler-parki.jpg" alt="Düşler Parkı atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide">4-6
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">500 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Düşler Parkı</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  6 & 27 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  14:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 2 -->
+        <article data-age="4-6">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/dogadaki-evim.jpg" alt="Doğadaki Evim atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide">4-6
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">500 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Doğadaki Evim</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  13 & 28 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  14:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 3 -->
+        <article data-age="4-6">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/renkli-kutular-sehri.jpg" alt="Renkli Kutular Şehri atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide">4-6
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">500 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Renkli Kutular Şehri
+              </h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  7 & 20 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  14:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 4 -->
+        <article data-age="4-6">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/sekiller-sehirde.jpg" alt="Şekiller Şehirde atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide">4-6
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">500 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Şekiller Şehirde</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  14 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  14:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 5 -->
+        <article data-age="7-10">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/kent-bize-ne-soyler.jpg" alt="Kent Bize Ne Söyler? atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-sage-100 text-sage-600 text-xs font-bold px-3 py-1.5 tracking-wide">7-10
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">650 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Kent Bize Ne Söyler?
+              </h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  6 & 21 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 6 -->
+        <article data-age="7-10">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/eski-evler-yeni-hayaller.jpg" alt="Eski Evler Yeni Hayaller atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-sage-100 text-sage-600 text-xs font-bold px-3 py-1.5 tracking-wide">7-10
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">650 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Eski Evler Yeni
+                Hayaller</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  13 & 27 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 7 -->
+        <article data-age="7-10">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/donusen-sehir.jpg" alt="Dönüşen Şehir atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-sage-100 text-sage-600 text-xs font-bold px-3 py-1.5 tracking-wide">7-10
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">650 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Dönüşen Şehir</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  7 & 20 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 8 -->
+        <article data-age="7-10">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/sehir-haritami-tasarliyorum.jpg"
+                alt="Şehir Haritamı Tasarlıyorum atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-sage-100 text-sage-600 text-xs font-bold px-3 py-1.5 tracking-wide">7-10
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">650 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Şehir Haritamı
+                Tasarlıyorum</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  14 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 9 -->
+        <article data-age="11-14">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/donusen-sehir-2.jpg" alt="Dönüşen Şehir (11-14 Yaş) atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span
+                  class="rounded-full bg-clay-200/70 text-clay-800 text-xs font-bold px-3 py-1.5 tracking-wide">11-14
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">800 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Dönüşen Şehir</h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  21 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 10 -->
+        <article data-age="11-14">
+          <button type="button" data-whatsapp-cta
+            class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+            <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
+              <img src="workshop-photos/kent-bize-ne-soyler-2.jpg" alt="Kent Bize Ne Söyler? (11-14 Yaş) atölyesi afişi"
+                class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <span
+                  class="rounded-full bg-clay-200/70 text-clay-800 text-xs font-bold px-3 py-1.5 tracking-wide">11-14
+                  Yaş</span>
+                <span class="font-display font-semibold text-lg text-ink-900">800 TL</span>
+              </div>
+              <h3 class="mt-4 font-display font-semibold text-xl text-ink-900 tracking-[-0.01em]">Kent Bize Ne Söyler?
+              </h3>
+              <div class="mt-4 pt-4 border-t border-ink-100 flex items-center gap-5 text-sm text-ink-500">
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                  28 Haziran 2026
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                  </svg>
+                  16:00
+                </span>
+              </div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-5 py-3 shadow-soft transition-colors duration-200 group-hover:bg-clay-600">
+                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO TESTIMONIAL -->
+  <section class="bg-[#fcfbf9] py-24">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="grid items-center gap-12 md:grid-cols-2">
+
+        <!-- Quote -->
+        <div>
+          <p
+            class="mb-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-clay-600">
+            <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+            Velilerimizin Gözünden
+          </p>
+          <span class="block font-display text-6xl leading-none text-clay-200" aria-hidden="true">&ldquo;</span>
+          <p class="-mt-4 font-display text-2xl font-semibold leading-relaxed text-[#1A2E40] md:text-3xl">
+            Harmony'de çocuklar yalnızca bir atölyeye katılmıyor; çevrelerini merak ediyor, şehri farklı gözlerle
+            okumayı öğreniyor, fikir üretip paylaşıyorlar.
+          </p>
+          <div class="mt-8 flex items-center gap-4">
+            <span
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-100 font-display text-lg font-semibold text-clay-700">F</span>
+            <span class="text-ink-500">
+              <span class="block font-semibold text-ink-800">Fatma Özen Gedik</span>
+              <span class="block text-sm">Muhammed Ali (9) ve Ege (4) Annesi</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Video -->
+        <div class="relative aspect-video w-full overflow-hidden rounded-3xl bg-ink-900 shadow-lifted">
+          <video id="testimonial-video" class="h-full w-full object-cover" src="media/veli1.mp4" preload="metadata"
+            playsinline muted></video>
+          <div id="testimonial-overlay" class="absolute inset-0 flex items-center justify-center bg-ink-900/30">
+            <button type="button" id="testimonial-play" aria-label="Videoyu oynat"
+              class="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-[#E06D53] shadow-lifted transition-transform duration-300 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL EXHIBITION -->
+  <section class="bg-white py-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-10">
+      <p class="mb-4 flex items-center justify-center gap-2 text-center text-[13px] font-semibold uppercase tracking-[0.14em] text-clay-600">
+        <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+        Küçük Plancıların Eserleri
+      </p>
+      <h2 class="mb-6 text-center font-display text-3xl font-bold leading-[1.15] tracking-[-0.02em] text-[#1A2E40] sm:text-[2.6rem]">
+        Dijital Sergi
+      </h2>
+      <p class="mx-auto mb-12 max-w-2xl text-center text-[17px] leading-[1.7] text-ink-500">
+        Çocukların hayal gücüyle şekillenen, atık malzemelerden geleceğin şehirlerine uzanan tasarım yolculuğu.
+      </p>
+
+      <div class="grid auto-rows-[250px] grid-cols-1 grid-flow-row-dense gap-6 md:grid-cols-3">
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
+          <img src="atölyecalismalari/atölye5.jpg" alt="Mahalle sahnesi collage çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Mahalle Hayatı</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye2.jpg" alt="Bina cephesi çizim detay çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Cephe Detay Çalışması</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye3.jpg" alt="Renkli çatılı ev collage çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Renkli Çatılar Projesi</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye1.jpg" alt="Atölye çocukları eserleriyle" class="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Atölyeden Bir Kare</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
+          <img src="atölyecalismalari/atölye6.jpg" alt="Renkli ahşap ev cepheleri collage çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Ahşap Sokak Dokusu</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye4.jpg" alt="Detaylı cephe çizimi çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">İnce İşçilik</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye7.jpg" alt="Sicim ve karma teknik cephe çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Doku ve Bellek</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye8.jpg" alt="Gece sokak sahnesi collage çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Geceye Açılan Cumba</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye10.jpg" alt="Şehir tasarım kartlarıyla çalışan çocuklar" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Şehir Tasarım Kartları</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye11.jpg" alt="Atölyede birlikte üreten çocuklar" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Birlikte Üretmek</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
+          <img src="atölyecalismalari/atölye12.jpg" alt="Kesme ve yapıştırma çalışması yapan çocuklar" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Kesme Yapıştırma Zamanı</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye13.jpg" alt="Şehir haritası üzerinde detay çalışması" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Detaylara Dokunuş</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye14.jpg" alt="Tamamlanmış şehir haritalarını gösteren çocuklar" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Haritamı Tamamladım</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
+          <img src="atölyecalismalari/atölye17.jpg" alt="Açık havada ekolojik şehir atölyesi" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Doğada Atölye</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye18.jpg" alt="Minyatür ekolojik ev maketi yapımı" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Minyatür Ev Yapımı</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
+          <img src="atölyecalismalari/atölye19.jpg" alt="Ekolojik şehir maketiyle poz veren çocuk" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Ekolojik Şehrim</p>
+          </div>
+        </div>
+
+        <div class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
+          <img src="atölyecalismalari/atölye20.jpg" alt="Küçük şehir plancıları maketleriyle" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="absolute bottom-0 left-0 translate-y-2 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p class="font-display text-lg font-semibold text-white">Küçük Şehir Plancıları</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="sss" class="relative border-t border-ink-100 bg-white py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-10">
+      <div class="text-center">
+        <p
+          class="mb-4 inline-flex items-center justify-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-clay-600">
+          <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+          Merak Edilenler
+        </p>
+        <h2
+          class="mb-12 font-display text-3xl font-semibold leading-[1.15] tracking-[-0.02em] text-ink-900 sm:text-[2.6rem]">
+          Sıkça Sorulan Sorular
+        </h2>
+      </div>
+
+      <div>
+        <div class="border-b border-ink-100">
+          <button type="button" class="faq-trigger flex w-full items-center justify-between gap-4 py-6 text-left"
+            aria-expanded="false">
+            <span class="text-lg font-semibold text-[#1A2E40]">Atölyelere katılım için çocuğumun yeteneği veya ön
+              bilgisi olması gerekiyor mu?</span>
+            <span class="faq-icon shrink-0 text-[#E06D53] transition-transform duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-panel max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="pb-6 pr-8 leading-relaxed text-ink-500">Hayır, atölyelerimiz her çocuğun kendi yaratıcılığını
+              keşfetmesi için tasarlanmıştır. Önceden çizim yeteneği veya mimari bilgi gerekmez; uzman şehir plancısı
+              eğitmenlerimiz süreci adım adım ve pedagojik oyunlarla yönlendirir.</p>
+          </div>
+        </div>
+
+        <div class="border-b border-ink-100">
+          <button type="button" class="faq-trigger flex w-full items-center justify-between gap-4 py-6 text-left"
+            aria-expanded="false">
+            <span class="text-lg font-semibold text-[#1A2E40]">Atölye sırasında ebeveynler nerede bekliyor?</span>
+            <span class="faq-icon shrink-0 text-[#E06D53] transition-transform duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-panel max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="pb-6 pr-8 leading-relaxed text-ink-500">Çocukların kendi bağımsız alanlarını kurabilmeleri ve
+              sürece odaklanmaları için atölye alanına sadece eğitmenler alınmaktadır. Ebeveynlerimiz dilerse bekleme
+              alanımızda çay/kahve eşliğinde vakit geçirebilir veya atölye bitiminde çocuklarını teslim alabilirler.</p>
+          </div>
+        </div>
+
+        <div class="border-b border-ink-100">
+          <button type="button" class="faq-trigger flex w-full items-center justify-between gap-4 py-6 text-left"
+            aria-expanded="false">
+            <span class="text-lg font-semibold text-[#1A2E40]">Kullanılan tasarım ve maket malzemeleri çocuklar için
+              güvenli mi?</span>
+            <span class="faq-icon shrink-0 text-[#E06D53] transition-transform duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-panel max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="pb-6 pr-8 leading-relaxed text-ink-500">Kesinlikle. Tüm maket, karton ve boya malzemelerimiz
+              toksik madde içermeyen, çocuk sağlığına tamamen uygun, geri dönüştürülebilir ve çevre dostu ekolojik
+              ürünlerden seçilmektedir.</p>
+          </div>
+        </div>
+
+        <div class="border-b border-ink-100">
+          <button type="button" class="faq-trigger flex w-full items-center justify-between gap-4 py-6 text-left"
+            aria-expanded="false">
+            <span class="text-lg font-semibold text-[#1A2E40]">Okullar veya kapalı arkadaş grupları için özel atölyeler
+              düzenliyor musunuz?</span>
+            <span class="faq-icon shrink-0 text-[#E06D53] transition-transform duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-panel max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="pb-6 pr-8 leading-relaxed text-ink-500">Evet, özel okullar, anaokulları ve en az 8 kişilik arkadaş
+              grupları için kurumumuza veya size özel kapalı grup atölyeleri düzenliyoruz. İletişim numaralarımızdan
+              kurum işbirlikleri için detaylı bilgi alabilirsiniz.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="bg-ink-50 py-24">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <p
+        class="inline-flex items-center gap-2 text-mustard-600 font-semibold text-[13px] tracking-[0.14em] uppercase mb-4">
+        <span class="h-1.5 w-1.5 rounded-full bg-mustard-500"></span>
+        Kent ve Çocuk Kütüphanesi
+      </p>
+      <h2
+        class="font-display font-semibold text-3xl sm:text-[2.6rem] tracking-[-0.02em] leading-[1.15] text-ink-900 max-w-xl">
+        Blog & Yayınlar
+      </h2>
+      <p class="mt-5 max-w-xl text-[17px] leading-[1.7] text-ink-500">
+        Şehir planlama, çocuk gelişimi ve mekânsal farkındalık üzerine güncel yazılarımız.
+      </p>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Post 1 -->
+        <article
+          class="group card-hover rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+          <div class="relative h-56 overflow-hidden bg-ink-50">
+            <img src="workshop-photos/renkli-kutular-sehri.jpg" alt="Çocuklarda 3 boyutlu düşünme becerisi"
+              class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3">
+              <span
+                class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide">Pedagoji</span>
+              <span class="text-sm text-ink-400">12 Mayıs 2026</span>
+            </div>
+            <h3
+              class="mt-4 font-display font-semibold text-xl text-[#1A2E40] tracking-[-0.01em] leading-snug line-clamp-2">
+              Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?
+            </h3>
+            <p class="mt-3 text-[15px] leading-[1.7] text-ink-500 line-clamp-3">
+              Karton maketler ve şehir tasarımları, çocukların sadece el becerilerini değil, analitik düşünme ve problem
+              çözme yeteneklerini de geliştiriyor...
+            </p>
+            <button type="button" data-blog-post="post-1"
+              class="group/link mt-5 inline-flex items-center gap-1.5 rounded bg-transparent p-0 text-sm font-semibold text-clay-600 transition-colors duration-200 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              Devamını Oku
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"
+                class="transition-transform duration-300 group-hover/link:translate-x-1">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article
+          class="group card-hover rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+          <div class="relative h-56 overflow-hidden bg-ink-50">
+            <img src="workshop-photos/kent-bize-ne-soyler.jpg" alt="Erken yaşta şehir farkındalığı"
+              class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3">
+              <span
+                class="rounded-full bg-mustard-100 text-mustard-600 text-xs font-bold px-3 py-1.5 tracking-wide">Kent
+                Bilinci</span>
+              <span class="text-sm text-ink-400">28 Nisan 2026</span>
+            </div>
+            <h3
+              class="mt-4 font-display font-semibold text-xl text-[#1A2E40] tracking-[-0.01em] leading-snug line-clamp-2">
+              Erken Yaşta Şehir Farkındalığı: Geleceğin Kentlerini Kim Kuracak?
+            </h3>
+            <p class="mt-3 text-[15px] leading-[1.7] text-ink-500 line-clamp-3">
+              Bir çocuğun yaşadığı sokağı, parkı ve mahalleyi tanıması, onun ileride çevreye duyarlı bir birey olmasının
+              en büyük anahtarıdır...
+            </p>
+            <button type="button" data-blog-post="post-2"
+              class="group/link mt-5 inline-flex items-center gap-1.5 rounded bg-transparent p-0 text-sm font-semibold text-clay-600 transition-colors duration-200 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              Devamını Oku
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"
+                class="transition-transform duration-300 group-hover/link:translate-x-1">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article
+          class="group card-hover rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
+          <div class="relative h-56 overflow-hidden bg-ink-50">
+            <img src="workshop-photos/donusen-sehir.jpg" alt="Atık malzemelerden ekolojik şehirlere"
+              class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3">
+              <span
+                class="rounded-full bg-sage-100 text-sage-600 text-xs font-bold px-3 py-1.5 tracking-wide">Sürdürülebilirlik</span>
+              <span class="text-sm text-ink-400">15 Nisan 2026</span>
+            </div>
+            <h3
+              class="mt-4 font-display font-semibold text-xl text-[#1A2E40] tracking-[-0.01em] leading-snug line-clamp-2">
+              Oyun mu, Tasarım mı? Atık Malzemelerden Ekolojik Şehirlere
+            </h3>
+            <p class="mt-3 text-[15px] leading-[1.7] text-ink-500 line-clamp-3">
+              Atölyelerimizde kullandığımız geri dönüştürülebilir malzemelerle çocuklar, sürdürülebilir bir geleceğin
+              temellerini kendi elleriyle atıyor...
+            </p>
+            <button type="button" data-blog-post="post-3"
+              class="group/link mt-5 inline-flex items-center gap-1.5 rounded bg-transparent p-0 text-sm font-semibold text-clay-600 transition-colors duration-200 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              Devamını Oku
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"
+                class="transition-transform duration-300 group-hover/link:translate-x-1">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Post Modal -->
+  <div id="blog-modal" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" role="dialog"
+    aria-modal="true" aria-labelledby="blog-modal-title">
+    <div id="blog-modal-backdrop" class="absolute inset-0 bg-ink-900/60 backdrop-blur-sm"></div>
+    <div class="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white shadow-lifted">
+      <div class="relative h-56 sm:h-72 overflow-hidden rounded-t-2xl bg-ink-50">
+        <img id="blog-modal-image" src="" alt="" class="h-full w-full object-cover mix-blend-multiply" />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
+        <button id="blog-modal-close" type="button" aria-label="Kapat"
+          class="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink-700 shadow-soft transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 sm:p-8">
+        <div class="flex items-center gap-3">
+          <span id="blog-modal-category"
+            class="rounded-full bg-clay-100 text-clay-700 text-xs font-bold px-3 py-1.5 tracking-wide"></span>
+          <span id="blog-modal-date" class="text-sm text-ink-400"></span>
+        </div>
+        <h3 id="blog-modal-title"
+          class="mt-4 font-display font-semibold text-2xl sm:text-3xl text-[#1A2E40] tracking-[-0.01em] leading-snug">
+        </h3>
+        <div id="blog-modal-body" class="mt-5 space-y-4 text-[16px] leading-[1.75] text-ink-600"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="iletisim" class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <p
+        class="inline-flex items-center gap-2 text-clay-600 font-semibold text-[13px] tracking-[0.14em] uppercase mb-4">
+        <span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>
+        İletişim
+      </p>
+      <h2
+        class="font-display font-semibold text-3xl sm:text-[2.6rem] tracking-[-0.02em] leading-[1.15] text-ink-900 max-w-xl">
+        Bize Ulaşın
+      </h2>
+      <p class="mt-5 max-w-xl text-[17px] leading-[1.7] text-ink-500">
+        Atölyelerimiz, iş birlikleri veya merak ettiğiniz her şey için bize yazın; en kısa sürede dönüş yapalım.
+      </p>
+
+      <div class="mt-14 grid md:grid-cols-2 gap-12 lg:gap-16">
+
+        <!-- Contact Info -->
+        <div class="space-y-8">
+          <button type="button" data-whatsapp-cta class="group flex w-full items-start gap-5 text-left">
+            <span
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+              </svg>
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Telefon
+                (WhatsApp)</span>
+              <span class="block mt-1 text-lg font-semibold text-ink-800">0537 781 85 24</span>
+            </span>
+          </button>
+
+          <div class="flex items-start gap-5">
+            <span
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mustard-100 text-mustard-600">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Adres</span>
+              <span class="block mt-1 text-lg font-semibold text-ink-800 leading-snug">Postane Mah. Bağdagül Sk.
+                No:6<br />Tuzla, İstanbul</span>
+            </span>
+          </div>
+
+          <a href="https://instagram.com/harmony.atolye" target="_blank" rel="noopener noreferrer"
+            class="group flex items-start gap-5">
+            <span
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Instagram</span>
+              <span class="block mt-1 text-lg font-semibold text-ink-800">@harmony.atolye</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- Contact Form -->
+        <form id="contact-form" class="space-y-5" novalidate>
+          <div>
+            <label for="cf-name" class="block text-sm font-semibold text-ink-700 mb-2">Adınız Soyadınız</label>
+            <input id="cf-name" name="name" type="text" required placeholder="Adınız Soyadınız"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="cf-email" class="block text-sm font-semibold text-ink-700 mb-2">E-posta</label>
+            <input id="cf-email" name="email" type="email" required placeholder="ornek@eposta.com"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="cf-message" class="block text-sm font-semibold text-ink-700 mb-2">Mesajınız</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."
+              class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30"></textarea>
+          </div>
+          <button type="submit"
+            class="cta-btn w-full inline-flex items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-6 py-3.5 shadow-soft hover:bg-clay-600 hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+            Gönder
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </button>
+          <p id="cf-success" class="hidden text-sm font-semibold text-sage-600">Mesajınız için teşekkürler! En kısa
+            sürede size dönüş yapacağız.</p>
+        </form>
+
+      </div>
+
+      <!-- Map -->
+      <div class="mt-16 sm:mt-20 w-full h-96 sm:h-[400px] rounded-3xl overflow-hidden shadow-lg">
+        <iframe
+          src="https://www.google.com/maps?q=Postane+Mahallesi+Ba%C4%9Fdag%C3%BCl+Sokak+No%3A6+Tuzla+%C4%B0stanbul&output=embed"
+          title="Harmony Urban Lab konumu - Postane Mah. Bağdagül Sk. No:6, Tuzla, İstanbul"
+          class="h-full w-full grayscale hover:grayscale-0 transition duration-500 ease-out" style="border:0;"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#1A2E40] text-ink-100">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 py-16 sm:py-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+
+        <!-- Brand & Mission -->
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="block h-14 w-14 shrink-0 rounded-full overflow-hidden ring-2 ring-white/10">
+              <img src="brand/harmony-logo.png" alt="Harmony - Urban Lab for Children"
+                class="h-full w-full object-cover" />
+            </span>
+            <div>
+              <p class="font-display font-semibold text-xl tracking-[-0.01em] text-white">HARMONY</p>
+              <p class="text-sm text-ink-300">Urban Lab for Children</p>
+            </div>
+          </div>
+          <p class="mt-5 text-sm leading-relaxed text-ink-300">
+            Çocukları şehirle, tasarımı gelecekle buluşturan yaratıcı öğrenme platformu. Erken yaşta mekânsal
+            farkındalık ve kent bilinci inşa ediyoruz.
+          </p>
+        </div>
+
+        <!-- Kurumsal -->
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-white">Kurumsal</p>
+          <ul class="mt-5 space-y-3 text-sm text-ink-300">
+            <li><a href="#hakkimizda" class="transition-colors duration-200 hover:text-white">Hakkımızda</a></li>
+            <li><a href="#" class="transition-colors duration-200 hover:text-white">Eğitim Felsefemiz</a></li>
+            <li><a href="#" class="transition-colors duration-200 hover:text-white">Eğitmen Kadromuz</a></li>
+            <li><a href="#sss" class="transition-colors duration-200 hover:text-white">Sıkça Sorulan Sorular (SSS)</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Programlarımız -->
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-white">Programlarımız</p>
+          <ul class="mt-5 space-y-3 text-sm text-ink-300">
+            <li><a href="#atolyeler" class="transition-colors duration-200 hover:text-white">4-6 Yaş Atölyeleri</a></li>
+            <li><a href="#atolyeler" class="transition-colors duration-200 hover:text-white">7-11 Yaş Atölyeleri</a>
+            </li>
+            <li><a href="#atolyeler" class="transition-colors duration-200 hover:text-white">11-14 Yaş Atölyeleri</a>
+            </li>
+            <li><a href="#" class="transition-colors duration-200 hover:text-white">Okul ve Kurum İşbirlikleri (B2B)</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- İletişim & Sosyal -->
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-white">İletişim</p>
+          <div class="mt-5 space-y-3">
+            <button type="button" data-whatsapp-cta
+              class="flex w-full items-center gap-3 text-left text-sm text-ink-300 transition-colors duration-200 hover:text-white">
+              <svg class="shrink-0 text-clay-400" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path
+                  d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+              </svg>
+              0537 781 85 24
+            </button>
+            <div class="flex items-start gap-3 text-sm text-ink-300">
+              <svg class="mt-0.5 shrink-0 text-clay-400" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path
+                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>Postane Mah. Bağdagül Sk. No:6 Tuzla, İstanbul</span>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center gap-4">
+            <a href="https://instagram.com/harmony.atolye" target="_blank" rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="text-ink-400 transition duration-200 hover:-translate-y-0.5 hover:text-clay-400">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn"
+              class="text-ink-400 transition duration-200 hover:-translate-y-0.5 hover:text-clay-400">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="#" aria-label="YouTube"
+              class="text-ink-400 transition duration-200 hover:-translate-y-0.5 hover:text-clay-400">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                <path d="m10 15 5-3-5-3z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal bottom bar -->
+      <div
+        class="mt-14 flex flex-col items-center gap-4 border-t border-slate-700/50 pt-8 sm:flex-row sm:justify-between">
+        <p class="text-xs text-ink-400 sm:text-sm">© 2026 Harmony Planlama ve Kentsel Tasarım Atölyesi. Tüm hakları
+          saklıdır.</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <button type="button" id="kvkk-trigger"
+            class="rounded bg-transparent p-0 text-xs text-ink-400 transition-colors duration-200 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 sm:text-sm">KVKK
+            ve Aydınlatma Metni</button>
+          <a href="#" class="text-xs text-ink-400 transition-colors duration-200 hover:text-white sm:text-sm">Çerez
+            Politikası</a>
+          <a href="#" class="text-xs text-ink-400 transition-colors duration-200 hover:text-white sm:text-sm">Mesafeli
+            Satış Sözleşmesi</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- KVKK Modal -->
+  <div id="kvkk-modal" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6" role="dialog"
+    aria-modal="true" aria-labelledby="kvkk-modal-title">
+    <div id="kvkk-modal-backdrop" class="absolute inset-0 bg-ink-900/60 backdrop-blur-sm"></div>
+    <div class="relative z-10 w-full max-w-3xl max-h-[80vh] overflow-hidden rounded-2xl bg-white shadow-lifted">
+      <button id="kvkk-modal-close" type="button" aria-label="Kapat"
+        class="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink-500 transition-colors duration-200 hover:bg-ink-100 hover:text-ink-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+
+      <div class="max-h-[80vh] overflow-y-auto p-8">
+        <h3 id="kvkk-modal-title"
+          class="pr-12 font-display font-semibold text-2xl sm:text-3xl text-[#1A2E40] tracking-[-0.01em]">
+          KVKK Aydınlatma Metni
+        </h3>
+        <p class="mt-3 text-sm font-medium text-ink-500">
+          Veri Sorumlusu: Harmony Planlama ve Kentsel Tasarım Atölyesi
+        </p>
+
+        <div class="mt-8 space-y-8">
+          <div class="space-y-4">
+            <h4 class="font-semibold text-ink-800">1. İşlenen Kişisel Verileriniz</h4>
+            <p class="leading-relaxed text-ink-600">
+              Harmony Planlama ve Kentsel Tasarım Atölyesi ("Harmony") olarak, atölyelerimize kayıt ve katılım süreçleri
+              kapsamında aşağıdaki kişisel verilerinizi işlemekteyiz:
+            </p>
+            <ul class="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-600">
+              <li>Veli/vasi ad, soyad, e-posta ve telefon bilgileri</li>
+              <li>Çocuğun adı, soyadı ve yaş grubu</li>
+              <li>Atölye sırasında çekilen fotoğraf ve video kayıtları</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="font-semibold text-ink-800">2. Kişisel Verilerin İşlenme Amaçları</h4>
+            <p class="leading-relaxed text-ink-600">Toplanan kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
+            <ul class="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-600">
+              <li>Atölye kayıtlarının oluşturulması ve grup organizasyonunun yönetilmesi</li>
+              <li>Faturalandırma ve ödeme süreçlerinin yürütülmesi</li>
+              <li>Yaş grubuna uygun pedagojik planlama yapılması</li>
+              <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+              <li>Atölye duyuruları ve bilgilendirme iletişimlerinin sağlanması</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="font-semibold text-ink-800">3. Kişisel Verilerin Aktarılması</h4>
+            <p class="leading-relaxed text-ink-600">
+              Kişisel verileriniz, yalnızca yukarıda belirtilen amaçların gerçekleştirilmesiyle sınırlı olarak aşağıdaki
+              taraflarla paylaşılabilmektedir:
+            </p>
+            <ul class="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-600">
+              <li>Güvenli ödeme altyapısı sağlayıcıları (İyzico)</li>
+              <li>Muhasebe ve mali müşavirlik hizmeti sağlayıcıları</li>
+              <li>Yasal olarak yetkili kamu kurum ve kuruluşları (talep halinde)</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="font-semibold text-ink-800">4. Veri Toplama Yöntemi ve Hukuki Sebebi</h4>
+            <p class="leading-relaxed text-ink-600">
+              Kişisel verileriniz; internet sitemizdeki iletişim ve kayıt formları, telefon, e-posta ve atölye kayıt
+              süreçleri aracılığıyla elektronik ortamda toplanmaktadır. Verileriniz, 6698 sayılı Kişisel Verilerin
+              Korunması Kanunu'nun 5. maddesinde yer alan "bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya
+              ilgili olması", "açık rızanızın bulunması", "hukuki yükümlülüğün yerine getirilmesi" ve "meşru menfaat"
+              hukuki sebeplerine dayanılarak işlenmektedir.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="font-semibold text-ink-800">5. İlgili Kişinin (Velinin) Hakları</h4>
+            <p class="leading-relaxed text-ink-600">KVKK'nın 11. maddesi uyarınca, veri sahibi olarak aşağıdaki haklara
+              sahipsiniz:</p>
+            <ul class="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-600">
+              <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
+              <li>İşlenmişse buna ilişkin bilgi talep etme</li>
+              <li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+              <li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</li>
+              <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
+              <li>Kanuni şartlar çerçevesinde silinmesini veya yok edilmesini isteme</li>
+              <li>İşlemlerin, verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
+              <li>Otomatik sistemlerle analiz edilmesi sonucu aleyhinize bir sonuç ortaya çıkmasına itiraz etme</li>
+              <li>Kanuna aykırı işlenme nedeniyle zarara uğramanız hâlinde zararın giderilmesini talep etme</li>
+            </ul>
+            <p class="leading-relaxed text-ink-600">
+              Yukarıdaki haklarınızı kullanmak için yazılı olarak bize ulaşabilirsiniz; iletişim bilgilerimizi
+              sayfamızın "İletişim" bölümünde bulabilirsiniz.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <button type="button" id="whatsapp-float-btn" data-whatsapp-cta aria-label="WhatsApp'tan bize yazın"
+    class="group fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-clay-500 text-white shadow-lifted transition-transform duration-300 hover:scale-110 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 md:bottom-8 md:right-8 md:h-16 md:w-16">
+    <span class="absolute inset-0 rounded-full bg-clay-400 opacity-75 animate-ping group-hover:[animation-play-state:paused]" aria-hidden="true"></span>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+  </button>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Menüyü aç' : 'Menüyü kapat');
+    });
+
+    const filterBar = document.getElementById('filter-bar');
+    const cards = document.querySelectorAll('#atolyeler article[data-age]');
+
+    filterBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-filter]');
+      if (!btn) return;
+
+      filterBar.querySelectorAll('button').forEach((b) => {
+        b.classList.remove('bg-clay-500', 'text-white', 'shadow-soft');
+        b.classList.add('border', 'border-ink-200', 'text-ink-600');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('bg-clay-500', 'text-white', 'shadow-soft');
+      btn.classList.remove('border', 'border-ink-200', 'text-ink-600');
+      btn.setAttribute('aria-selected', 'true');
+
+      const filter = btn.dataset.filter;
+      cards.forEach((card) => {
+        card.style.display = filter === 'all' || card.dataset.age === filter ? '' : 'none';
+      });
+    });
+
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('cf-success');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      contactForm.reset();
+      contactSuccess.classList.remove('hidden');
+    });
+
+    const blogPosts = {
+      'post-1': {
+        category: 'Pedagoji',
+        categoryClass: 'bg-clay-100 text-clay-700',
+        date: '12 Mayıs 2026',
+        title: 'Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?',
+        image: 'workshop-photos/renkli-kutular-sehri.jpg',
+        body: [
+          'Karton maketler ve şehir tasarımları, çocukların sadece el becerilerini değil, analitik düşünme ve problem çözme yeteneklerini de geliştiriyor. Bir yapının nasıl ayakta durduğunu, bir sokağın nasıl işlediğini üç boyutlu düşünerek kavrayan çocuk, aynı zamanda soyut kavramları somutlaştırmayı öğreniyor.',
+          'Atölyelerimizde çocuklar önce gözlemliyor, sonra hayal ediyor ve son olarak ellerindeki basit malzemelerle tasarımlarını hayata geçiriyor. Bu süreç, matematiksel akıl yürütmeden mekânsal hafızaya kadar birçok bilişsel beceriyi aynı anda destekliyor.',
+          'Araştırmalar, erken yaşta üç boyutlu düşünme pratiği yapan çocukların ileriki yıllarda mühendislik, mimarlık ve tasarım gibi alanlara daha güçlü bir sezgiyle yaklaştığını gösteriyor. Harmony’de amacımız, bu sezgiyi oyun ve keşif yoluyla en doğal haliyle beslemek.',
+          'Çocuğunuzun bu yolculuğa katılmasını isterseniz, atölyelerimize göz atabilir ya da bizimle iletişime geçebilirsiniz.',
+        ],
+      },
+      'post-2': {
+        category: 'Kent Bilinci',
+        categoryClass: 'bg-mustard-100 text-mustard-600',
+        date: '28 Nisan 2026',
+        title: 'Erken Yaşta Şehir Farkındalığı: Geleceğin Kentlerini Kim Kuracak?',
+        image: 'workshop-photos/kent-bize-ne-soyler.jpg',
+        body: [
+          'Bir çocuğun yaşadığı sokağı, parkı ve mahalleyi tanıması, onun ileride çevreye duyarlı bir birey olmasının en büyük anahtarıdır. Kent bilinci, soyut bir kavram değil; günlük hayatın içinde, yürünen yollarda ve oynanan parklarda filizlenen somut bir farkındalıktır.',
+          'Atölyelerimizde çocuklara kendi mahallelerini yeniden düşünmelerini, eksik gördükleri yerleri fark etmelerini ve çözüm önerileri geliştirmelerini istiyoruz. Bu basit alıştırma, onlarda “bu şehir benim de sorumluluğumda” duygusunu güçlendiriyor.',
+          'Geleceğin kentlerini kuracak olanlar bugünün çocukları. Onlara erken yaşta bu bilinci kazandırmak, yalnızca daha yaşanabilir şehirler değil, daha empatik ve katılımcı bireyler yetiştirmek anlamına geliyor.',
+          'Harmony atölyelerinde çocuklar, kentin bir parçası olduklarını fark ederek büyüyorlar.',
+        ],
+      },
+      'post-3': {
+        category: 'Sürdürülebilirlik',
+        categoryClass: 'bg-sage-100 text-sage-600',
+        date: '15 Nisan 2026',
+        title: 'Oyun mu, Tasarım mı? Atık Malzemelerden Ekolojik Şehirlere',
+        image: 'workshop-photos/donusen-sehir.jpg',
+        body: [
+          'Atölyelerimizde kullandığımız geri dönüştürülebilir malzemelerle çocuklar, sürdürülebilir bir geleceğin temellerini kendi elleriyle atıyor. Kartondan, kumaş artıklarından ve doğal malzemelerden ürettikleri minyatür şehirler, aslında büyük bir zihniyet değişiminin ilk adımı.',
+          'Çocuklara “atık” olarak gördükleri bir malzemenin yeniden değer kazanabileceğini göstermek, onlarda tüketim alışkanlıklarına dair erken bir farkındalık oluşturuyor. Oyun ile öğrenme birleştiğinde, bu farkındalık kalıcı bir alışkanlığa dönüşüyor.',
+          'Ekolojik şehir tasarımı atölyelerimizde çocuklar; yeşil alanları, geri dönüşüm istasyonlarını ve yenilenebilir enerji kaynaklarını kendi maketlerine nasıl entegre edebileceklerini keşfediyor. Bu, onlara hem tasarım hem de sürdürülebilirlik dilini aynı anda öğretiyor.',
+          'Sonuçta ortaya çıkan sadece bir maket değil, çocuğun geleceğe dair kurduğu ilk umutlu şehir oluyor.',
+        ],
+      },
+    };
+
+    const blogModal = document.getElementById('blog-modal');
+    const blogModalBackdrop = document.getElementById('blog-modal-backdrop');
+    const blogModalClose = document.getElementById('blog-modal-close');
+    const blogModalImage = document.getElementById('blog-modal-image');
+    const blogModalCategory = document.getElementById('blog-modal-category');
+    const blogModalDate = document.getElementById('blog-modal-date');
+    const blogModalTitle = document.getElementById('blog-modal-title');
+    const blogModalBody = document.getElementById('blog-modal-body');
+
+    function openBlogModal(postId) {
+      const post = blogPosts[postId];
+      if (!post) return;
+      blogModalImage.src = post.image;
+      blogModalImage.alt = post.title;
+      blogModalCategory.textContent = post.category;
+      blogModalCategory.className = 'rounded-full text-xs font-bold px-3 py-1.5 tracking-wide ' + post.categoryClass;
+      blogModalDate.textContent = post.date;
+      blogModalTitle.textContent = post.title;
+      blogModalBody.innerHTML = post.body.map((paragraph) => `<p>${paragraph}</p>`).join('');
+      blogModal.classList.remove('hidden');
+      blogModal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeBlogModal() {
+      blogModal.classList.add('hidden');
+      blogModal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.querySelectorAll('[data-blog-post]').forEach((btn) => {
+      btn.addEventListener('click', () => openBlogModal(btn.dataset.blogPost));
+    });
+    blogModalClose.addEventListener('click', closeBlogModal);
+    blogModalBackdrop.addEventListener('click', closeBlogModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !blogModal.classList.contains('hidden')) closeBlogModal();
+    });
+
+    const kvkkTrigger = document.getElementById('kvkk-trigger');
+    const kvkkModal = document.getElementById('kvkk-modal');
+    const kvkkModalBackdrop = document.getElementById('kvkk-modal-backdrop');
+    const kvkkModalClose = document.getElementById('kvkk-modal-close');
+
+    function openKvkkModal() {
+      kvkkModal.classList.remove('hidden');
+      kvkkModal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeKvkkModal() {
+      kvkkModal.classList.add('hidden');
+      kvkkModal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    kvkkTrigger.addEventListener('click', openKvkkModal);
+    kvkkModalClose.addEventListener('click', closeKvkkModal);
+    kvkkModalBackdrop.addEventListener('click', closeKvkkModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !kvkkModal.classList.contains('hidden')) closeKvkkModal();
+    });
+
+    const WHATSAPP_URL = 'https://wa.me/905377818524?text=Merhaba,%20Harmony%20at%C3%B6lyeleri%20hakk%C4%B1nda%20bilgi%20almak%20ve%20kay%C4%B1t%20olu%C5%9Fturmak%20istiyorum.';
+
+    document.querySelectorAll('[data-whatsapp-cta]').forEach((el) => {
+      el.addEventListener('click', () => window.open(WHATSAPP_URL, '_blank'));
+    });
+
+    const faqTriggers = document.querySelectorAll('#sss .faq-trigger');
+
+    function closeFaqItem(trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.nextElementSibling.classList.remove('max-h-[500px]');
+      trigger.nextElementSibling.classList.add('max-h-0');
+      trigger.querySelector('.faq-icon').classList.remove('rotate-45');
+    }
+
+    function openFaqItem(trigger) {
+      trigger.setAttribute('aria-expanded', 'true');
+      trigger.nextElementSibling.classList.remove('max-h-0');
+      trigger.nextElementSibling.classList.add('max-h-[500px]');
+      trigger.querySelector('.faq-icon').classList.add('rotate-45');
+    }
+
+    faqTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        faqTriggers.forEach((other) => {
+          if (other !== trigger) closeFaqItem(other);
+        });
+        isOpen ? closeFaqItem(trigger) : openFaqItem(trigger);
+      });
+    });
+
+    const testimonialVideo = document.getElementById('testimonial-video');
+    const testimonialOverlay = document.getElementById('testimonial-overlay');
+    const testimonialPlay = document.getElementById('testimonial-play');
+
+    testimonialPlay.addEventListener('click', () => {
+      testimonialVideo.muted = false;
+      testimonialVideo.controls = true;
+      testimonialVideo.play();
+      testimonialOverlay.classList.add('hidden');
+    });
+  </script>
+</body>
+
+</html>
