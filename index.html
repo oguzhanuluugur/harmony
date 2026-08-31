@@ -1097,17 +1097,26 @@
             Velilerimizin Gözünden
           </p>
           <span class="block font-display text-6xl leading-none text-clay-200" aria-hidden="true">&ldquo;</span>
-          <p class="-mt-4 font-display text-2xl font-semibold leading-relaxed text-[#1A2E40] md:text-3xl">
+          <p id="testimonial-quote"
+            class="-mt-4 font-display text-2xl font-semibold leading-relaxed text-[#1A2E40] transition-opacity duration-300 md:text-3xl">
             Harmony'de çocuklar yalnızca bir atölyeye katılmıyor; çevrelerini merak ediyor, şehri farklı gözlerle
             okumayı öğreniyor, fikir üretip paylaşıyorlar.
           </p>
           <div class="mt-8 flex items-center gap-4">
-            <span
-              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-100 font-display text-lg font-semibold text-clay-700">F</span>
-            <span class="text-ink-500">
-              <span class="block font-semibold text-ink-800">Fatma Özen Gedik</span>
-              <span class="block text-sm">Muhammed Ali (9) ve Ege (4) Annesi</span>
+            <span id="testimonial-avatar"
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-100 font-display text-lg font-semibold text-clay-700 transition-opacity duration-300">F</span>
+            <span class="text-ink-500 transition-opacity duration-300" id="testimonial-person">
+              <span class="block font-semibold text-ink-800" id="testimonial-name">Fatma Özen Gedik</span>
+              <span class="block text-sm" id="testimonial-meta">Muhammed Ali (9) ve Ege (4) Annesi</span>
             </span>
+          </div>
+
+          <!-- Testimonial switcher -->
+          <div id="testimonial-dots" class="mt-10 flex items-center gap-2" role="tablist" aria-label="Veli yorumları">
+            <button type="button" data-testimonial-dot="0" role="tab" aria-selected="true" aria-label="1. veli yorumu"
+              class="h-2 w-6 rounded-full bg-clay-500 transition-colors duration-300"></button>
+            <button type="button" data-testimonial-dot="1" role="tab" aria-selected="false" aria-label="2. veli yorumu"
+              class="h-2 w-2 rounded-full bg-ink-200 transition-colors duration-300 hover:bg-clay-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-400"></button>
           </div>
         </div>
 
@@ -2180,9 +2189,73 @@
       });
     });
 
+    const testimonials = [
+      {
+        video: 'media/veli1.mp4',
+        quote: 'Harmony’de çocuklar yalnızca bir atölyeye katılmıyor; çevrelerini merak ediyor, şehri farklı gözlerle okumayı öğreniyor, fikir üretip paylaşıyorlar.',
+        initial: 'F',
+        name: 'Fatma Özen Gedik',
+        meta: 'Muhammed Ali (9) ve Ege (4) Annesi',
+      },
+      {
+        video: 'media/veli2.mp4',
+        quote: 'Ege’nin keşfetme, üretme ve kendini ifade etme sürecine tanıklık etmek çok kıymetliydi; Harmony’de çocuklar yaşadıkları çevreyi merak ediyor, şehri farklı gözlerle okumayı öğreniyor.',
+        initial: 'A',
+        name: 'Ali Çoban',
+        meta: 'Ege Uras (5) Babası',
+      },
+    ];
+
     const testimonialVideo = document.getElementById('testimonial-video');
     const testimonialOverlay = document.getElementById('testimonial-overlay');
     const testimonialPlay = document.getElementById('testimonial-play');
+    const testimonialQuote = document.getElementById('testimonial-quote');
+    const testimonialAvatar = document.getElementById('testimonial-avatar');
+    const testimonialPerson = document.getElementById('testimonial-person');
+    const testimonialName = document.getElementById('testimonial-name');
+    const testimonialMeta = document.getElementById('testimonial-meta');
+    const testimonialDots = document.querySelectorAll('[data-testimonial-dot]');
+    let activeTestimonial = 0;
+
+    function renderTestimonial(index) {
+      const item = testimonials[index];
+      activeTestimonial = index;
+
+      // Reset & swap video
+      testimonialVideo.pause();
+      testimonialVideo.muted = true;
+      testimonialVideo.controls = false;
+      testimonialVideo.src = item.video;
+      testimonialVideo.currentTime = 0;
+      testimonialOverlay.classList.remove('hidden');
+
+      // Fade text content
+      [testimonialQuote, testimonialAvatar, testimonialPerson].forEach((el) => el.classList.add('opacity-0'));
+      window.setTimeout(() => {
+        testimonialQuote.textContent = item.quote;
+        testimonialAvatar.textContent = item.initial;
+        testimonialName.textContent = item.name;
+        testimonialMeta.textContent = item.meta;
+        [testimonialQuote, testimonialAvatar, testimonialPerson].forEach((el) => el.classList.remove('opacity-0'));
+      }, 200);
+
+      // Update dots
+      testimonialDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === index;
+        dot.setAttribute('aria-selected', String(isActive));
+        dot.classList.toggle('w-6', isActive);
+        dot.classList.toggle('w-2', !isActive);
+        dot.classList.toggle('bg-clay-500', isActive);
+        dot.classList.toggle('bg-ink-200', !isActive);
+      });
+    }
+
+    testimonialDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = Number(dot.getAttribute('data-testimonial-dot'));
+        if (index !== activeTestimonial) renderTestimonial(index);
+      });
+    });
 
     testimonialPlay.addEventListener('click', () => {
       testimonialVideo.muted = false;
