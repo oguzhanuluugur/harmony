@@ -91,12 +91,12 @@
     "id": 7,
     "name": "Dönüşen Şehir",
     "age": "7-10 Yaş",
-    "month": "Haziran",
-    "date": "7 & 20 Haziran 2026",
-    "price": "650 TL",
+    "month": "Eylül",
+    "date": "27 Eylül Pazar",
+    "price": "1000TL",
     "status": "active",
     "image": "workshop-photos/donusen-sehir.jpg",
-    "time": "16:00"
+    "time": "15:00-16:30"
   },
   {
     "id": 8,
