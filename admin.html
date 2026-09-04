@@ -58,6 +58,7 @@
           'soft': '0 2px 8px -2px rgba(28,22,15,0.08), 0 1px 2px -1px rgba(28,22,15,0.06)',
           'card': '0 1px 3px 0 rgba(28,22,15,0.07), 0 1px 2px -1px rgba(28,22,15,0.06)',
           'floating': '0 16px 32px -12px rgba(28,22,15,0.22), 0 6px 12px -6px rgba(28,22,15,0.10)',
+          'vault': '0 32px 64px -12px rgba(10,14,20,0.45), 0 12px 24px -8px rgba(10,14,20,0.25)',
         },
       },
     },
@@ -108,7 +109,57 @@
 </head>
 <body class="bg-ink-50 text-ink-800 antialiased">
 
-<div class="min-h-screen">
+<!-- ============ LOGIN SCREEN (Auth Guard) ============ -->
+<div id="login-screen" class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#1A2E40] px-4 py-12">
+  <div class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(circle at 18% 20%, rgba(224,109,83,0.16), transparent 45%), radial-gradient(circle at 82% 78%, rgba(92,138,107,0.14), transparent 45%);"></div>
+
+  <div class="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-vault sm:p-10">
+    <div class="mb-8 flex flex-col items-center text-center">
+      <span class="mb-4 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-soft">
+        <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full object-cover" />
+      </span>
+      <p class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-clay-600">Harmony Admin</p>
+      <h1 class="mt-3 font-display text-2xl font-bold tracking-[-0.01em] text-ink-900">Sisteme Giriş Yapın</h1>
+      <p class="mt-2 text-sm text-ink-500">Devam etmek için yönetici bilgilerinizi girin.</p>
+    </div>
+
+    <form id="login-form" novalidate class="space-y-5">
+      <div>
+        <label for="login-email" class="mb-2 block text-sm font-semibold text-ink-700">E-posta</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </span>
+          <input id="login-email" type="email" required autocomplete="username" placeholder="admin@harmony.com" class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+      </div>
+
+      <div>
+        <label for="login-password" class="mb-2 block text-sm font-semibold text-ink-700">Şifre</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••" class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-11 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          <button type="button" id="login-password-toggle" aria-label="Şifreyi göster" aria-pressed="false" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 transition-colors duration-200 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+            <svg id="login-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="login-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
+
+      <button type="submit" id="login-submit" disabled class="flex w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-50">
+        <svg id="login-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" class="hidden animate-spin" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        <span id="login-submit-label">Giriş Yap</span>
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-xs leading-relaxed text-ink-400">Bu bir prototip yönetim panelidir. Erişim yalnızca yetkili personel içindir.</p>
+  </div>
+</div>
+
+<div id="admin-dashboard" class="hidden min-h-screen">
 
   <!-- Mobile sidebar backdrop -->
   <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-ink-900/40 lg:hidden"></div>
@@ -149,7 +200,7 @@
     </nav>
 
     <div class="shrink-0 border-t border-ink-100 p-4">
-      <button type="button" class="admin-nav-link w-full text-left hover:bg-clay-50 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+      <button type="button" id="logout-button" class="admin-nav-link w-full text-left hover:bg-clay-50 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Çıkış Yap
       </button>
@@ -615,6 +666,123 @@
 </div>
 
 <script>
+  // ==========================================================================
+  // AUTH GUARD
+  //
+  // ⚠️ SECURITY WARNING — PROTOTYPE ONLY, NOT REAL AUTHENTICATION:
+  // The credential check below is a hardcoded value living in client-side
+  // JavaScript. Anyone can read it in "view source", bypass the login form
+  // entirely by running setAuthenticated(true) in the browser console, or
+  // read the session flag straight out of sessionStorage. None of this
+  // protects any real data.
+  //
+  // Before this ships to production, this whole block MUST be replaced with
+  // a real authentication flow: submit credentials to a backend/auth
+  // provider (e.g. Supabase Auth, Firebase Auth, or a first-party API that
+  // issues a signed JWT), store only a short-lived session token, verify
+  // that token server-side on every admin request/API call, and never trust
+  // client-side state (isAuthenticated, sessionStorage, etc.) to gate access
+  // to real content — the server must enforce it independently.
+  // ==========================================================================
+  const DEMO_CREDENTIALS = { email: 'admin@harmony.com', password: 'admin123' };
+  const AUTH_SESSION_KEY = 'harmonyAdminAuthed';
+
+  const loginScreen = document.getElementById('login-screen');
+  const adminDashboard = document.getElementById('admin-dashboard');
+  const loginForm = document.getElementById('login-form');
+  const loginEmailInput = document.getElementById('login-email');
+  const loginPasswordInput = document.getElementById('login-password');
+  const loginSubmitBtn = document.getElementById('login-submit');
+  const loginSubmitLabel = document.getElementById('login-submit-label');
+  const loginSpinner = document.getElementById('login-spinner');
+  const loginErrorBox = document.getElementById('login-error');
+  const loginPasswordToggle = document.getElementById('login-password-toggle');
+  const loginEyeIcon = document.getElementById('login-eye-icon');
+  const logoutButton = document.getElementById('logout-button');
+
+  const eyeOpenIconPath = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+  const eyeOffIconPath = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>';
+
+  function updateLoginSubmitState() {
+    const hasEmail = loginEmailInput.value.trim().length > 0;
+    const hasPassword = loginPasswordInput.value.length > 0;
+    loginSubmitBtn.disabled = !(hasEmail && hasPassword);
+  }
+  loginEmailInput.addEventListener('input', updateLoginSubmitState);
+  loginPasswordInput.addEventListener('input', updateLoginSubmitState);
+
+  loginPasswordToggle.addEventListener('click', () => {
+    const isCurrentlyVisible = loginPasswordInput.type === 'text';
+    loginPasswordInput.type = isCurrentlyVisible ? 'password' : 'text';
+    loginPasswordToggle.setAttribute('aria-pressed', String(!isCurrentlyVisible));
+    loginPasswordToggle.setAttribute('aria-label', isCurrentlyVisible ? 'Şifreyi göster' : 'Şifreyi gizle');
+    loginEyeIcon.innerHTML = isCurrentlyVisible ? eyeOpenIconPath : eyeOffIconPath;
+  });
+
+  function setAuthenticated(isAuthenticated) {
+    if (isAuthenticated) {
+      sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
+      loginScreen.classList.add('hidden');
+      adminDashboard.classList.remove('hidden');
+    } else {
+      sessionStorage.removeItem(AUTH_SESSION_KEY);
+      adminDashboard.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      loginForm.reset();
+      loginPasswordInput.type = 'password';
+      loginEyeIcon.innerHTML = eyeOpenIconPath;
+      loginErrorBox.classList.add('hidden');
+      updateLoginSubmitState();
+      loginEmailInput.focus();
+    }
+  }
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (loginSubmitBtn.disabled) return;
+
+    // Minimal frontend-side sanitization of the raw input before it's ever
+    // compared or used. This is a defensive placeholder only — real
+    // validation/sanitization of untrusted input must happen server-side.
+    const email = loginEmailInput.value.trim().replace(/[<>]/g, '').toLowerCase();
+    const password = loginPasswordInput.value.replace(/[<>]/g, '');
+
+    loginErrorBox.classList.add('hidden');
+    loginSubmitBtn.disabled = true;
+    loginEmailInput.disabled = true;
+    loginPasswordInput.disabled = true;
+    loginSpinner.classList.remove('hidden');
+    loginSubmitLabel.textContent = 'Giriş yapılıyor…';
+
+    // Simulated network latency so the mock check feels like a real request.
+    window.setTimeout(() => {
+      const isValid = email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password;
+
+      if (isValid) {
+        setAuthenticated(true);
+        return;
+      }
+
+      loginSpinner.classList.add('hidden');
+      loginSubmitLabel.textContent = 'Giriş Yap';
+      loginEmailInput.disabled = false;
+      loginPasswordInput.disabled = false;
+      loginErrorBox.textContent = 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.';
+      loginErrorBox.classList.remove('hidden');
+      loginPasswordInput.value = '';
+      updateLoginSubmitState();
+      loginPasswordInput.focus();
+    }, 1000);
+  });
+
+  logoutButton.addEventListener('click', () => setAuthenticated(false));
+
+  // Restore an existing session — sessionStorage clears itself once the tab
+  // closes, so this only skips the login screen within the same tab session.
+  if (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') {
+    setAuthenticated(true);
+  }
+
   // Mobile sidebar toggle
   const sidebar = document.getElementById('sidebar');
   const sidebarToggle = document.getElementById('sidebar-toggle');
