@@ -69,12 +69,12 @@
     "id": 6,
     "name": "Eski Evler Yeni Hayaller",
     "age": "7-10 Yaş",
-    "month": "Haziran",
-    "date": "13 & 27 Haziran 2026",
-    "price": "650 TL",
+    "month": "Eylül",
+    "date": "13 Eylül Pazar",
+    "price": "1000TL",
     "status": "active",
     "image": "workshop-photos/eski-evler-yeni-hayaller.jpg",
-    "time": "16:00"
+    "time": "15:00-16:30"
   },
   {
     "id": 7,
