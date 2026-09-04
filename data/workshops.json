@@ -90,13 +90,13 @@
   {
     "id": 8,
     "name": "Şehir Haritamı Tasarlıyorum",
-    "age": "7-10 Yaş",
-    "month": "Haziran",
-    "date": "14 Haziran 2026",
-    "price": "650 TL",
-    "status": "passive",
+    "age": "11-14 Yaş",
+    "month": "Eylül",
+    "date": "06 Eylül Pazar",
+    "price": "1000TL",
+    "status": "active",
     "image": "workshop-photos/sehir-haritami-tasarliyorum.jpg",
-    "time": "16:00"
+    "time": "15:00-16:30"
   },
   {
     "id": 9,
