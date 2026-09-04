@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?",
+    "category": "Pedagoji",
+    "date": "12 Mayıs 2026",
+    "image": "workshop-photos/renkli-kutular-sehri.jpg",
+    "excerpt": "Karton maketler ve şehir tasarımları, çocukların sadece el becerilerini değil, analitik düşünme ve problem çözme yeteneklerini de geliştiriyor...",
+    "body": [
+      "Karton maketler ve şehir tasarımları, çocukların sadece el becerilerini değil, analitik düşünme ve problem çözme yeteneklerini de geliştiriyor. Bir yapının nasıl ayakta durduğunu, bir sokağın nasıl işlediğini üç boyutlu düşünerek kavrayan çocuk, aynı zamanda soyut kavramları somutlaştırmayı öğreniyor.",
+      "Atölyelerimizde çocuklar önce gözlemliyor, sonra hayal ediyor ve son olarak ellerindeki basit malzemelerle tasarımlarını hayata geçiriyor. Bu süreç, matematiksel akıl yürütmeden mekânsal hafızaya kadar birçok bilişsel beceriyi aynı anda destekliyor.",
+      "Araştırmalar, erken yaşta üç boyutlu düşünme pratiği yapan çocukların ileriki yıllarda mühendislik, mimarlık ve tasarım gibi alanlara daha güçlü bir sezgiyle yaklaştığını gösteriyor. Harmony’de amacımız, bu sezgiyi oyun ve keşif yoluyla en doğal haliyle beslemek.",
+      "Çocuğunuzun bu yolculuğa katılmasını isterseniz, atölyelerimize göz atabilir ya da bizimle iletişime geçebilirsiniz."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Erken Yaşta Şehir Farkındalığı: Geleceğin Kentlerini Kim Kuracak?",
+    "category": "Kent Bilinci",
+    "date": "28 Nisan 2026",
+    "image": "workshop-photos/kent-bize-ne-soyler.jpg",
+    "excerpt": "Bir çocuğun yaşadığı sokağı, parkı ve mahalleyi tanıması, onun ileride çevreye duyarlı bir birey olmasının en büyük anahtarıdır...",
+    "body": [
+      "Bir çocuğun yaşadığı sokağı, parkı ve mahalleyi tanıması, onun ileride çevreye duyarlı bir birey olmasının en büyük anahtarıdır. Kent bilinci, soyut bir kavram değil; günlük hayatın içinde, yürünen yollarda ve oynanan parklarda filizlenen somut bir farkındalıktır.",
+      "Atölyelerimizde çocuklara kendi mahallelerini yeniden düşünmelerini, eksik gördükleri yerleri fark etmelerini ve çözüm önerileri geliştirmelerini istiyoruz. Bu basit alıştırma, onlarda “bu şehir benim de sorumluluğumda” duygusunu güçlendiriyor.",
+      "Geleceğin kentlerini kuracak olanlar bugünün çocukları. Onlara erken yaşta bu bilinci kazandırmak, yalnızca daha yaşanabilir şehirler değil, daha empatik ve katılımcı bireyler yetiştirmek anlamına geliyor.",
+      "Harmony atölyelerinde çocuklar, kentin bir parçası olduklarını fark ederek büyüyorlar."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Oyun mu, Tasarım mı? Atık Malzemelerden Ekolojik Şehirlere",
+    "category": "Sürdürülebilirlik",
+    "date": "15 Nisan 2026",
+    "image": "workshop-photos/donusen-sehir.jpg",
+    "excerpt": "Atölyelerimizde kullandığımız geri dönüştürülebilir malzemelerle çocuklar, sürdürülebilir bir geleceğin temellerini kendi elleriyle atıyor...",
+    "body": [
+      "Atölyelerimizde kullandığımız geri dönüştürülebilir malzemelerle çocuklar, sürdürülebilir bir geleceğin temellerini kendi elleriyle atıyor. Kartondan, kumaş artıklarından ve doğal malzemelerden ürettikleri minyatür şehirler, aslında büyük bir zihniyet değişiminin ilk adımı.",
+      "Çocuklara “atık” olarak gördükleri bir malzemenin yeniden değer kazanabileceğini göstermek, onlarda tüketim alışkanlıklarına dair erken bir farkındalık oluşturuyor. Oyun ile öğrenme birleştiğinde, bu farkındalık kalıcı bir alışkanlığa dönüşüyor.",
+      "Ekolojik şehir tasarımı atölyelerimizde çocuklar; yeşil alanları, geri dönüşüm istasyonlarını ve yenilenebilir enerji kaynaklarını kendi maketlerine nasıl entegre edebileceklerini keşfediyor. Bu, onlara hem tasarım hem de sürdürülebilirlik dilini aynı anda öğretiyor.",
+      "Sonuçta ortaya çıkan sadece bir maket değil, çocuğun geleceğe dair kurduğu ilk umutlu şehir oluyor."
+    ]
+  }
+]
