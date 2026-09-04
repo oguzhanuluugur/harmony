@@ -242,9 +242,10 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[780px] text-left text-sm">
+          <table class="w-full min-w-[860px] text-left text-sm">
             <thead>
               <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                <th class="px-6 py-3">Görsel</th>
                 <th class="px-6 py-3">Atölye Adı</th>
                 <th class="px-6 py-3">Yaş Grubu</th>
                 <th class="px-6 py-3">Ay</th>
@@ -278,9 +279,10 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[780px] text-left text-sm">
+          <table class="w-full min-w-[860px] text-left text-sm">
             <thead>
               <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                <th class="px-6 py-3">Görsel</th>
                 <th class="px-6 py-3">Atölye Adı</th>
                 <th class="px-6 py-3">Yaş Grubu</th>
                 <th class="px-6 py-3">Ay</th>
@@ -453,6 +455,20 @@
 
     <form id="workshop-form" class="space-y-4">
       <div>
+        <label class="mb-2 block text-sm font-semibold text-ink-700">Atölye Görseli</label>
+        <div class="flex items-center gap-4">
+          <span class="block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
+            <img id="workshop-image-preview" src="" alt="" class="h-full w-full object-cover" />
+          </span>
+          <label for="new-workshop-image" class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+            Görsel Seç
+          </label>
+          <input id="new-workshop-image" type="file" accept="image/*" class="sr-only" />
+        </div>
+      </div>
+
+      <div>
         <label for="new-workshop-name" class="mb-2 block text-sm font-semibold text-ink-700">Atölye Adı</label>
         <input id="new-workshop-name" type="text" required placeholder="Örn. Düşler Parkı" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
       </div>
@@ -587,17 +603,19 @@
   const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
 
   // ---- Workshops view: full table + live search ----
+  const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
+
   const workshops = [
-    { id: 1, name: 'Düşler Parkı', age: '4-6 Yaş', month: 'Haziran', date: '6 & 27 Haziran 2026', price: '500 TL', status: 'active' },
-    { id: 2, name: 'Doğadaki Evim', age: '4-6 Yaş', month: 'Haziran', date: '13 & 28 Haziran 2026', price: '500 TL', status: 'active' },
-    { id: 3, name: 'Renkli Kutular Şehri', age: '4-6 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '500 TL', status: 'active' },
-    { id: 4, name: 'Şekiller Şehirde', age: '4-6 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '500 TL', status: 'active' },
-    { id: 5, name: 'Kent Bize Ne Söyler?', age: '7-10 Yaş', month: 'Haziran', date: '6 & 21 Haziran 2026', price: '650 TL', status: 'active' },
-    { id: 6, name: 'Eski Evler Yeni Hayaller', age: '7-10 Yaş', month: 'Haziran', date: '13 & 27 Haziran 2026', price: '650 TL', status: 'active' },
-    { id: 7, name: 'Dönüşen Şehir', age: '7-10 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '650 TL', status: 'active' },
-    { id: 8, name: 'Şehir Haritamı Tasarlıyorum', age: '7-10 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '650 TL', status: 'passive' },
-    { id: 9, name: 'Dönüşen Şehir', age: '11-14 Yaş', month: 'Haziran', date: '21 Haziran 2026', price: '800 TL', status: 'active' },
-    { id: 10, name: 'Kent Bize Ne Söyler?', age: '11-14 Yaş', month: 'Haziran', date: '28 Haziran 2026', price: '800 TL', status: 'passive' },
+    { id: 1, name: 'Düşler Parkı', age: '4-6 Yaş', month: 'Haziran', date: '6 & 27 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/dusler-parki.jpg' },
+    { id: 2, name: 'Doğadaki Evim', age: '4-6 Yaş', month: 'Haziran', date: '13 & 28 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/dogadaki-evim.jpg' },
+    { id: 3, name: 'Renkli Kutular Şehri', age: '4-6 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/renkli-kutular-sehri.jpg' },
+    { id: 4, name: 'Şekiller Şehirde', age: '4-6 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/sekiller-sehirde.jpg' },
+    { id: 5, name: 'Kent Bize Ne Söyler?', age: '7-10 Yaş', month: 'Haziran', date: '6 & 21 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/kent-bize-ne-soyler.jpg' },
+    { id: 6, name: 'Eski Evler Yeni Hayaller', age: '7-10 Yaş', month: 'Haziran', date: '13 & 27 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/eski-evler-yeni-hayaller.jpg' },
+    { id: 7, name: 'Dönüşen Şehir', age: '7-10 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/donusen-sehir.jpg' },
+    { id: 8, name: 'Şehir Haritamı Tasarlıyorum', age: '7-10 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '650 TL', status: 'passive', image: 'workshop-photos/sehir-haritami-tasarliyorum.jpg' },
+    { id: 9, name: 'Dönüşen Şehir', age: '11-14 Yaş', month: 'Haziran', date: '21 Haziran 2026', price: '800 TL', status: 'active', image: 'workshop-photos/donusen-sehir-2.jpg' },
+    { id: 10, name: 'Kent Bize Ne Söyler?', age: '11-14 Yaş', month: 'Haziran', date: '28 Haziran 2026', price: '800 TL', status: 'passive', image: 'workshop-photos/kent-bize-ne-soyler-2.jpg' },
   ];
   let nextWorkshopId = 11;
 
@@ -610,6 +628,11 @@
   function workshopRowHtml(w) {
     return `
       <tr class="transition-colors hover:bg-ink-50/60">
+        <td class="px-6 py-4">
+          <span class="block h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-ink-50">
+            <img src="${w.image || placeholderWorkshopImage}" alt="" class="h-full w-full object-cover" />
+          </span>
+        </td>
         <td class="px-6 py-4 font-semibold text-ink-800">${w.name}</td>
         <td class="px-6 py-4 text-ink-500">${w.age}</td>
         <td class="px-6 py-4 text-ink-500">${w.month}</td>
@@ -637,7 +660,7 @@
     const q = filter.trim().toLocaleLowerCase('tr');
     const rows = workshops.filter((w) => w.name.toLocaleLowerCase('tr').includes(q));
 
-    tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="7" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
+    tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
     renderDashboardRecent();
   }
 
@@ -650,11 +673,27 @@
   const workshopNameInput = document.getElementById('new-workshop-name');
   const workshopModalTitle = document.getElementById('workshop-modal-title');
   const workshopModalSubmit = document.getElementById('workshop-modal-submit');
+  const workshopImageInput = document.getElementById('new-workshop-image');
+  const workshopImagePreview = document.getElementById('workshop-image-preview');
   let editingWorkshopId = null;
+  let pendingImage = null;
+
+  workshopImageInput.addEventListener('change', () => {
+    const file = workshopImageInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingImage = reader.result;
+      workshopImagePreview.src = pendingImage;
+    };
+    reader.readAsDataURL(file);
+  });
 
   function openWorkshopModal(workshop) {
     editingWorkshopId = workshop ? workshop.id : null;
     workshopForm.reset();
+    pendingImage = null;
+    workshopImagePreview.src = workshop ? workshop.image : placeholderWorkshopImage;
 
     if (workshop) {
       workshopModalTitle.textContent = 'Atölyeyi Düzenle';
@@ -681,6 +720,7 @@
     workshopModal.classList.remove('flex');
     workshopForm.reset();
     editingWorkshopId = null;
+    pendingImage = null;
   }
 
   document.querySelectorAll('[data-open-workshop-modal]').forEach((btn) => {
@@ -703,11 +743,13 @@
     const status = document.getElementById('new-workshop-status').value;
     if (!name || !date || !price) return;
 
-    if (editingWorkshopId != null) {
-      const target = workshops.find((w) => w.id === editingWorkshopId);
-      if (target) Object.assign(target, { name, age, month, date, price, status });
+    const existing = editingWorkshopId != null ? workshops.find((w) => w.id === editingWorkshopId) : null;
+    const image = pendingImage || (existing ? existing.image : placeholderWorkshopImage);
+
+    if (existing) {
+      Object.assign(existing, { name, age, month, date, price, status, image });
     } else {
-      workshops.unshift({ id: nextWorkshopId++, name, age, month, date, price, status });
+      workshops.unshift({ id: nextWorkshopId++, name, age, month, date, price, status, image });
     }
 
     closeWorkshopModal();
