@@ -620,8 +620,10 @@
         </div>
       </div>
 
+      <div id="workshop-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
+
       <div class="flex items-center gap-3 pt-2">
-        <button type="submit" id="workshop-modal-submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+        <button type="submit" id="workshop-modal-submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
           Atölyeyi Ekle
         </button>
         <button type="button" id="workshop-modal-cancel" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
@@ -638,8 +640,9 @@
   <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-card sm:p-8">
     <h2 class="font-display text-lg font-semibold text-ink-900">Atölyeyi Sil</h2>
     <p id="confirm-modal-message" class="mt-3 text-sm leading-relaxed text-ink-500"></p>
+    <div id="confirm-modal-error" class="mt-3 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
     <div class="mt-6 flex items-center gap-3">
-      <button type="button" id="confirm-modal-accept" class="inline-flex items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+      <button type="button" id="confirm-modal-accept" class="inline-flex items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-60">
         Evet, Sil
       </button>
       <button type="button" id="confirm-modal-cancel" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
@@ -819,22 +822,29 @@
   const editIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>';
   const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
 
-  // ---- Workshops view: full table + live search ----
+  // ---- Workshops view: backed by /api/workshops (see api/workshops.js) ----
+  // No local array of truth anymore — `workshops` is just the last list we
+  // fetched, kept in memory so the table/search can re-render instantly.
+  // Every add/edit/delete round-trips through the API so the public site
+  // (which reads the same endpoint) stays in sync.
   const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
+  const WORKSHOPS_API = '/api/workshops';
 
-  const workshops = [
-    { id: 1, name: 'Düşler Parkı', age: '4-6 Yaş', month: 'Haziran', date: '6 & 27 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/dusler-parki.jpg' },
-    { id: 2, name: 'Doğadaki Evim', age: '4-6 Yaş', month: 'Haziran', date: '13 & 28 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/dogadaki-evim.jpg' },
-    { id: 3, name: 'Renkli Kutular Şehri', age: '4-6 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/renkli-kutular-sehri.jpg' },
-    { id: 4, name: 'Şekiller Şehirde', age: '4-6 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '500 TL', status: 'active', image: 'workshop-photos/sekiller-sehirde.jpg' },
-    { id: 5, name: 'Kent Bize Ne Söyler?', age: '7-10 Yaş', month: 'Haziran', date: '6 & 21 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/kent-bize-ne-soyler.jpg' },
-    { id: 6, name: 'Eski Evler Yeni Hayaller', age: '7-10 Yaş', month: 'Haziran', date: '13 & 27 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/eski-evler-yeni-hayaller.jpg' },
-    { id: 7, name: 'Dönüşen Şehir', age: '7-10 Yaş', month: 'Haziran', date: '7 & 20 Haziran 2026', price: '650 TL', status: 'active', image: 'workshop-photos/donusen-sehir.jpg' },
-    { id: 8, name: 'Şehir Haritamı Tasarlıyorum', age: '7-10 Yaş', month: 'Haziran', date: '14 Haziran 2026', price: '650 TL', status: 'passive', image: 'workshop-photos/sehir-haritami-tasarliyorum.jpg' },
-    { id: 9, name: 'Dönüşen Şehir', age: '11-14 Yaş', month: 'Haziran', date: '21 Haziran 2026', price: '800 TL', status: 'active', image: 'workshop-photos/donusen-sehir-2.jpg' },
-    { id: 10, name: 'Kent Bize Ne Söyler?', age: '11-14 Yaş', month: 'Haziran', date: '28 Haziran 2026', price: '800 TL', status: 'passive', image: 'workshop-photos/kent-bize-ne-soyler-2.jpg' },
-  ];
-  let nextWorkshopId = 11;
+  let workshops = [];
+
+  async function apiRequest(url, options) {
+    const res = await fetch(url, options);
+    let payload = null;
+    try { payload = await res.json(); } catch (_) { /* no body */ }
+    if (!res.ok) {
+      throw new Error((payload && payload.error) || `İstek başarısız oldu (${res.status}).`);
+    }
+    return payload;
+  }
+
+  async function fetchWorkshops() {
+    workshops = await apiRequest(WORKSHOPS_API);
+  }
 
   function statusBadge(status) {
     return status === 'active'
@@ -881,7 +891,32 @@
     renderDashboardRecent();
   }
 
-  renderWorkshops();
+  function renderWorkshopsLoading() {
+    const loadingRow = `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-ink-400">Atölyeler yükleniyor…</td></tr>`;
+    document.getElementById('workshops-table-body').innerHTML = loadingRow;
+    const dashTbody = document.getElementById('dashboard-recent-workshops-body');
+    if (dashTbody) dashTbody.innerHTML = loadingRow;
+  }
+
+  function renderWorkshopsError(message) {
+    const errorRow = `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
+    document.getElementById('workshops-table-body').innerHTML = errorRow;
+    const dashTbody = document.getElementById('dashboard-recent-workshops-body');
+    if (dashTbody) dashTbody.innerHTML = errorRow;
+  }
+
+  async function loadWorkshops(filter = '') {
+    renderWorkshopsLoading();
+    try {
+      await fetchWorkshops();
+      renderWorkshops(filter);
+    } catch (err) {
+      console.error('Atölyeler yüklenemedi:', err);
+      renderWorkshopsError('Atölyeler yüklenemedi: ' + err.message);
+    }
+  }
+
+  loadWorkshops();
   document.getElementById('workshop-search').addEventListener('input', (e) => renderWorkshops(e.target.value));
 
   // ---- Add / Edit Workshop modal ----
@@ -892,24 +927,51 @@
   const workshopModalSubmit = document.getElementById('workshop-modal-submit');
   const workshopImageInput = document.getElementById('new-workshop-image');
   const workshopImagePreview = document.getElementById('workshop-image-preview');
+  const workshopFormError = document.getElementById('workshop-form-error');
   let editingWorkshopId = null;
   let pendingImage = null;
 
-  workshopImageInput.addEventListener('change', () => {
+  // Large camera-phone photos would bloat the JSON file (and can exceed the
+  // GitHub Contents API's payload limits), so downscale/re-encode on the
+  // client before it ever becomes a data URL.
+  function resizeImageFile(file, maxWidth = 960, quality = 0.82) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Görsel okunamadı.'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('Görsel işlenemedi.'));
+        img.onload = () => {
+          const scale = Math.min(1, maxWidth / img.width);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  workshopImageInput.addEventListener('change', async () => {
     const file = workshopImageInput.files[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      pendingImage = reader.result;
+    try {
+      pendingImage = await resizeImageFile(file);
       workshopImagePreview.src = pendingImage;
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      workshopFormError.textContent = err.message;
+      workshopFormError.classList.remove('hidden');
+    }
   });
 
   function openWorkshopModal(workshop) {
     editingWorkshopId = workshop ? workshop.id : null;
     workshopForm.reset();
     pendingImage = null;
+    workshopFormError.classList.add('hidden');
     workshopImagePreview.src = workshop ? workshop.image : placeholderWorkshopImage;
 
     if (workshop) {
@@ -950,7 +1012,7 @@
     if (e.key === 'Escape' && !workshopModal.classList.contains('hidden')) closeWorkshopModal();
   });
 
-  workshopForm.addEventListener('submit', (e) => {
+  workshopForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = workshopNameInput.value.trim();
     const age = document.getElementById('new-workshop-age').value;
@@ -960,30 +1022,53 @@
     const status = document.getElementById('new-workshop-status').value;
     if (!name || !date || !price) return;
 
-    const existing = editingWorkshopId != null ? workshops.find((w) => w.id === editingWorkshopId) : null;
-    const image = pendingImage || (existing ? existing.image : placeholderWorkshopImage);
+    const payload = { name, age, month, date, price, status };
+    if (pendingImage) payload.image = pendingImage;
 
-    if (existing) {
-      Object.assign(existing, { name, age, month, date, price, status, image });
-    } else {
-      workshops.unshift({ id: nextWorkshopId++, name, age, month, date, price, status, image });
+    workshopFormError.classList.add('hidden');
+    workshopModalSubmit.disabled = true;
+    const originalLabel = workshopModalSubmit.textContent;
+    workshopModalSubmit.textContent = 'Kaydediliyor…';
+
+    try {
+      if (editingWorkshopId != null) {
+        await apiRequest(`${WORKSHOPS_API}?id=${editingWorkshopId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } else {
+        await apiRequest(WORKSHOPS_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      closeWorkshopModal();
+      document.getElementById('workshop-search').value = '';
+      setActiveTab('workshops');
+      await loadWorkshops();
+    } catch (err) {
+      workshopFormError.textContent = err.message;
+      workshopFormError.classList.remove('hidden');
+    } finally {
+      workshopModalSubmit.disabled = false;
+      workshopModalSubmit.textContent = originalLabel;
     }
-
-    closeWorkshopModal();
-    document.getElementById('workshop-search').value = '';
-    setActiveTab('workshops');
-    renderWorkshops();
   });
 
   // ---- Delete Workshop confirmation ----
   const confirmModal = document.getElementById('confirm-modal');
   const confirmModalMessage = document.getElementById('confirm-modal-message');
+  const confirmModalError = document.getElementById('confirm-modal-error');
   const confirmModalAccept = document.getElementById('confirm-modal-accept');
   let deletingWorkshopId = null;
 
   function openDeleteConfirm(workshop) {
     deletingWorkshopId = workshop.id;
     confirmModalMessage.textContent = `"${workshop.name}" atölyesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`;
+    confirmModalError.classList.add('hidden');
     confirmModal.classList.remove('hidden');
     confirmModal.classList.add('flex');
   }
@@ -996,13 +1081,25 @@
 
   document.getElementById('confirm-modal-backdrop').addEventListener('click', closeDeleteConfirm);
   document.getElementById('confirm-modal-cancel').addEventListener('click', closeDeleteConfirm);
-  confirmModalAccept.addEventListener('click', () => {
-    if (deletingWorkshopId != null) {
-      const idx = workshops.findIndex((w) => w.id === deletingWorkshopId);
-      if (idx !== -1) workshops.splice(idx, 1);
-      renderWorkshops(document.getElementById('workshop-search').value);
+  confirmModalAccept.addEventListener('click', async () => {
+    if (deletingWorkshopId == null) return;
+
+    confirmModalError.classList.add('hidden');
+    confirmModalAccept.disabled = true;
+    const originalLabel = confirmModalAccept.textContent;
+    confirmModalAccept.textContent = 'Siliniyor…';
+
+    try {
+      await apiRequest(`${WORKSHOPS_API}?id=${deletingWorkshopId}`, { method: 'DELETE' });
+      closeDeleteConfirm();
+      await loadWorkshops(document.getElementById('workshop-search').value);
+    } catch (err) {
+      confirmModalError.textContent = err.message;
+      confirmModalError.classList.remove('hidden');
+    } finally {
+      confirmModalAccept.disabled = false;
+      confirmModalAccept.textContent = originalLabel;
     }
-    closeDeleteConfirm();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !confirmModal.classList.contains('hidden')) closeDeleteConfirm();

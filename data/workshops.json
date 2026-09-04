@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Düşler Parkı",
+    "age": "4-6 Yaş",
+    "month": "Haziran",
+    "date": "6 & 27 Haziran 2026",
+    "price": "500 TL",
+    "status": "active",
+    "image": "workshop-photos/dusler-parki.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Doğadaki Evim",
+    "age": "4-6 Yaş",
+    "month": "Haziran",
+    "date": "13 & 28 Haziran 2026",
+    "price": "500 TL",
+    "status": "active",
+    "image": "workshop-photos/dogadaki-evim.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Renkli Kutular Şehri",
+    "age": "4-6 Yaş",
+    "month": "Haziran",
+    "date": "7 & 20 Haziran 2026",
+    "price": "500 TL",
+    "status": "active",
+    "image": "workshop-photos/renkli-kutular-sehri.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Şekiller Şehirde",
+    "age": "4-6 Yaş",
+    "month": "Haziran",
+    "date": "14 Haziran 2026",
+    "price": "500 TL",
+    "status": "active",
+    "image": "workshop-photos/sekiller-sehirde.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Kent Bize Ne Söyler?",
+    "age": "7-10 Yaş",
+    "month": "Haziran",
+    "date": "6 & 21 Haziran 2026",
+    "price": "650 TL",
+    "status": "active",
+    "image": "workshop-photos/kent-bize-ne-soyler.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Eski Evler Yeni Hayaller",
+    "age": "7-10 Yaş",
+    "month": "Haziran",
+    "date": "13 & 27 Haziran 2026",
+    "price": "650 TL",
+    "status": "active",
+    "image": "workshop-photos/eski-evler-yeni-hayaller.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Dönüşen Şehir",
+    "age": "7-10 Yaş",
+    "month": "Haziran",
+    "date": "7 & 20 Haziran 2026",
+    "price": "650 TL",
+    "status": "active",
+    "image": "workshop-photos/donusen-sehir.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Şehir Haritamı Tasarlıyorum",
+    "age": "7-10 Yaş",
+    "month": "Haziran",
+    "date": "14 Haziran 2026",
+    "price": "650 TL",
+    "status": "passive",
+    "image": "workshop-photos/sehir-haritami-tasarliyorum.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Dönüşen Şehir",
+    "age": "11-14 Yaş",
+    "month": "Haziran",
+    "date": "21 Haziran 2026",
+    "price": "800 TL",
+    "status": "active",
+    "image": "workshop-photos/donusen-sehir-2.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Kent Bize Ne Söyler?",
+    "age": "11-14 Yaş",
+    "month": "Haziran",
+    "date": "28 Haziran 2026",
+    "price": "800 TL",
+    "status": "passive",
+    "image": "workshop-photos/kent-bize-ne-soyler-2.jpg"
+  }
+]

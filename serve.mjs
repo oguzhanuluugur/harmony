@@ -20,10 +20,31 @@ const mime = {
 };
 
 http
-  .createServer((req, res) => {
-    let urlPath = decodeURIComponent(req.url.split("?")[0]);
-    if (urlPath === "/") urlPath = "/index.html";
-    const filePath = path.join(root, urlPath);
+  .createServer(async (req, res) => {
+    const urlPath = decodeURIComponent(req.url.split("?")[0]);
+
+    // Route /api/<name> requests to ./api/<name>.js, mirroring how Vercel
+    // resolves serverless functions in production — so `node serve.mjs`
+    // exercises the exact same handler code locally.
+    if (urlPath.startsWith("/api/")) {
+      const apiName = urlPath.slice("/api/".length).split("/")[0];
+      const apiFile = path.join(root, "api", `${apiName}.js`);
+      if (apiName && fs.existsSync(apiFile)) {
+        try {
+          // Cache-bust the dynamic import so edits to the handler take
+          // effect without restarting this dev server.
+          const mod = await import(`file://${apiFile}?t=${Date.now()}`);
+          await mod.default(req, res);
+        } catch (err) {
+          console.error(err);
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "API hatası: " + err.message }));
+        }
+        return;
+      }
+    }
+
+    const filePath = path.join(root, urlPath === "/" ? "/index.html" : urlPath);
     fs.readFile(filePath, (err, data) => {
       if (err) {
         fs.readFile(path.join(root, "404.html"), (err404, data404) => {
