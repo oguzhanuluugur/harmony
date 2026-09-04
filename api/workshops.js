@@ -130,6 +130,7 @@ function normalizeWorkshopInput(body) {
   const age = sanitizeText(body.age);
   const month = sanitizeText(body.month);
   const date = sanitizeText(body.date);
+  const time = sanitizeText(body.time);
   const price = sanitizeText(body.price);
   const status = body.status === 'passive' ? 'passive' : 'active';
 
@@ -137,6 +138,7 @@ function normalizeWorkshopInput(body) {
   if (!age) errors.push('Yaş grubu gerekli.');
   if (!month) errors.push('Ay gerekli.');
   if (!date) errors.push('Tarih gerekli.');
+  if (!time) errors.push('Saat gerekli.');
   if (!price) errors.push('Fiyat gerekli.');
 
   let image;
@@ -148,7 +150,7 @@ function normalizeWorkshopInput(body) {
     }
   }
 
-  return { errors, workshop: { name, age, month, date, price, status, image } };
+  return { errors, workshop: { name, age, month, date, time, price, status, image } };
 }
 
 // ---- handler ----------------------------------------------------------

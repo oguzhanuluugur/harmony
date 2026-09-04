@@ -278,7 +278,7 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[860px] text-left text-sm">
+          <table class="w-full min-w-[940px] text-left text-sm">
             <thead>
               <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
                 <th class="px-6 py-3">Görsel</th>
@@ -286,6 +286,7 @@
                 <th class="px-6 py-3">Yaş Grubu</th>
                 <th class="px-6 py-3">Ay</th>
                 <th class="px-6 py-3">Tarih</th>
+                <th class="px-6 py-3">Saat</th>
                 <th class="px-6 py-3">Fiyat</th>
                 <th class="px-6 py-3">Durum</th>
                 <th class="px-6 py-3 text-right">İşlemler</th>
@@ -315,7 +316,7 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[860px] text-left text-sm">
+          <table class="w-full min-w-[940px] text-left text-sm">
             <thead>
               <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
                 <th class="px-6 py-3">Görsel</th>
@@ -323,6 +324,7 @@
                 <th class="px-6 py-3">Yaş Grubu</th>
                 <th class="px-6 py-3">Ay</th>
                 <th class="px-6 py-3">Tarih</th>
+                <th class="px-6 py-3">Saat</th>
                 <th class="px-6 py-3">Fiyat</th>
                 <th class="px-6 py-3">Durum</th>
                 <th class="px-6 py-3 text-right">İşlemler</th>
@@ -601,9 +603,15 @@
         </div>
       </div>
 
-      <div>
-        <label for="new-workshop-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
-        <input id="new-workshop-date" type="text" required placeholder="Örn. 6 & 27 Haziran 2026" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="new-workshop-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
+          <input id="new-workshop-date" type="text" required placeholder="Örn. 6 & 27 Haziran 2026" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+        <div>
+          <label for="new-workshop-time" class="mb-2 block text-sm font-semibold text-ink-700">Saat</label>
+          <input id="new-workshop-time" type="text" required placeholder="Örn. 15:30 - 16:30" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
@@ -864,6 +872,7 @@
         <td class="px-6 py-4 text-ink-500">${w.age}</td>
         <td class="px-6 py-4 text-ink-500">${w.month}</td>
         <td class="px-6 py-4 text-ink-500">${w.date}</td>
+        <td class="px-6 py-4 text-ink-500">${w.time}</td>
         <td class="px-6 py-4 font-medium text-ink-800">${w.price}</td>
         <td class="px-6 py-4">${statusBadge(w.status)}</td>
         <td class="px-6 py-4">
@@ -887,19 +896,19 @@
     const q = filter.trim().toLocaleLowerCase('tr');
     const rows = workshops.filter((w) => w.name.toLocaleLowerCase('tr').includes(q));
 
-    tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
+    tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
     renderDashboardRecent();
   }
 
   function renderWorkshopsLoading() {
-    const loadingRow = `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-ink-400">Atölyeler yükleniyor…</td></tr>`;
+    const loadingRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Atölyeler yükleniyor…</td></tr>`;
     document.getElementById('workshops-table-body').innerHTML = loadingRow;
     const dashTbody = document.getElementById('dashboard-recent-workshops-body');
     if (dashTbody) dashTbody.innerHTML = loadingRow;
   }
 
   function renderWorkshopsError(message) {
-    const errorRow = `<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
+    const errorRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
     document.getElementById('workshops-table-body').innerHTML = errorRow;
     const dashTbody = document.getElementById('dashboard-recent-workshops-body');
     if (dashTbody) dashTbody.innerHTML = errorRow;
@@ -981,6 +990,7 @@
       document.getElementById('new-workshop-age').value = workshop.age;
       document.getElementById('new-workshop-month').value = workshop.month;
       document.getElementById('new-workshop-date').value = workshop.date;
+      document.getElementById('new-workshop-time').value = workshop.time;
       document.getElementById('new-workshop-price').value = workshop.price;
       document.getElementById('new-workshop-status').value = workshop.status;
     } else {
@@ -1018,11 +1028,12 @@
     const age = document.getElementById('new-workshop-age').value;
     const month = document.getElementById('new-workshop-month').value;
     const date = document.getElementById('new-workshop-date').value.trim();
+    const time = document.getElementById('new-workshop-time').value.trim();
     const price = document.getElementById('new-workshop-price').value.trim();
     const status = document.getElementById('new-workshop-status').value;
-    if (!name || !date || !price) return;
+    if (!name || !date || !time || !price) return;
 
-    const payload = { name, age, month, date, price, status };
+    const payload = { name, age, month, date, time, price, status };
     if (pendingImage) payload.image = pendingImage;
 
     workshopFormError.classList.add('hidden');

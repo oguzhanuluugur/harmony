@@ -5,6 +5,7 @@
     "age": "4-6 Yaş",
     "month": "Haziran",
     "date": "6 & 27 Haziran 2026",
+    "time": "14:00",
     "price": "500 TL",
     "status": "active",
     "image": "workshop-photos/dusler-parki.jpg"
@@ -15,6 +16,7 @@
     "age": "4-6 Yaş",
     "month": "Haziran",
     "date": "13 & 28 Haziran 2026",
+    "time": "14:00",
     "price": "500 TL",
     "status": "active",
     "image": "workshop-photos/dogadaki-evim.jpg"
@@ -25,6 +27,7 @@
     "age": "4-6 Yaş",
     "month": "Haziran",
     "date": "7 & 20 Haziran 2026",
+    "time": "14:00",
     "price": "500 TL",
     "status": "active",
     "image": "workshop-photos/renkli-kutular-sehri.jpg"
@@ -35,6 +38,7 @@
     "age": "4-6 Yaş",
     "month": "Haziran",
     "date": "14 Haziran 2026",
+    "time": "14:00",
     "price": "500 TL",
     "status": "active",
     "image": "workshop-photos/sekiller-sehirde.jpg"
@@ -45,6 +49,7 @@
     "age": "7-10 Yaş",
     "month": "Haziran",
     "date": "6 & 21 Haziran 2026",
+    "time": "16:00",
     "price": "650 TL",
     "status": "active",
     "image": "workshop-photos/kent-bize-ne-soyler.jpg"
@@ -55,6 +60,7 @@
     "age": "7-10 Yaş",
     "month": "Haziran",
     "date": "13 & 27 Haziran 2026",
+    "time": "16:00",
     "price": "650 TL",
     "status": "active",
     "image": "workshop-photos/eski-evler-yeni-hayaller.jpg"
@@ -65,6 +71,7 @@
     "age": "7-10 Yaş",
     "month": "Haziran",
     "date": "7 & 20 Haziran 2026",
+    "time": "16:00",
     "price": "650 TL",
     "status": "active",
     "image": "workshop-photos/donusen-sehir.jpg"
@@ -75,6 +82,7 @@
     "age": "7-10 Yaş",
     "month": "Haziran",
     "date": "14 Haziran 2026",
+    "time": "16:00",
     "price": "650 TL",
     "status": "passive",
     "image": "workshop-photos/sehir-haritami-tasarliyorum.jpg"
@@ -85,6 +93,7 @@
     "age": "11-14 Yaş",
     "month": "Haziran",
     "date": "21 Haziran 2026",
+    "time": "16:00",
     "price": "800 TL",
     "status": "active",
     "image": "workshop-photos/donusen-sehir-2.jpg"
@@ -95,6 +104,7 @@
     "age": "11-14 Yaş",
     "month": "Haziran",
     "date": "28 Haziran 2026",
+    "time": "16:00",
     "price": "800 TL",
     "status": "passive",
     "image": "workshop-photos/kent-bize-ne-soyler-2.jpg"

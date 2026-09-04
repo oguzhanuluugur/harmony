@@ -1543,7 +1543,6 @@
     function workshopCardHtml(w) {
       const ageKey = (w.age || '').replace(/\s*Yaş$/i, '').trim();
       const badgeClass = AGE_BADGE_CLASS[ageKey] || AGE_BADGE_CLASS['4-6'];
-      const time = ageKey === '4-6' ? '14:00' : '16:00';
       return `
         <article data-age="${ageKey}">
           <button type="button" data-whatsapp-cta
@@ -1574,7 +1573,7 @@
                     <circle cx="12" cy="12" r="9" />
                     <path d="M12 7v5l3 3" />
                   </svg>
-                  ${time}
+                  ${w.time}
                 </span>
               </div>
               <span
