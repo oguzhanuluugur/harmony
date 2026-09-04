@@ -189,6 +189,11 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></svg>
         Blog &amp; Yayınlar
       </a>
+      <a href="#" data-nav="messages" class="admin-nav-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span class="flex-1">Mesajlar</span>
+        <span id="messages-nav-badge" class="hidden rounded-full bg-clay-500 px-2 py-0.5 text-[11px] font-bold text-white">0</span>
+      </a>
       <a href="#" data-nav="gallery" class="admin-nav-link">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         Galeri
@@ -362,6 +367,35 @@
             </thead>
             <tbody id="blog-table-body" class="divide-y divide-ink-100">
               <!-- rows injected via blogRowHtml() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: messages ============ -->
+    <section data-view="messages" class="hidden">
+      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="font-display text-lg font-semibold text-ink-900">Gelen Mesajlar</h2>
+            <p class="mt-1 text-sm text-ink-500">Sitedeki İletişim formundan gönderilen mesajlar burada listelenir.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead>
+              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                <th class="px-6 py-3">Ad Soyad</th>
+                <th class="px-6 py-3">İletişim</th>
+                <th class="px-6 py-3">Mesaj</th>
+                <th class="px-6 py-3">Tarih</th>
+                <th class="px-6 py-3 text-right">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="messages-table-body" class="divide-y divide-ink-100">
+              <!-- rows injected via messageRowHtml() -->
             </tbody>
           </table>
         </div>
@@ -642,6 +676,53 @@
   </div>
 </div>
 
+<!-- Message Detail Modal -->
+<div id="message-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div id="message-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+  <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+    <div class="mb-6 flex items-center justify-between">
+      <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
+      <button type="button" id="message-modal-close" aria-label="Kapat" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Ad Soyad</p>
+          <p id="message-modal-name" class="mt-1 font-semibold text-ink-800"></p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Tarih</p>
+          <p id="message-modal-date" class="mt-1 text-ink-800"></p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">E-posta</p>
+          <a id="message-modal-email" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Telefon</p>
+          <a id="message-modal-phone" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
+        <p id="message-modal-body" class="mt-2 whitespace-pre-line rounded-lg bg-ink-50 p-4 text-sm leading-relaxed text-ink-700"></p>
+      </div>
+    </div>
+
+    <div class="mt-6 flex items-center gap-3">
+      <button type="button" id="message-modal-delete" class="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-500 transition-colors duration-200 hover:bg-red-50">
+        Sil
+      </button>
+      <button type="button" id="message-modal-close-secondary" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+        Kapat
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Confirm Delete Modal (generic — reused for workshops and blog posts) -->
 <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
   <div id="confirm-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
@@ -803,6 +884,7 @@
     dashboard: 'Genel Bakış',
     workshops: 'Atölye Yönetimi',
     blog: 'Blog ve Yayın Yönetimi',
+    messages: 'Gelen Mesajlar',
     gallery: 'Dijital Sergi Yönetimi',
     settings: 'Sistem Ayarları',
   };
@@ -816,6 +898,7 @@
       link.classList.toggle('active', link.dataset.nav === tab);
     });
     document.getElementById('view-title').textContent = viewTitles[tab] || '';
+    if (tab === 'messages') loadMessages();
     closeSidebar();
   }
 
@@ -1331,6 +1414,132 @@
     } else if (deleteBtn) {
       const post = blogPosts.find((p) => p.id === Number(deleteBtn.dataset.id));
       if (post) openDeleteBlogConfirm(post);
+    }
+  });
+
+  // ---- Messages view: backed by /api/messages (read-only inbox) ----
+  const MESSAGES_API = '/api/messages';
+  let contactMessages = [];
+
+  function formatMessageDate(iso) {
+    try {
+      return new Date(iso).toLocaleString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (_) {
+      return iso;
+    }
+  }
+
+  function messageRowHtml(m) {
+    const preview = m.message.length > 80 ? m.message.slice(0, 80).trim() + '…' : m.message;
+    return `
+      <tr class="cursor-pointer transition-colors hover:bg-ink-50/60" data-message-row data-id="${m.id}">
+        <td class="px-6 py-4 font-semibold text-ink-800">${m.name}</td>
+        <td class="px-6 py-4 text-ink-500">
+          <span class="block">${m.email}</span>
+          <span class="block text-xs text-ink-400">${m.phone}</span>
+        </td>
+        <td class="max-w-xs px-6 py-4 text-ink-500">${preview}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-ink-500">${formatMessageDate(m.createdAt)}</td>
+        <td class="px-6 py-4">
+          <div class="flex items-center justify-end gap-1.5">
+            <button type="button" data-message-action="view" data-id="${m.id}" aria-label="Görüntüle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${eyeOpenIconPath}</svg>
+            </button>
+            <button type="button" data-message-action="delete" data-id="${m.id}" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">${trashIconSvg}</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  function updateMessagesNavBadge() {
+    const badge = document.getElementById('messages-nav-badge');
+    if (!badge) return;
+    if (contactMessages.length > 0) {
+      badge.textContent = contactMessages.length;
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
+  }
+
+  function renderMessagesTable() {
+    document.getElementById('messages-table-body').innerHTML = contactMessages.map(messageRowHtml).join('')
+      || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz mesaj yok.</td></tr>`;
+    updateMessagesNavBadge();
+  }
+
+  async function loadMessages() {
+    document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Mesajlar yükleniyor…</td></tr>`;
+    try {
+      contactMessages = await apiRequest(MESSAGES_API);
+      renderMessagesTable();
+    } catch (err) {
+      console.error('Mesajlar yüklenemedi:', err);
+      document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
+    }
+  }
+  loadMessages();
+
+  const messageModal = document.getElementById('message-modal');
+  let viewingMessageId = null;
+
+  function openMessageModal(message) {
+    viewingMessageId = message.id;
+    document.getElementById('message-modal-name').textContent = message.name;
+    document.getElementById('message-modal-date').textContent = formatMessageDate(message.createdAt);
+    const emailLink = document.getElementById('message-modal-email');
+    emailLink.textContent = message.email;
+    emailLink.href = `mailto:${message.email}`;
+    const phoneLink = document.getElementById('message-modal-phone');
+    phoneLink.textContent = message.phone;
+    phoneLink.href = `tel:${message.phone.replace(/\s+/g, '')}`;
+    document.getElementById('message-modal-body').textContent = message.message;
+
+    messageModal.classList.remove('hidden');
+    messageModal.classList.add('flex');
+  }
+
+  function closeMessageModal() {
+    viewingMessageId = null;
+    messageModal.classList.add('hidden');
+    messageModal.classList.remove('flex');
+  }
+
+  document.getElementById('message-modal-backdrop').addEventListener('click', closeMessageModal);
+  document.getElementById('message-modal-close').addEventListener('click', closeMessageModal);
+  document.getElementById('message-modal-close-secondary').addEventListener('click', closeMessageModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !messageModal.classList.contains('hidden')) closeMessageModal();
+  });
+
+  function openDeleteMessageConfirm(message) {
+    openDeleteConfirm('Mesajı Sil', `"${message.name}" adlı kişiden gelen mesajı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
+      await apiRequest(`${MESSAGES_API}?id=${message.id}`, { method: 'DELETE' });
+      closeMessageModal();
+      await loadMessages();
+    });
+  }
+
+  document.getElementById('message-modal-delete').addEventListener('click', () => {
+    const message = contactMessages.find((m) => m.id === viewingMessageId);
+    if (message) openDeleteMessageConfirm(message);
+  });
+
+  document.getElementById('messages-table-body').addEventListener('click', (e) => {
+    const viewBtn = e.target.closest('[data-message-action="view"]');
+    const deleteBtn = e.target.closest('[data-message-action="delete"]');
+    const row = e.target.closest('[data-message-row]');
+
+    if (deleteBtn) {
+      const message = contactMessages.find((m) => m.id === Number(deleteBtn.dataset.id));
+      if (message) openDeleteMessageConfirm(message);
+      return;
+    }
+    if (viewBtn || row) {
+      const id = Number((viewBtn || row).dataset.id);
+      const message = contactMessages.find((m) => m.id === id);
+      if (message) openMessageModal(message);
     }
   });
 
