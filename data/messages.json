@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Oğuzhan",
+    "email": "oguzhanuluugur1905@gmail.com",
+    "phone": "05519806935",
+    "message": "merhaba",
+    "createdAt": "2026-09-04T20:00:15.702Z"
+  }
+]
