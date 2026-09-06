@@ -513,7 +513,8 @@
               <table class="w-full min-w-[720px] text-left text-sm">
                 <thead>
                   <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                    <th class="px-6 py-3">Ad Soyad</th>
+                    <th class="px-6 py-3">Tür</th>
+                    <th class="px-6 py-3">Gönderen</th>
                     <th class="px-6 py-3">İletişim</th>
                     <th class="px-6 py-3">Mesaj</th>
                     <th class="px-6 py-3">Tarih</th>
@@ -889,7 +890,10 @@
     <div id="message-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
     <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
       <div class="mb-6 flex items-center justify-between">
-        <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
+        <div class="flex items-center gap-3">
+          <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
+          <span id="message-modal-type-badge"></span>
+        </div>
         <button type="button" id="message-modal-close" aria-label="Kapat"
           class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -901,8 +905,18 @@
       </div>
 
       <div class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div id="message-modal-institution-row" class="hidden grid-cols-2 gap-4">
           <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Kurum/Okul Adı</p>
+            <p id="message-modal-institution" class="mt-1 font-semibold text-ink-800"></p>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Yetkili Kişi</p>
+            <p id="message-modal-authorized" class="mt-1 font-semibold text-ink-800"></p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div id="message-modal-name-field">
             <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Ad Soyad</p>
             <p id="message-modal-name" class="mt-1 font-semibold text-ink-800"></p>
           </div>
@@ -920,7 +934,7 @@
           </div>
         </div>
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
+          <p id="message-modal-body-label" class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
           <p id="message-modal-body"
             class="mt-2 whitespace-pre-line rounded-lg bg-ink-50 p-4 text-sm leading-relaxed text-ink-700"></p>
         </div>
@@ -1658,11 +1672,28 @@
       }
     }
 
+    function messageTypeBadge(type) {
+      return type === 'kurumsal'
+        ? '<span class="inline-flex items-center gap-1.5 rounded-full bg-clay-100 px-2.5 py-1 text-xs font-bold text-clay-700"><span class="h-1.5 w-1.5 rounded-full bg-clay-500"></span>Kurumsal</span>'
+        : '<span class="inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600"><span class="h-1.5 w-1.5 rounded-full bg-sage-500"></span>Bireysel</span>';
+    }
+
+    function messageSenderHtml(m) {
+      if (m.type === 'kurumsal') {
+        return `
+          <span class="block font-semibold text-ink-800">${m.institutionName || ''}</span>
+          <span class="block text-xs text-ink-400">${m.authorizedPerson || ''}</span>
+        `;
+      }
+      return `<span class="font-semibold text-ink-800">${m.name || ''}</span>`;
+    }
+
     function messageRowHtml(m) {
       const preview = m.message.length > 80 ? m.message.slice(0, 80).trim() + '…' : m.message;
       return `
       <tr class="cursor-pointer transition-colors hover:bg-ink-50/60" data-message-row data-id="${m.id}">
-        <td class="px-6 py-4 font-semibold text-ink-800">${m.name}</td>
+        <td class="px-6 py-4">${messageTypeBadge(m.type)}</td>
+        <td class="px-6 py-4">${messageSenderHtml(m)}</td>
         <td class="px-6 py-4 text-ink-500">
           <span class="block">${m.email}</span>
           <span class="block text-xs text-ink-400">${m.phone}</span>
@@ -1694,18 +1725,18 @@
 
     function renderMessagesTable() {
       document.getElementById('messages-table-body').innerHTML = contactMessages.map(messageRowHtml).join('')
-        || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz mesaj yok.</td></tr>`;
+        || `<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-ink-400">Henüz mesaj yok.</td></tr>`;
       updateMessagesNavBadge();
     }
 
     async function loadMessages() {
-      document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Mesajlar yükleniyor…</td></tr>`;
+      document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-ink-400">Mesajlar yükleniyor…</td></tr>`;
       try {
         contactMessages = await apiRequest(MESSAGES_API);
         renderMessagesTable();
       } catch (err) {
         console.error('Mesajlar yüklenemedi:', err);
-        document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
+        document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
       }
     }
     loadMessages();
@@ -1715,6 +1746,19 @@
 
     function openMessageModal(message) {
       viewingMessageId = message.id;
+      const isCorporate = message.type === 'kurumsal';
+
+      document.getElementById('message-modal-type-badge').innerHTML = messageTypeBadge(message.type);
+
+      const institutionRow = document.getElementById('message-modal-institution-row');
+      institutionRow.classList.toggle('hidden', !isCorporate);
+      institutionRow.classList.toggle('grid', isCorporate);
+      if (isCorporate) {
+        document.getElementById('message-modal-institution').textContent = message.institutionName || '';
+        document.getElementById('message-modal-authorized').textContent = message.authorizedPerson || '';
+      }
+
+      document.getElementById('message-modal-name-field').classList.toggle('hidden', isCorporate);
       document.getElementById('message-modal-name').textContent = message.name;
       document.getElementById('message-modal-date').textContent = formatMessageDate(message.createdAt);
       const emailLink = document.getElementById('message-modal-email');
@@ -1723,6 +1767,7 @@
       const phoneLink = document.getElementById('message-modal-phone');
       phoneLink.textContent = message.phone;
       phoneLink.href = `tel:${message.phone.replace(/\s+/g, '')}`;
+      document.getElementById('message-modal-body-label').textContent = isCorporate ? 'İşbirliği Konusu' : 'Mesaj';
       document.getElementById('message-modal-body').textContent = message.message;
 
       messageModal.classList.remove('hidden');

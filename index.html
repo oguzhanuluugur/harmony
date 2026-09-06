@@ -1085,96 +1085,146 @@
         Atölyelerimiz, iş birlikleri veya merak ettiğiniz her şey için bize yazın; en kısa sürede dönüş yapalım.
       </p>
 
-      <div class="mt-14 grid md:grid-cols-2 gap-12 lg:gap-16">
+      <!-- Contact Info band -->
+      <div class="mt-14 grid grid-cols-1 gap-6 rounded-2xl border border-ink-100 bg-ink-50/60 p-6 sm:grid-cols-3 sm:p-8">
+        <button type="button" data-whatsapp-cta class="group flex items-start gap-4 text-left">
+          <span
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+            </svg>
+          </span>
+          <span>
+            <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Telefon
+              (WhatsApp)</span>
+            <span class="block mt-1 text-base font-semibold text-ink-800">0537 781 85 24</span>
+          </span>
+        </button>
 
-        <!-- Contact Info -->
-        <div class="space-y-8">
-          <button type="button" data-whatsapp-cta class="group flex w-full items-start gap-5 text-left">
-            <span
-              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path
-                  d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
-              </svg>
-            </span>
-            <span>
-              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Telefon
-                (WhatsApp)</span>
-              <span class="block mt-1 text-lg font-semibold text-ink-800">0537 781 85 24</span>
-            </span>
-          </button>
-
-          <div class="flex items-start gap-5">
-            <span
-              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mustard-100 text-mustard-600">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path
-                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </span>
-            <span>
-              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Adres</span>
-              <span class="block mt-1 text-lg font-semibold text-ink-800 leading-snug">Postane Mah. Bağdagül Sk.
-                No:6<br />Tuzla, İstanbul</span>
-            </span>
-          </div>
-
-          <a href="https://instagram.com/harmony.atolye" target="_blank" rel="noopener noreferrer"
-            class="group flex items-start gap-5">
-            <span
-              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-            </span>
-            <span>
-              <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Instagram</span>
-              <span class="block mt-1 text-lg font-semibold text-ink-800">@harmony.atolye</span>
-            </span>
-          </a>
+        <div class="flex items-start gap-4">
+          <span
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mustard-100 text-mustard-600">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </span>
+          <span>
+            <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Adres</span>
+            <span class="block mt-1 text-base font-semibold text-ink-800 leading-snug">Postane Mah. Bağdagül Sk.
+              No:6<br />Tuzla, İstanbul</span>
+          </span>
         </div>
 
-        <!-- Contact Form -->
-        <form id="contact-form" class="space-y-5" novalidate>
-          <div>
-            <label for="cf-name" class="block text-sm font-semibold text-ink-700 mb-2">Adınız Soyadınız</label>
-            <input id="cf-name" name="name" type="text" required placeholder="Adınız Soyadınız"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
-          </div>
-          <div>
-            <label for="cf-email" class="block text-sm font-semibold text-ink-700 mb-2">E-posta</label>
-            <input id="cf-email" name="email" type="email" required placeholder="ornek@eposta.com"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
-          </div>
-          <div>
-            <label for="cf-phone" class="block text-sm font-semibold text-ink-700 mb-2">Telefon Numarası</label>
-            <input id="cf-phone" name="phone" type="tel" required placeholder="05XX XXX XX XX"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
-          </div>
-          <div>
-            <label for="cf-message" class="block text-sm font-semibold text-ink-700 mb-2">Mesajınız</label>
-            <textarea id="cf-message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."
-              class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30"></textarea>
-          </div>
-          <div id="cf-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
-          <button type="submit" id="cf-submit"
-            class="cta-btn w-full inline-flex items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-6 py-3.5 shadow-soft hover:bg-clay-600 hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
-            <span id="cf-submit-label">Gönder</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 17 17 7" />
-              <path d="M7 7h10v10" />
+        <a href="https://instagram.com/harmony.atolye" target="_blank" rel="noopener noreferrer"
+          class="group flex items-start gap-4">
+          <span
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-100">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
             </svg>
-          </button>
-          <p id="cf-success" class="hidden text-sm font-semibold text-sage-600">Mesajınız için teşekkürler! En kısa
-            sürede size dönüş yapacağız.</p>
-        </form>
+          </span>
+          <span>
+            <span class="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-400">Instagram</span>
+            <span class="block mt-1 text-base font-semibold text-ink-800">@harmony.atolye</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Contact Forms -->
+      <div class="mt-10 grid md:grid-cols-2 gap-12 lg:gap-16">
+
+        <!-- Bireysel İletişim -->
+        <div>
+          <h3 class="font-display text-xl font-semibold tracking-[-0.01em] text-ink-900 mb-6">Bireysel İletişim</h3>
+          <form id="contact-form" class="space-y-5" novalidate>
+            <div>
+              <label for="cf-name" class="block text-sm font-semibold text-ink-700 mb-2">Adınız Soyadınız</label>
+              <input id="cf-name" name="name" type="text" required placeholder="Adınız Soyadınız"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="cf-email" class="block text-sm font-semibold text-ink-700 mb-2">E-posta</label>
+              <input id="cf-email" name="email" type="email" required placeholder="ornek@eposta.com"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="cf-phone" class="block text-sm font-semibold text-ink-700 mb-2">Telefon Numarası</label>
+              <input id="cf-phone" name="phone" type="tel" required placeholder="05XX XXX XX XX"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="cf-message" class="block text-sm font-semibold text-ink-700 mb-2">Mesajınız</label>
+              <textarea id="cf-message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."
+                class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30"></textarea>
+            </div>
+            <div id="cf-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
+            <button type="submit" id="cf-submit"
+              class="cta-btn w-full inline-flex items-center justify-center gap-2 rounded-full bg-clay-500 text-white text-sm font-semibold px-6 py-3.5 shadow-soft hover:bg-clay-600 hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+              <span id="cf-submit-label">Gönder</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </button>
+            <p id="cf-success" class="hidden text-sm font-semibold text-sage-600">Mesajınız için teşekkürler! En kısa
+              sürede size dönüş yapacağız.</p>
+          </form>
+        </div>
+
+        <!-- Okul ve Kurumsal İşbirlikleri -->
+        <div>
+          <h3 class="font-display text-xl font-semibold tracking-[-0.01em] text-ink-900 mb-6">Okul ve Kurumsal
+            İşbirlikleri</h3>
+          <form id="corporate-form" class="space-y-5" novalidate>
+            <div>
+              <label for="kf-institution" class="block text-sm font-semibold text-ink-700 mb-2">Kurum/Okul Adı</label>
+              <input id="kf-institution" name="institutionName" type="text" required placeholder="Kurum/Okul adı"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="kf-contact-name" class="block text-sm font-semibold text-ink-700 mb-2">Yetkili Adı
+                Soyadı</label>
+              <input id="kf-contact-name" name="authorizedPerson" type="text" required placeholder="Yetkili Adı Soyadı"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="kf-email" class="block text-sm font-semibold text-ink-700 mb-2">Kurumsal E-posta</label>
+              <input id="kf-email" name="email" type="email" required placeholder="kurum@ornek.com"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="kf-phone" class="block text-sm font-semibold text-ink-700 mb-2">Telefon Numarası</label>
+              <input id="kf-phone" name="phone" type="tel" required placeholder="05XX XXX XX XX"
+                class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30" />
+            </div>
+            <div>
+              <label for="kf-topic" class="block text-sm font-semibold text-ink-700 mb-2">İşbirliği Konusu</label>
+              <textarea id="kf-topic" name="topic" rows="5" required placeholder="İşbirliği talebinizi buraya yazın..."
+                class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-ink-800 placeholder:text-ink-300 transition-colors duration-200 focus:outline-none focus:border-clay-400 focus:ring-2 focus:ring-clay-400/30"></textarea>
+            </div>
+            <div id="kf-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
+            <button type="submit" id="kf-submit"
+              class="cta-btn w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold px-6 py-3.5 shadow-soft hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+              <span id="kf-submit-label">Gönder</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </button>
+            <p id="kf-success" class="hidden text-sm font-semibold text-sage-600">Talebiniz için teşekkürler! En kısa
+              sürede size dönüş yapacağız.</p>
+          </form>
+        </div>
 
       </div>
 
@@ -1547,45 +1597,77 @@
 
     loadWorkshopCards();
 
-    const contactForm = document.getElementById('contact-form');
-    const contactSuccess = document.getElementById('cf-success');
-    const contactError = document.getElementById('cf-error');
-    const contactSubmitBtn = document.getElementById('cf-submit');
-    const contactSubmitLabel = document.getElementById('cf-submit-label');
+    // Shared submit handler for both the individual and corporate contact
+    // forms below — same endpoint, same error/success/loading behavior, only
+    // the payload shape differs (see buildPayload per form).
+    const MESSAGES_POST_URL = '/api/messages.php?apikey=HarmonyAdmin2026!';
 
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    function wireContactForm({ formId, errorId, submitId, submitLabelId, successId, buildPayload }) {
+      const form = document.getElementById(formId);
+      const errorBox = document.getElementById(errorId);
+      const submitBtn = document.getElementById(submitId);
+      const submitLabel = document.getElementById(submitLabelId);
+      const successBox = document.getElementById(successId);
+      const originalLabel = submitLabel.textContent;
 
-      const payload = {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        errorBox.classList.add('hidden');
+        successBox.classList.add('hidden');
+        submitBtn.disabled = true;
+        submitLabel.textContent = 'Gönderiliyor…';
+
+        try {
+          const res = await fetch(MESSAGES_POST_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(buildPayload()),
+          });
+          const data = await res.json().catch(() => null);
+          if (!res.ok) throw new Error((data && data.error) || 'Mesaj gönderilemedi.');
+
+          form.reset();
+          successBox.classList.remove('hidden');
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitLabel.textContent = originalLabel;
+        }
+      });
+    }
+
+    wireContactForm({
+      formId: 'contact-form',
+      errorId: 'cf-error',
+      submitId: 'cf-submit',
+      submitLabelId: 'cf-submit-label',
+      successId: 'cf-success',
+      buildPayload: () => ({
+        type: 'bireysel',
         name: document.getElementById('cf-name').value.trim(),
         email: document.getElementById('cf-email').value.trim(),
         phone: document.getElementById('cf-phone').value.trim(),
         message: document.getElementById('cf-message').value.trim(),
-      };
+      }),
+    });
 
-      contactError.classList.add('hidden');
-      contactSuccess.classList.add('hidden');
-      contactSubmitBtn.disabled = true;
-      contactSubmitLabel.textContent = 'Gönderiliyor…';
-
-      try {
-        const res = await fetch('/api/messages.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json().catch(() => null);
-        if (!res.ok) throw new Error((data && data.error) || 'Mesaj gönderilemedi.');
-
-        contactForm.reset();
-        contactSuccess.classList.remove('hidden');
-      } catch (err) {
-        contactError.textContent = err.message;
-        contactError.classList.remove('hidden');
-      } finally {
-        contactSubmitBtn.disabled = false;
-        contactSubmitLabel.textContent = 'Gönder';
-      }
+    wireContactForm({
+      formId: 'corporate-form',
+      errorId: 'kf-error',
+      submitId: 'kf-submit',
+      submitLabelId: 'kf-submit-label',
+      successId: 'kf-success',
+      buildPayload: () => ({
+        type: 'kurumsal',
+        institutionName: document.getElementById('kf-institution').value.trim(),
+        authorizedPerson: document.getElementById('kf-contact-name').value.trim(),
+        email: document.getElementById('kf-email').value.trim(),
+        phone: document.getElementById('kf-phone').value.trim(),
+        message: document.getElementById('kf-topic').value.trim(),
+      }),
     });
 
     // ---- Blog & Yayınlar: rendered from /api/blog.php (see api/blog.php) ----

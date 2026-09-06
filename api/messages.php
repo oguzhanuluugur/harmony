@@ -61,12 +61,13 @@ function require_write_key() {
 
 function normalize_message_input($body) {
     $errors = [];
-    $name = sanitize_text($body['name'] ?? '');
+    $type = sanitize_text($body['type'] ?? 'bireysel');
+    if ($type !== 'kurumsal') $type = 'bireysel';
+
     $email = sanitize_text($body['email'] ?? '');
     $phone = sanitize_text($body['phone'] ?? '');
     $message = sanitize_text($body['message'] ?? '');
 
-    if ($name === '') $errors[] = 'Ad Soyad gerekli.';
     if ($email === '') {
         $errors[] = 'E-posta gerekli.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -75,7 +76,23 @@ function normalize_message_input($body) {
     if ($phone === '') $errors[] = 'Telefon numarası gerekli.';
     if ($message === '') $errors[] = 'Mesaj gerekli.';
 
-    return [$errors, ['name' => $name, 'email' => $email, 'phone' => $phone, 'message' => $message]];
+    $entry = ['type' => $type, 'email' => $email, 'phone' => $phone, 'message' => $message];
+
+    if ($type === 'kurumsal') {
+        $institutionName = sanitize_text($body['institutionName'] ?? '');
+        $authorizedPerson = sanitize_text($body['authorizedPerson'] ?? '');
+        if ($institutionName === '') $errors[] = 'Kurum/Okul adı gerekli.';
+        if ($authorizedPerson === '') $errors[] = 'Yetkili adı soyadı gerekli.';
+        $entry['institutionName'] = $institutionName;
+        $entry['authorizedPerson'] = $authorizedPerson;
+        $entry['name'] = $authorizedPerson;
+    } else {
+        $name = sanitize_text($body['name'] ?? '');
+        if ($name === '') $errors[] = 'Ad Soyad gerekli.';
+        $entry['name'] = $name;
+    }
+
+    return [$errors, $entry];
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
