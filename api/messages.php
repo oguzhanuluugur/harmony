@@ -11,7 +11,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
-define('API_WRITE_KEY', 'CHANGE-ME-TO-A-LONG-RANDOM-SECRET');
+define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/messages.json');
 
@@ -51,8 +51,9 @@ function sanitize_text($value) {
 }
 
 function require_write_key() {
-    $headers = function_exists('getallheaders') ? getallheaders() : [];
-    $provided = $headers['X-Api-Key'] ?? $headers['X-API-Key'] ?? ($_GET['key'] ?? '');
+    // Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
+    // sildiği için anahtar artık header yerine URL sorgu parametresinden okunuyor.
+    $provided = $_GET['apikey'] ?? '';
     if (!hash_equals(API_WRITE_KEY, (string) $provided)) {
         send_json(401, ['error' => 'Yetkisiz istek: geçersiz veya eksik API anahtarı.']);
     }

@@ -1,955 +1,1179 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#1A2E40" />
-<title>Yönetim Paneli — Harmony</title>
-<meta name="robots" content="noindex, nofollow" />
-<link rel="icon" type="image/png" href="brand/harmony-logo.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          clay: {
-            50: '#fdf5f0',
-            100: '#fae6d9',
-            200: '#f3c8ab',
-            300: '#eba576',
-            400: '#e28449',
-            500: '#d1652c',
-            600: '#b04f20',
-            700: '#8c3e1c',
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1A2E40" />
+  <title>Yönetim Paneli — Harmony</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="brand/harmony-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clay: {
+              50: '#fdf5f0',
+              100: '#fae6d9',
+              200: '#f3c8ab',
+              300: '#eba576',
+              400: '#e28449',
+              500: '#d1652c',
+              600: '#b04f20',
+              700: '#8c3e1c',
+            },
+            ink: {
+              50: '#f4f5f6',
+              100: '#e4e6e9',
+              200: '#c3c8cf',
+              300: '#9aa2ad',
+              400: '#6b7480',
+              500: '#4c5561',
+              600: '#3a414c',
+              700: '#2b303a',
+              800: '#1d2129',
+              900: '#14171d',
+            },
+            mustard: {
+              100: '#f6e8c4',
+              500: '#c99a2e',
+              600: '#a97c20',
+            },
+            sage: {
+              50: '#f2f6f3',
+              100: '#dfeadf',
+              500: '#5c8a6b',
+              600: '#476d54',
+            },
           },
-          ink: {
-            50: '#f4f5f6',
-            100: '#e4e6e9',
-            200: '#c3c8cf',
-            300: '#9aa2ad',
-            400: '#6b7480',
-            500: '#4c5561',
-            600: '#3a414c',
-            700: '#2b303a',
-            800: '#1d2129',
-            900: '#14171d',
+          fontFamily: {
+            display: ['"Fraunces"', 'serif'],
+            sans: ['"Manrope"', 'sans-serif'],
           },
-          mustard: {
-            100: '#f6e8c4',
-            500: '#c99a2e',
-            600: '#a97c20',
+          boxShadow: {
+            'soft': '0 2px 8px -2px rgba(28,22,15,0.08), 0 1px 2px -1px rgba(28,22,15,0.06)',
+            'card': '0 1px 3px 0 rgba(28,22,15,0.07), 0 1px 2px -1px rgba(28,22,15,0.06)',
+            'floating': '0 16px 32px -12px rgba(28,22,15,0.22), 0 6px 12px -6px rgba(28,22,15,0.10)',
+            'vault': '0 32px 64px -12px rgba(10,14,20,0.45), 0 12px 24px -8px rgba(10,14,20,0.25)',
           },
-          sage: {
-            50: '#f2f6f3',
-            100: '#dfeadf',
-            500: '#5c8a6b',
-            600: '#476d54',
-          },
-        },
-        fontFamily: {
-          display: ['"Fraunces"', 'serif'],
-          sans: ['"Manrope"', 'sans-serif'],
-        },
-        boxShadow: {
-          'soft': '0 2px 8px -2px rgba(28,22,15,0.08), 0 1px 2px -1px rgba(28,22,15,0.06)',
-          'card': '0 1px 3px 0 rgba(28,22,15,0.07), 0 1px 2px -1px rgba(28,22,15,0.06)',
-          'floating': '0 16px 32px -12px rgba(28,22,15,0.22), 0 6px 12px -6px rgba(28,22,15,0.10)',
-          'vault': '0 32px 64px -12px rgba(10,14,20,0.45), 0 12px 24px -8px rgba(10,14,20,0.25)',
         },
       },
-    },
-  };
-</script>
-<style>
-  body { font-family: 'Manrope', sans-serif; }
-  .font-display { font-family: 'Fraunces', serif; }
-
-  .admin-nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.9rem;
-    border-radius: 0.65rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #4c5561;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  .admin-nav-link:hover {
-    background-color: #f4f5f6;
-    color: #1d2129;
-  }
-  .admin-nav-link.active {
-    background-color: #fdf5f0;
-    color: #b04f20;
-  }
-  .admin-nav-link.active svg {
-    color: #d1652c;
-  }
-
-  .icon-btn {
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-  }
-  .icon-btn:hover {
-    transform: translateY(-1px);
-  }
-
-  #sidebar {
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  @media (max-width: 1023px) {
-    #sidebar { transform: translateX(-100%); }
-    #sidebar.open { transform: translateX(0); }
-  }
-</style>
-</head>
-<body class="bg-ink-50 text-ink-800 antialiased">
-
-<!-- ============ LOGIN SCREEN (Auth Guard) ============ -->
-<div id="login-screen" class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#1A2E40] px-4 py-12">
-  <div class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(circle at 18% 20%, rgba(224,109,83,0.16), transparent 45%), radial-gradient(circle at 82% 78%, rgba(92,138,107,0.14), transparent 45%);"></div>
-
-  <div class="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-vault sm:p-10">
-    <div class="mb-8 flex flex-col items-center text-center">
-      <span class="mb-4 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-soft">
-        <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full object-cover" />
-      </span>
-      <p class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-clay-600">Harmony Admin</p>
-      <h1 class="mt-3 font-display text-2xl font-bold tracking-[-0.01em] text-ink-900">Sisteme Giriş Yapın</h1>
-      <p class="mt-2 text-sm text-ink-500">Devam etmek için yönetici bilgilerinizi girin.</p>
-    </div>
-
-    <form id="login-form" novalidate class="space-y-5">
-      <div>
-        <label for="login-email" class="mb-2 block text-sm font-semibold text-ink-700">E-posta</label>
-        <div class="relative">
-          <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </span>
-          <input id="login-email" type="email" required autocomplete="username" placeholder="admin@harmony.com" class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-        </div>
-      </div>
-
-      <div>
-        <label for="login-password" class="mb-2 block text-sm font-semibold text-ink-700">Şifre</label>
-        <div class="relative">
-          <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
-          <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••" class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-11 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-          <button type="button" id="login-password-toggle" aria-label="Şifreyi göster" aria-pressed="false" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 transition-colors duration-200 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-            <svg id="login-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div id="login-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
-
-      <button type="submit" id="login-submit" disabled class="flex w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-50">
-        <svg id="login-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" class="hidden animate-spin" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-        <span id="login-submit-label">Giriş Yap</span>
-      </button>
-    </form>
-
-    <p class="mt-6 text-center text-xs leading-relaxed text-ink-400">Bu bir prototip yönetim panelidir. Erişim yalnızca yetkili personel içindir.</p>
-  </div>
-</div>
-
-<div id="admin-dashboard" class="hidden min-h-screen">
-
-  <!-- Mobile sidebar backdrop -->
-  <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-ink-900/40 lg:hidden"></div>
-
-  <!-- Sidebar -->
-  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-ink-100 bg-white">
-    <div class="flex h-20 shrink-0 items-center gap-3 border-b border-ink-100 px-6">
-      <span class="block h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-soft">
-        <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full object-cover" />
-      </span>
-      <div class="leading-tight">
-        <p class="font-display text-[15px] font-semibold tracking-[-0.01em] text-ink-900">HARMONY</p>
-        <p class="text-xs font-medium uppercase tracking-[0.1em] text-ink-400">Admin Panel</p>
-      </div>
-    </div>
-
-    <nav class="flex-1 space-y-1 overflow-y-auto px-4 py-6">
-      <a href="#" data-nav="dashboard" class="admin-nav-link active">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-        Dashboard
-      </a>
-      <a href="#" data-nav="workshops" class="admin-nav-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
-        Atölyeler
-      </a>
-      <a href="#" data-nav="blog" class="admin-nav-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></svg>
-        Blog &amp; Yayınlar
-      </a>
-      <a href="#" data-nav="messages" class="admin-nav-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        <span class="flex-1">Mesajlar</span>
-        <span id="messages-nav-badge" class="hidden rounded-full bg-clay-500 px-2 py-0.5 text-[11px] font-bold text-white">0</span>
-      </a>
-      <a href="#" data-nav="gallery" class="admin-nav-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-        Galeri
-      </a>
-      <a href="#" data-nav="settings" class="admin-nav-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-        Ayarlar
-      </a>
-    </nav>
-
-    <div class="shrink-0 border-t border-ink-100 p-4">
-      <button type="button" id="logout-button" class="admin-nav-link w-full text-left hover:bg-clay-50 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        Çıkış Yap
-      </button>
-    </div>
-  </aside>
-
-  <!-- Main content -->
-  <div class="min-h-screen lg:pl-64">
-
-    <!-- Top header -->
-    <header class="sticky top-0 z-20 flex items-center justify-between border-b border-ink-100 bg-white px-5 py-4 sm:px-8">
-      <div class="flex items-center gap-4">
-        <button id="sidebar-toggle" type="button" aria-label="Menüyü aç" class="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 text-ink-600 transition-colors hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 lg:hidden">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
-        </button>
-        <h1 id="view-title" class="font-display text-lg font-semibold tracking-[-0.01em] text-ink-900 sm:text-xl">Genel Bakış</h1>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <span class="hidden text-sm text-ink-500 sm:inline">Merhaba, <span class="font-semibold text-ink-800">Seçil</span></span>
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-clay-100 font-display text-sm font-semibold text-clay-700 ring-2 ring-white shadow-soft">
-          S
-        </span>
-      </div>
-    </header>
-
-    <main class="p-5 sm:p-8">
-
-    <!-- ============ VIEW: dashboard ============ -->
-    <section data-view="dashboard">
-
-      <!-- Stat cards -->
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-
-        <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-medium text-ink-500">Aktif Atölyeler</span>
-            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-clay-50 text-clay-600">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
-            </span>
-          </div>
-          <p class="mt-4 font-display text-3xl font-bold text-ink-900">6</p>
-        </div>
-
-        <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-medium text-ink-500">Toplam Blog Yazısı</span>
-            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-mustard-100 text-mustard-600">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></svg>
-            </span>
-          </div>
-          <p class="mt-4 font-display text-3xl font-bold text-ink-900">12</p>
-        </div>
-
-        <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-medium text-ink-500">Sergilenen Eser</span>
-            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink-100 text-ink-600">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-            </span>
-          </div>
-          <p class="mt-4 font-display text-3xl font-bold text-ink-900">24</p>
-        </div>
-
-      </div>
-
-      <!-- Recent workshops table -->
-      <div class="mt-8 overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
-        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <h2 class="font-display text-lg font-semibold text-ink-900">Son Eklenen Atölyeler</h2>
-          <button type="button" data-open-workshop-modal class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-            Yeni Ekle
-          </button>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[940px] text-left text-sm">
-            <thead>
-              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                <th class="px-6 py-3">Görsel</th>
-                <th class="px-6 py-3">Atölye Adı</th>
-                <th class="px-6 py-3">Yaş Grubu</th>
-                <th class="px-6 py-3">Ay</th>
-                <th class="px-6 py-3">Tarih</th>
-                <th class="px-6 py-3">Saat</th>
-                <th class="px-6 py-3">Fiyat</th>
-                <th class="px-6 py-3">Durum</th>
-                <th class="px-6 py-3 text-right">İşlemler</th>
-              </tr>
-            </thead>
-            <tbody id="dashboard-recent-workshops-body" class="divide-y divide-ink-100">
-              <!-- rows injected via workshopRowHtml() -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ============ VIEW: workshops ============ -->
-    <section data-view="workshops" class="hidden">
-      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
-        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div class="relative w-full sm:max-w-xs">
-            <svg class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input id="workshop-search" type="text" placeholder="Atölye ara..." class="w-full rounded-lg border border-ink-200 bg-white py-2.5 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-          </div>
-          <button type="button" data-open-workshop-modal class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-            Yeni Ekle
-          </button>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[940px] text-left text-sm">
-            <thead>
-              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                <th class="px-6 py-3">Görsel</th>
-                <th class="px-6 py-3">Atölye Adı</th>
-                <th class="px-6 py-3">Yaş Grubu</th>
-                <th class="px-6 py-3">Ay</th>
-                <th class="px-6 py-3">Tarih</th>
-                <th class="px-6 py-3">Saat</th>
-                <th class="px-6 py-3">Fiyat</th>
-                <th class="px-6 py-3">Durum</th>
-                <th class="px-6 py-3 text-right">İşlemler</th>
-              </tr>
-            </thead>
-            <tbody id="workshops-table-body" class="divide-y divide-ink-100">
-              <!-- rows injected below via .workshop-row-template pattern (static markup, repeated) -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ VIEW: blog ============ -->
-    <section data-view="blog" class="hidden">
-      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
-        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <h2 class="font-display text-lg font-semibold text-ink-900">Tüm Yazılar</h2>
-          <button type="button" data-open-blog-modal class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-            Yeni Yazı Ekle
-          </button>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[720px] text-left text-sm">
-            <thead>
-              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                <th class="px-6 py-3">Görsel</th>
-                <th class="px-6 py-3">Başlık</th>
-                <th class="px-6 py-3">Kategori</th>
-                <th class="px-6 py-3">Tarih</th>
-                <th class="px-6 py-3 text-right">İşlemler</th>
-              </tr>
-            </thead>
-            <tbody id="blog-table-body" class="divide-y divide-ink-100">
-              <!-- rows injected via blogRowHtml() -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ VIEW: messages ============ -->
-    <section data-view="messages" class="hidden">
-      <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
-        <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 class="font-display text-lg font-semibold text-ink-900">Gelen Mesajlar</h2>
-            <p class="mt-1 text-sm text-ink-500">Sitedeki İletişim formundan gönderilen mesajlar burada listelenir.</p>
-          </div>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[720px] text-left text-sm">
-            <thead>
-              <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                <th class="px-6 py-3">Ad Soyad</th>
-                <th class="px-6 py-3">İletişim</th>
-                <th class="px-6 py-3">Mesaj</th>
-                <th class="px-6 py-3">Tarih</th>
-                <th class="px-6 py-3 text-right">İşlemler</th>
-              </tr>
-            </thead>
-            <tbody id="messages-table-body" class="divide-y divide-ink-100">
-              <!-- rows injected via messageRowHtml() -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ VIEW: gallery ============ -->
-    <section data-view="gallery" class="hidden">
-      <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-sm text-ink-500">Çocukların ürettiği eserler — Dijital Sergi bölümünde görüntülenir.</p>
-        <button type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
-          Yeni Görsel Yükle
-        </button>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        <!-- gallery-thumb items injected via repeated markup below -->
-      </div>
-    </section>
-
-    <!-- ============ VIEW: settings ============ -->
-    <section data-view="settings" class="hidden">
-      <div class="mx-auto max-w-4xl">
-        <form id="settings-form">
-
-          <!-- Card: Genel Site Ayarları -->
-          <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
-            <div class="mb-6 flex items-center gap-3">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-clay-50 text-clay-600">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-              </span>
-              <h2 class="font-display text-lg font-semibold text-ink-900">Genel Site Ayarları</h2>
-            </div>
-            <div class="space-y-5">
-              <div>
-                <label for="setting-title" class="mb-2 block text-sm font-semibold text-ink-700">Site Başlığı</label>
-                <input id="setting-title" type="text" value="Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-              </div>
-              <div>
-                <div class="mb-2 flex items-end justify-between">
-                  <label for="setting-description" class="block text-sm font-semibold text-ink-700">Site Açıklaması / SEO Description</label>
-                  <span class="text-xs text-ink-400"><span id="setting-description-count">0</span>/160</span>
-                </div>
-                <textarea id="setting-description" rows="3" maxlength="160" placeholder="Arama motorlarında sitenizin altında görünecek kısa açıklama…" class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur.</textarea>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card: İletişim & Sosyal Medya -->
-          <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
-            <div class="mb-6 flex items-center gap-3">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sage-50 text-sage-600">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </span>
-              <h2 class="font-display text-lg font-semibold text-ink-900">İletişim Bilgileri</h2>
-            </div>
-            <div class="space-y-5">
-              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div>
-                  <label for="setting-phone" class="mb-2 block text-sm font-semibold text-ink-700">İletişim Numarası</label>
-                  <input id="setting-phone" type="text" value="0537 781 85 24" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-                </div>
-                <div>
-                  <label for="setting-instagram" class="mb-2 block text-sm font-semibold text-ink-700">Instagram URL</label>
-                  <input id="setting-instagram" type="url" value="https://instagram.com/harmony.atolye" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-                </div>
-              </div>
-              <div>
-                <label for="setting-address" class="mb-2 block text-sm font-semibold text-ink-700">Açık Adres</label>
-                <textarea id="setting-address" rows="2" class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Postane Mah. Bağdagül Sk. No:6, Tuzla, İstanbul</textarea>
-              </div>
-              <div>
-                <label for="setting-message" class="mb-2 block text-sm font-semibold text-ink-700">WhatsApp Mesaj Taslağı</label>
-                <textarea id="setting-message" rows="4" class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Merhaba, Harmony atölyeleri hakkında bilgi almak ve kayıt oluşturmak istiyorum.</textarea>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card: Analitik & Takip -->
-          <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
-            <div class="mb-6 flex items-center gap-3">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-mustard-100 text-mustard-600">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-              </span>
-              <h2 class="font-display text-lg font-semibold text-ink-900">Reklam ve Analitik (SEO)</h2>
-            </div>
-            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div>
-                <label for="setting-ga-id" class="mb-2 block text-sm font-semibold text-ink-700">Google Analytics ID</label>
-                <input id="setting-ga-id" type="text" placeholder="G-XXXXXXXXXX" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-              </div>
-              <div>
-                <label for="setting-meta-pixel-id" class="mb-2 block text-sm font-semibold text-ink-700">Meta Pixel ID</label>
-                <input id="setting-meta-pixel-id" type="text" placeholder="123456789012345" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-              </div>
-            </div>
-          </div>
-
-        </form>
-
-        <!-- Sticky save action bar -->
-        <div class="sticky bottom-5 z-10 flex items-center gap-4 rounded-xl border border-ink-100 bg-white/95 p-4 shadow-floating backdrop-blur">
-          <button type="submit" form="settings-form" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-8 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
-            Tüm Ayarları Kaydet
-          </button>
-          <span id="settings-success" class="hidden text-sm font-semibold text-sage-600">Ayarlar kaydedildi.</span>
-        </div>
-      </div>
-    </section>
-
-    </main>
-  </div>
-</div>
-
-<!-- Add Workshop Modal -->
-<div id="workshop-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-  <div id="workshop-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-  <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-card sm:p-8">
-    <div class="mb-6 flex items-center justify-between">
-      <h2 id="workshop-modal-title" class="font-display text-lg font-semibold text-ink-900">Yeni Atölye Ekle</h2>
-      <button type="button" id="workshop-modal-close" aria-label="Kapat" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-
-    <form id="workshop-form" class="space-y-4">
-      <div>
-        <label class="mb-2 block text-sm font-semibold text-ink-700">Atölye Görseli</label>
-        <div class="flex items-center gap-4">
-          <span class="block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
-            <img id="workshop-image-preview" src="" alt="" class="h-full w-full object-cover" />
-          </span>
-          <label for="new-workshop-image" class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
-            Görsel Seç
-          </label>
-          <input id="new-workshop-image" type="file" accept="image/*" class="sr-only" />
-        </div>
-      </div>
-
-      <div>
-        <label for="new-workshop-name" class="mb-2 block text-sm font-semibold text-ink-700">Atölye Adı</label>
-        <input id="new-workshop-name" type="text" required placeholder="Örn. Düşler Parkı" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="new-workshop-age" class="mb-2 block text-sm font-semibold text-ink-700">Yaş Grubu</label>
-          <select id="new-workshop-age" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
-            <option value="4-6 Yaş">4-6 Yaş</option>
-            <option value="7-10 Yaş">7-10 Yaş</option>
-            <option value="11-14 Yaş">11-14 Yaş</option>
-          </select>
-        </div>
-        <div>
-          <label for="new-workshop-month" class="mb-2 block text-sm font-semibold text-ink-700">Ay</label>
-          <select id="new-workshop-month" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
-            <option>Ocak</option>
-            <option>Şubat</option>
-            <option>Mart</option>
-            <option>Nisan</option>
-            <option>Mayıs</option>
-            <option selected>Haziran</option>
-            <option>Temmuz</option>
-            <option>Ağustos</option>
-            <option>Eylül</option>
-            <option>Ekim</option>
-            <option>Kasım</option>
-            <option>Aralık</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="new-workshop-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
-          <input id="new-workshop-date" type="text" required placeholder="Örn. 6 & 27 Haziran 2026" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-        </div>
-        <div>
-          <label for="new-workshop-time" class="mb-2 block text-sm font-semibold text-ink-700">Saat</label>
-          <input id="new-workshop-time" type="text" required placeholder="Örn. 15:30 - 16:30" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="new-workshop-price" class="mb-2 block text-sm font-semibold text-ink-700">Fiyat</label>
-          <input id="new-workshop-price" type="text" required placeholder="Örn. 500 TL" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-        </div>
-        <div>
-          <label for="new-workshop-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
-          <select id="new-workshop-status" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
-            <option value="active">Aktif</option>
-            <option value="passive">Pasif</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="workshop-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
-
-      <div class="flex items-center gap-3 pt-2">
-        <button type="submit" id="workshop-modal-submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
-          Atölyeyi Ekle
-        </button>
-        <button type="button" id="workshop-modal-cancel" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-          Vazgeç
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Add/Edit Blog Post Modal -->
-<div id="blog-modal-admin" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-  <div id="blog-modal-admin-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-  <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
-    <div class="mb-6 flex items-center justify-between">
-      <h2 id="blog-modal-admin-title" class="font-display text-lg font-semibold text-ink-900">Yeni Yazı Ekle</h2>
-      <button type="button" id="blog-modal-admin-close" aria-label="Kapat" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-
-    <form id="blog-form" class="max-h-[70vh] space-y-4 overflow-y-auto pr-1">
-      <div>
-        <label class="mb-2 block text-sm font-semibold text-ink-700">Görsel</label>
-        <div class="flex items-center gap-4">
-          <span class="block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
-            <img id="blog-image-preview" src="" alt="" class="h-full w-full object-cover" />
-          </span>
-          <label for="new-blog-image" class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
-            Görsel Seç
-          </label>
-          <input id="new-blog-image" type="file" accept="image/*" class="sr-only" />
-        </div>
-      </div>
-
-      <div>
-        <label for="new-blog-title" class="mb-2 block text-sm font-semibold text-ink-700">Başlık</label>
-        <input id="new-blog-title" type="text" required placeholder="Örn. Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="new-blog-category" class="mb-2 block text-sm font-semibold text-ink-700">Kategori</label>
-          <input id="new-blog-category" type="text" required list="blog-category-options" placeholder="Örn. Pedagoji" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-          <datalist id="blog-category-options">
-            <option value="Pedagoji"></option>
-            <option value="Kent Bilinci"></option>
-            <option value="Sürdürülebilirlik"></option>
-          </datalist>
-        </div>
-        <div>
-          <label for="new-blog-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
-          <input id="new-blog-date" type="text" required placeholder="Örn. 12 Mayıs 2026" class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-        </div>
-      </div>
-
-      <div>
-        <label for="new-blog-body" class="mb-2 block text-sm font-semibold text-ink-700">İçerik</label>
-        <textarea id="new-blog-body" rows="8" required placeholder="Yazının içeriğini girin. Paragrafları ayırmak için aralarına boş bir satır bırakın." class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30"></textarea>
-        <p class="mt-1.5 text-xs text-ink-400">Kartlarda görünecek özet, ilk paragraftan otomatik oluşturulur.</p>
-      </div>
-
-      <div id="blog-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
-
-      <div class="flex items-center gap-3 pt-2">
-        <button type="submit" id="blog-modal-admin-submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
-          Yazıyı Ekle
-        </button>
-        <button type="button" id="blog-modal-admin-cancel" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-          Vazgeç
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Message Detail Modal -->
-<div id="message-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-  <div id="message-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-  <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
-    <div class="mb-6 flex items-center justify-between">
-      <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
-      <button type="button" id="message-modal-close" aria-label="Kapat" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-
-    <div class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Ad Soyad</p>
-          <p id="message-modal-name" class="mt-1 font-semibold text-ink-800"></p>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Tarih</p>
-          <p id="message-modal-date" class="mt-1 text-ink-800"></p>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">E-posta</p>
-          <a id="message-modal-email" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Telefon</p>
-          <a id="message-modal-phone" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
-        </div>
-      </div>
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
-        <p id="message-modal-body" class="mt-2 whitespace-pre-line rounded-lg bg-ink-50 p-4 text-sm leading-relaxed text-ink-700"></p>
-      </div>
-    </div>
-
-    <div class="mt-6 flex items-center gap-3">
-      <button type="button" id="message-modal-delete" class="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-500 transition-colors duration-200 hover:bg-red-50">
-        Sil
-      </button>
-      <button type="button" id="message-modal-close-secondary" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-        Kapat
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Confirm Delete Modal (generic — reused for workshops and blog posts) -->
-<div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-  <div id="confirm-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-  <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-card sm:p-8">
-    <h2 id="confirm-modal-title" class="font-display text-lg font-semibold text-ink-900">Sil</h2>
-    <p id="confirm-modal-message" class="mt-3 text-sm leading-relaxed text-ink-500"></p>
-    <div id="confirm-modal-error" class="mt-3 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></div>
-    <div class="mt-6 flex items-center gap-3">
-      <button type="button" id="confirm-modal-accept" class="inline-flex items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-60">
-        Evet, Sil
-      </button>
-      <button type="button" id="confirm-modal-cancel" class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-        Vazgeç
-      </button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ==========================================================================
-  // AUTH GUARD
-  //
-  // ⚠️ SECURITY WARNING — PROTOTYPE ONLY, NOT REAL AUTHENTICATION:
-  // The credential check below is a hardcoded value living in client-side
-  // JavaScript. Anyone can read it in "view source", bypass the login form
-  // entirely by running setAuthenticated(true) in the browser console, or
-  // read the session flag straight out of sessionStorage. None of this
-  // protects any real data.
-  //
-  // Before this ships to production, this whole block MUST be replaced with
-  // a real authentication flow: submit credentials to a backend/auth
-  // provider (e.g. Supabase Auth, Firebase Auth, or a first-party API that
-  // issues a signed JWT), store only a short-lived session token, verify
-  // that token server-side on every admin request/API call, and never trust
-  // client-side state (isAuthenticated, sessionStorage, etc.) to gate access
-  // to real content — the server must enforce it independently.
-  // ==========================================================================
-  const DEMO_CREDENTIALS = { email: 'admin@harmony.com', password: 'admin123' };
-  const AUTH_SESSION_KEY = 'harmonyAdminAuthed';
-
-  const loginScreen = document.getElementById('login-screen');
-  const adminDashboard = document.getElementById('admin-dashboard');
-  const loginForm = document.getElementById('login-form');
-  const loginEmailInput = document.getElementById('login-email');
-  const loginPasswordInput = document.getElementById('login-password');
-  const loginSubmitBtn = document.getElementById('login-submit');
-  const loginSubmitLabel = document.getElementById('login-submit-label');
-  const loginSpinner = document.getElementById('login-spinner');
-  const loginErrorBox = document.getElementById('login-error');
-  const loginPasswordToggle = document.getElementById('login-password-toggle');
-  const loginEyeIcon = document.getElementById('login-eye-icon');
-  const logoutButton = document.getElementById('logout-button');
-
-  const eyeOpenIconPath = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
-  const eyeOffIconPath = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>';
-
-  function updateLoginSubmitState() {
-    const hasEmail = loginEmailInput.value.trim().length > 0;
-    const hasPassword = loginPasswordInput.value.length > 0;
-    loginSubmitBtn.disabled = !(hasEmail && hasPassword);
-  }
-  loginEmailInput.addEventListener('input', updateLoginSubmitState);
-  loginPasswordInput.addEventListener('input', updateLoginSubmitState);
-
-  loginPasswordToggle.addEventListener('click', () => {
-    const isCurrentlyVisible = loginPasswordInput.type === 'text';
-    loginPasswordInput.type = isCurrentlyVisible ? 'password' : 'text';
-    loginPasswordToggle.setAttribute('aria-pressed', String(!isCurrentlyVisible));
-    loginPasswordToggle.setAttribute('aria-label', isCurrentlyVisible ? 'Şifreyi göster' : 'Şifreyi gizle');
-    loginEyeIcon.innerHTML = isCurrentlyVisible ? eyeOpenIconPath : eyeOffIconPath;
-  });
-
-  function setAuthenticated(isAuthenticated) {
-    if (isAuthenticated) {
-      sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
-      loginScreen.classList.add('hidden');
-      adminDashboard.classList.remove('hidden');
-    } else {
-      sessionStorage.removeItem(AUTH_SESSION_KEY);
-      adminDashboard.classList.add('hidden');
-      loginScreen.classList.remove('hidden');
-      loginForm.reset();
-      loginPasswordInput.type = 'password';
-      loginEyeIcon.innerHTML = eyeOpenIconPath;
-      loginErrorBox.classList.add('hidden');
-      updateLoginSubmitState();
-      loginEmailInput.focus();
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
     }
-  }
 
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (loginSubmitBtn.disabled) return;
+    .font-display {
+      font-family: 'Fraunces', serif;
+    }
 
-    // Minimal frontend-side sanitization of the raw input before it's ever
-    // compared or used. This is a defensive placeholder only — real
-    // validation/sanitization of untrusted input must happen server-side.
-    const email = loginEmailInput.value.trim().replace(/[<>]/g, '').toLowerCase();
-    const password = loginPasswordInput.value.replace(/[<>]/g, '');
+    .admin-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: 0.65rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4c5561;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
 
-    loginErrorBox.classList.add('hidden');
-    loginSubmitBtn.disabled = true;
-    loginEmailInput.disabled = true;
-    loginPasswordInput.disabled = true;
-    loginSpinner.classList.remove('hidden');
-    loginSubmitLabel.textContent = 'Giriş yapılıyor…';
+    .admin-nav-link:hover {
+      background-color: #f4f5f6;
+      color: #1d2129;
+    }
 
-    // Simulated network latency so the mock check feels like a real request.
-    window.setTimeout(() => {
-      const isValid = email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password;
+    .admin-nav-link.active {
+      background-color: #fdf5f0;
+      color: #b04f20;
+    }
 
-      if (isValid) {
-        setAuthenticated(true);
-        return;
+    .admin-nav-link.active svg {
+      color: #d1652c;
+    }
+
+    .icon-btn {
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    #sidebar {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @media (max-width: 1023px) {
+      #sidebar {
+        transform: translateX(-100%);
       }
 
-      loginSpinner.classList.add('hidden');
-      loginSubmitLabel.textContent = 'Giriş Yap';
-      loginEmailInput.disabled = false;
-      loginPasswordInput.disabled = false;
-      loginErrorBox.textContent = 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.';
-      loginErrorBox.classList.remove('hidden');
-      loginPasswordInput.value = '';
-      updateLoginSubmitState();
-      loginPasswordInput.focus();
-    }, 1000);
-  });
-
-  logoutButton.addEventListener('click', () => setAuthenticated(false));
-
-  // Restore an existing session — sessionStorage clears itself once the tab
-  // closes, so this only skips the login screen within the same tab session.
-  if (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') {
-    setAuthenticated(true);
-  }
-
-  // Mobile sidebar toggle
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebar-toggle');
-  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-  function openSidebar() {
-    sidebar.classList.add('open');
-    sidebarBackdrop.classList.remove('hidden');
-  }
-  function closeSidebar() {
-    sidebar.classList.remove('open');
-    sidebarBackdrop.classList.add('hidden');
-  }
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
-  });
-  sidebarBackdrop.addEventListener('click', closeSidebar);
-
-  // ---- Tab / view state ----
-  let activeTab = 'dashboard';
-
-  const viewTitles = {
-    dashboard: 'Genel Bakış',
-    workshops: 'Atölye Yönetimi',
-    blog: 'Blog ve Yayın Yönetimi',
-    messages: 'Gelen Mesajlar',
-    gallery: 'Dijital Sergi Yönetimi',
-    settings: 'Sistem Ayarları',
-  };
-
-  function setActiveTab(tab) {
-    activeTab = tab;
-    document.querySelectorAll('[data-view]').forEach((view) => {
-      view.classList.toggle('hidden', view.dataset.view !== tab);
-    });
-    document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
-      link.classList.toggle('active', link.dataset.nav === tab);
-    });
-    document.getElementById('view-title').textContent = viewTitles[tab] || '';
-    if (tab === 'messages') loadMessages();
-    closeSidebar();
-  }
-
-  document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      setActiveTab(link.dataset.nav);
-    });
-  });
-
-  // ---- Icon helpers (Lucide-style, matching the rest of the panel) ----
-  const editIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>';
-  const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
-
-  // ---- Workshops view: backed by /api/workshops.php (see api/workshops.php) ----
-  // No local array of truth anymore — `workshops` is just the last list we
-  // fetched, kept in memory so the table/search can re-render instantly.
-  // Every add/edit/delete round-trips through the API so the public site
-  // (which reads the same endpoint) stays in sync.
-  const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
-  const WORKSHOPS_API = '/api/workshops.php';
-
-  // ⚠️ Must match API_WRITE_KEY defined at the top of each api/*.php file —
-  // change both to your own long random secret before going live.
-  const API_KEY = 'CHANGE-ME-TO-A-LONG-RANDOM-SECRET';
-
-  let workshops = [];
-
-  async function apiRequest(url, options = {}) {
-    const opts = { ...options, headers: { ...(options.headers || {}), 'X-Api-Key': API_KEY } };
-    const res = await fetch(url, opts);
-    let payload = null;
-    try { payload = await res.json(); } catch (_) { /* no body */ }
-    if (!res.ok) {
-      throw new Error((payload && payload.error) || `İstek başarısız oldu (${res.status}).`);
+      #sidebar.open {
+        transform: translateX(0);
+      }
     }
-    return payload;
-  }
+  </style>
+</head>
 
-  async function fetchWorkshops() {
-    workshops = await apiRequest(WORKSHOPS_API);
-  }
+<body class="bg-ink-50 text-ink-800 antialiased">
 
-  function statusBadge(status) {
-    return status === 'active'
-      ? '<span class="inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600"><span class="h-1.5 w-1.5 rounded-full bg-sage-500"></span>Aktif</span>'
-      : '<span class="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-2.5 py-1 text-xs font-bold text-ink-500"><span class="h-1.5 w-1.5 rounded-full bg-ink-400"></span>Pasif</span>';
-  }
+  <!-- ============ LOGIN SCREEN (Auth Guard) ============ -->
+  <div id="login-screen"
+    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#1A2E40] px-4 py-12">
+    <div class="pointer-events-none absolute inset-0"
+      style="background-image: radial-gradient(circle at 18% 20%, rgba(224,109,83,0.16), transparent 45%), radial-gradient(circle at 82% 78%, rgba(92,138,107,0.14), transparent 45%);">
+    </div>
 
-  function workshopRowHtml(w) {
-    return `
+    <div class="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-vault sm:p-10">
+      <div class="mb-8 flex flex-col items-center text-center">
+        <span class="mb-4 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-soft">
+          <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full object-cover" />
+        </span>
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-clay-600">Harmony Admin</p>
+        <h1 class="mt-3 font-display text-2xl font-bold tracking-[-0.01em] text-ink-900">Sisteme Giriş Yapın</h1>
+        <p class="mt-2 text-sm text-ink-500">Devam etmek için yönetici bilgilerinizi girin.</p>
+      </div>
+
+      <form id="login-form" novalidate class="space-y-5">
+        <div>
+          <label for="login-email" class="mb-2 block text-sm font-semibold text-ink-700">E-posta</label>
+          <div class="relative">
+            <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+            </span>
+            <input id="login-email" type="email" required autocomplete="username" placeholder="admin@harmony.com"
+              class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div>
+          <label for="login-password" class="mb-2 block text-sm font-semibold text-ink-700">Şifre</label>
+          <div class="relative">
+            <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </span>
+            <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
+              class="w-full rounded-lg border border-ink-200 bg-white py-3 pl-10 pr-11 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+            <button type="button" id="login-password-toggle" aria-label="Şifreyi göster" aria-pressed="false"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 transition-colors duration-200 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              <svg id="login-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="login-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+          role="alert"></div>
+
+        <button type="submit" id="login-submit" disabled
+          class="flex w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-50">
+          <svg id="login-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" class="hidden animate-spin"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25" />
+            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+          </svg>
+          <span id="login-submit-label">Giriş Yap</span>
+        </button>
+      </form>
+
+      <p class="mt-6 text-center text-xs leading-relaxed text-ink-400">Bu bir prototip yönetim panelidir. Erişim
+        yalnızca yetkili personel içindir.</p>
+    </div>
+  </div>
+
+  <div id="admin-dashboard" class="hidden min-h-screen">
+
+    <!-- Mobile sidebar backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-ink-900/40 lg:hidden"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-ink-100 bg-white">
+      <div class="flex h-20 shrink-0 items-center gap-3 border-b border-ink-100 px-6">
+        <span class="block h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-soft">
+          <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full object-cover" />
+        </span>
+        <div class="leading-tight">
+          <p class="font-display text-[15px] font-semibold tracking-[-0.01em] text-ink-900">HARMONY</p>
+          <p class="text-xs font-medium uppercase tracking-[0.1em] text-ink-400">Admin Panel</p>
+        </div>
+      </div>
+
+      <nav class="flex-1 space-y-1 overflow-y-auto px-4 py-6">
+        <a href="#" data-nav="dashboard" class="admin-nav-link active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="7" height="9" x="3" y="3" rx="1" />
+            <rect width="7" height="5" x="14" y="3" rx="1" />
+            <rect width="7" height="9" x="14" y="12" rx="1" />
+            <rect width="7" height="5" x="3" y="16" rx="1" />
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" data-nav="workshops" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="4" rx="2" />
+            <path d="M3 10h18M8 2v4M16 2v4M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
+          </svg>
+          Atölyeler
+        </a>
+        <a href="#" data-nav="blog" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8M16 13H8M16 17H8" />
+          </svg>
+          Blog &amp; Yayınlar
+        </a>
+        <a href="#" data-nav="messages" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          <span class="flex-1">Mesajlar</span>
+          <span id="messages-nav-badge"
+            class="hidden rounded-full bg-clay-500 px-2 py-0.5 text-[11px] font-bold text-white">0</span>
+        </a>
+        <a href="#" data-nav="gallery" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+            <circle cx="9" cy="9" r="2" />
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+          </svg>
+          Galeri
+        </a>
+        <a href="#" data-nav="settings" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          Ayarlar
+        </a>
+      </nav>
+
+      <div class="shrink-0 border-t border-ink-100 p-4">
+        <button type="button" id="logout-button"
+          class="admin-nav-link w-full text-left hover:bg-clay-50 hover:text-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          Çıkış Yap
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="min-h-screen lg:pl-64">
+
+      <!-- Top header -->
+      <header
+        class="sticky top-0 z-20 flex items-center justify-between border-b border-ink-100 bg-white px-5 py-4 sm:px-8">
+        <div class="flex items-center gap-4">
+          <button id="sidebar-toggle" type="button" aria-label="Menüyü aç"
+            class="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 text-ink-600 transition-colors hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 lg:hidden">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="7" y2="7" />
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="17" y2="17" />
+            </svg>
+          </button>
+          <h1 id="view-title" class="font-display text-lg font-semibold tracking-[-0.01em] text-ink-900 sm:text-xl">
+            Genel Bakış</h1>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="hidden text-sm text-ink-500 sm:inline">Merhaba, <span
+              class="font-semibold text-ink-800">Seçil</span></span>
+          <span
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-clay-100 font-display text-sm font-semibold text-clay-700 ring-2 ring-white shadow-soft">
+            S
+          </span>
+        </div>
+      </header>
+
+      <main class="p-5 sm:p-8">
+
+        <!-- ============ VIEW: dashboard ============ -->
+        <section data-view="dashboard">
+
+          <!-- Stat cards -->
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium text-ink-500">Aktif Atölyeler</span>
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-clay-50 text-clay-600">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18M8 2v4M16 2v4" />
+                  </svg>
+                </span>
+              </div>
+              <p class="mt-4 font-display text-3xl font-bold text-ink-900">6</p>
+            </div>
+
+            <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium text-ink-500">Toplam Blog Yazısı</span>
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-mustard-100 text-mustard-600">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M10 9H8M16 13H8M16 17H8" />
+                  </svg>
+                </span>
+              </div>
+              <p class="mt-4 font-display text-3xl font-bold text-ink-900">12</p>
+            </div>
+
+            <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium text-ink-500">Sergilenen Eser</span>
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink-100 text-ink-600">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                  </svg>
+                </span>
+              </div>
+              <p class="mt-4 font-display text-3xl font-bold text-ink-900">24</p>
+            </div>
+
+          </div>
+
+          <!-- Recent workshops table -->
+          <div class="mt-8 overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <h2 class="font-display text-lg font-semibold text-ink-900">Son Eklenen Atölyeler</h2>
+              <button type="button" data-open-workshop-modal
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Yeni Ekle
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[940px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Görsel</th>
+                    <th class="px-6 py-3">Atölye Adı</th>
+                    <th class="px-6 py-3">Yaş Grubu</th>
+                    <th class="px-6 py-3">Ay</th>
+                    <th class="px-6 py-3">Tarih</th>
+                    <th class="px-6 py-3">Saat</th>
+                    <th class="px-6 py-3">Fiyat</th>
+                    <th class="px-6 py-3">Durum</th>
+                    <th class="px-6 py-3 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-workshops-body" class="divide-y divide-ink-100">
+                  <!-- rows injected via workshopRowHtml() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ============ VIEW: workshops ============ -->
+        <section data-view="workshops" class="hidden">
+          <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div class="relative w-full sm:max-w-xs">
+                <svg class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-300" width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input id="workshop-search" type="text" placeholder="Atölye ara..."
+                  class="w-full rounded-lg border border-ink-200 bg-white py-2.5 pl-10 pr-4 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+              </div>
+              <button type="button" data-open-workshop-modal
+                class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Yeni Ekle
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[940px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Görsel</th>
+                    <th class="px-6 py-3">Atölye Adı</th>
+                    <th class="px-6 py-3">Yaş Grubu</th>
+                    <th class="px-6 py-3">Ay</th>
+                    <th class="px-6 py-3">Tarih</th>
+                    <th class="px-6 py-3">Saat</th>
+                    <th class="px-6 py-3">Fiyat</th>
+                    <th class="px-6 py-3">Durum</th>
+                    <th class="px-6 py-3 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="workshops-table-body" class="divide-y divide-ink-100">
+                  <!-- rows injected below via .workshop-row-template pattern (static markup, repeated) -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ VIEW: blog ============ -->
+        <section data-view="blog" class="hidden">
+          <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <h2 class="font-display text-lg font-semibold text-ink-900">Tüm Yazılar</h2>
+              <button type="button" data-open-blog-modal
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Yeni Yazı Ekle
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[720px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Görsel</th>
+                    <th class="px-6 py-3">Başlık</th>
+                    <th class="px-6 py-3">Kategori</th>
+                    <th class="px-6 py-3">Tarih</th>
+                    <th class="px-6 py-3 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="blog-table-body" class="divide-y divide-ink-100">
+                  <!-- rows injected via blogRowHtml() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ VIEW: messages ============ -->
+        <section data-view="messages" class="hidden">
+          <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="font-display text-lg font-semibold text-ink-900">Gelen Mesajlar</h2>
+                <p class="mt-1 text-sm text-ink-500">Sitedeki İletişim formundan gönderilen mesajlar burada listelenir.
+                </p>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[720px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Ad Soyad</th>
+                    <th class="px-6 py-3">İletişim</th>
+                    <th class="px-6 py-3">Mesaj</th>
+                    <th class="px-6 py-3">Tarih</th>
+                    <th class="px-6 py-3 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="messages-table-body" class="divide-y divide-ink-100">
+                  <!-- rows injected via messageRowHtml() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ VIEW: gallery ============ -->
+        <section data-view="gallery" class="hidden">
+          <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm text-ink-500">Çocukların ürettiği eserler — Dijital Sergi bölümünde görüntülenir.</p>
+            <button type="button"
+              class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3v12" />
+                <path d="m17 8-5-5-5 5" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              </svg>
+              Yeni Görsel Yükle
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <!-- gallery-thumb items injected via repeated markup below -->
+          </div>
+        </section>
+
+        <!-- ============ VIEW: settings ============ -->
+        <section data-view="settings" class="hidden">
+          <div class="mx-auto max-w-4xl">
+            <form id="settings-form">
+
+              <!-- Card: Genel Site Ayarları -->
+              <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
+                <div class="mb-6 flex items-center gap-3">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-clay-50 text-clay-600">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                      <path d="M2 12h20" />
+                    </svg>
+                  </span>
+                  <h2 class="font-display text-lg font-semibold text-ink-900">Genel Site Ayarları</h2>
+                </div>
+                <div class="space-y-5">
+                  <div>
+                    <label for="setting-title" class="mb-2 block text-sm font-semibold text-ink-700">Site
+                      Başlığı</label>
+                    <input id="setting-title" type="text" value="Harmony — Çocuklar İçin Şehir Tasarım Atölyeleri"
+                      class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+                  </div>
+                  <div>
+                    <div class="mb-2 flex items-end justify-between">
+                      <label for="setting-description" class="block text-sm font-semibold text-ink-700">Site Açıklaması
+                        / SEO Description</label>
+                      <span class="text-xs text-ink-400"><span id="setting-description-count">0</span>/160</span>
+                    </div>
+                    <textarea id="setting-description" rows="3" maxlength="160"
+                      placeholder="Arama motorlarında sitenizin altında görünecek kısa açıklama…"
+                      class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Harmony, gözlem, keşif, hayal ve tasarım süreçleriyle çocukları şehirle buluşturan yaratıcı bir öğrenme platformudur.</textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card: İletişim & Sosyal Medya -->
+              <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
+                <div class="mb-6 flex items-center gap-3">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sage-50 text-sage-600">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </span>
+                  <h2 class="font-display text-lg font-semibold text-ink-900">İletişim Bilgileri</h2>
+                </div>
+                <div class="space-y-5">
+                  <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label for="setting-phone" class="mb-2 block text-sm font-semibold text-ink-700">İletişim
+                        Numarası</label>
+                      <input id="setting-phone" type="text" value="0537 781 85 24"
+                        class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+                    </div>
+                    <div>
+                      <label for="setting-instagram" class="mb-2 block text-sm font-semibold text-ink-700">Instagram
+                        URL</label>
+                      <input id="setting-instagram" type="url" value="https://instagram.com/harmony.atolye"
+                        class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+                    </div>
+                  </div>
+                  <div>
+                    <label for="setting-address" class="mb-2 block text-sm font-semibold text-ink-700">Açık
+                      Adres</label>
+                    <textarea id="setting-address" rows="2"
+                      class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Postane Mah. Bağdagül Sk. No:6, Tuzla, İstanbul</textarea>
+                  </div>
+                  <div>
+                    <label for="setting-message" class="mb-2 block text-sm font-semibold text-ink-700">WhatsApp Mesaj
+                      Taslağı</label>
+                    <textarea id="setting-message" rows="4"
+                      class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">Merhaba, Harmony atölyeleri hakkında bilgi almak ve kayıt oluşturmak istiyorum.</textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card: Analitik & Takip -->
+              <div class="mb-6 rounded-xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
+                <div class="mb-6 flex items-center gap-3">
+                  <span
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-mustard-100 text-mustard-600">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+                      <path d="M18 17V9" />
+                      <path d="M13 17V5" />
+                      <path d="M8 17v-3" />
+                    </svg>
+                  </span>
+                  <h2 class="font-display text-lg font-semibold text-ink-900">Reklam ve Analitik (SEO)</h2>
+                </div>
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="setting-ga-id" class="mb-2 block text-sm font-semibold text-ink-700">Google Analytics
+                      ID</label>
+                    <input id="setting-ga-id" type="text" placeholder="G-XXXXXXXXXX"
+                      class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+                  </div>
+                  <div>
+                    <label for="setting-meta-pixel-id" class="mb-2 block text-sm font-semibold text-ink-700">Meta Pixel
+                      ID</label>
+                    <input id="setting-meta-pixel-id" type="text" placeholder="123456789012345"
+                      class="w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <!-- Sticky save action bar -->
+            <div
+              class="sticky bottom-5 z-10 flex items-center gap-4 rounded-xl border border-ink-100 bg-white/95 p-4 shadow-floating backdrop-blur">
+              <button type="submit" form="settings-form"
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-8 py-3 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                Tüm Ayarları Kaydet
+              </button>
+              <span id="settings-success" class="hidden text-sm font-semibold text-sage-600">Ayarlar kaydedildi.</span>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Add Workshop Modal -->
+  <div id="workshop-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="workshop-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="mb-6 flex items-center justify-between">
+        <h2 id="workshop-modal-title" class="font-display text-lg font-semibold text-ink-900">Yeni Atölye Ekle</h2>
+        <button type="button" id="workshop-modal-close" aria-label="Kapat"
+          class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="workshop-form" class="space-y-4">
+        <div>
+          <label class="mb-2 block text-sm font-semibold text-ink-700">Atölye Görseli</label>
+          <div class="flex items-center gap-4">
+            <span class="block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
+              <img id="workshop-image-preview" src="" alt="" class="h-full w-full object-cover" />
+            </span>
+            <label for="new-workshop-image"
+              class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3v12" />
+                <path d="m17 8-5-5-5 5" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              </svg>
+              Görsel Seç
+            </label>
+            <input id="new-workshop-image" type="file" accept="image/*" class="sr-only" />
+          </div>
+        </div>
+
+        <div>
+          <label for="new-workshop-name" class="mb-2 block text-sm font-semibold text-ink-700">Atölye Adı</label>
+          <input id="new-workshop-name" type="text" required placeholder="Örn. Düşler Parkı"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="new-workshop-age" class="mb-2 block text-sm font-semibold text-ink-700">Yaş Grubu</label>
+            <select id="new-workshop-age"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+              <option value="4-6 Yaş">4-6 Yaş</option>
+              <option value="7-10 Yaş">7-10 Yaş</option>
+              <option value="11-14 Yaş">11-14 Yaş</option>
+            </select>
+          </div>
+          <div>
+            <label for="new-workshop-month" class="mb-2 block text-sm font-semibold text-ink-700">Ay</label>
+            <select id="new-workshop-month"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+              <option>Ocak</option>
+              <option>Şubat</option>
+              <option>Mart</option>
+              <option>Nisan</option>
+              <option>Mayıs</option>
+              <option selected>Haziran</option>
+              <option>Temmuz</option>
+              <option>Ağustos</option>
+              <option>Eylül</option>
+              <option>Ekim</option>
+              <option>Kasım</option>
+              <option>Aralık</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="new-workshop-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
+            <input id="new-workshop-date" type="text" required placeholder="Örn. 6 & 27 Haziran 2026"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="new-workshop-time" class="mb-2 block text-sm font-semibold text-ink-700">Saat</label>
+            <input id="new-workshop-time" type="text" required placeholder="Örn. 15:30 - 16:30"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="new-workshop-price" class="mb-2 block text-sm font-semibold text-ink-700">Fiyat</label>
+            <input id="new-workshop-price" type="text" required placeholder="Örn. 500 TL"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="new-workshop-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
+            <select id="new-workshop-status"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+              <option value="active">Aktif</option>
+              <option value="passive">Pasif</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="workshop-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+          role="alert"></div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <button type="submit" id="workshop-modal-submit"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+            Atölyeyi Ekle
+          </button>
+          <button type="button" id="workshop-modal-cancel"
+            class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+            Vazgeç
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add/Edit Blog Post Modal -->
+  <div id="blog-modal-admin" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="blog-modal-admin-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="mb-6 flex items-center justify-between">
+        <h2 id="blog-modal-admin-title" class="font-display text-lg font-semibold text-ink-900">Yeni Yazı Ekle</h2>
+        <button type="button" id="blog-modal-admin-close" aria-label="Kapat"
+          class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="blog-form" class="max-h-[70vh] space-y-4 overflow-y-auto pr-1">
+        <div>
+          <label class="mb-2 block text-sm font-semibold text-ink-700">Görsel</label>
+          <div class="flex items-center gap-4">
+            <span class="block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
+              <img id="blog-image-preview" src="" alt="" class="h-full w-full object-cover" />
+            </span>
+            <label for="new-blog-image"
+              class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3v12" />
+                <path d="m17 8-5-5-5 5" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              </svg>
+              Görsel Seç
+            </label>
+            <input id="new-blog-image" type="file" accept="image/*" class="sr-only" />
+          </div>
+        </div>
+
+        <div>
+          <label for="new-blog-title" class="mb-2 block text-sm font-semibold text-ink-700">Başlık</label>
+          <input id="new-blog-title" type="text" required
+            placeholder="Örn. Çocuklarda 3 Boyutlu Düşünme Becerisi Neden Önemli?"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="new-blog-category" class="mb-2 block text-sm font-semibold text-ink-700">Kategori</label>
+            <input id="new-blog-category" type="text" required list="blog-category-options" placeholder="Örn. Pedagoji"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+            <datalist id="blog-category-options">
+              <option value="Pedagoji"></option>
+              <option value="Kent Bilinci"></option>
+              <option value="Sürdürülebilirlik"></option>
+            </datalist>
+          </div>
+          <div>
+            <label for="new-blog-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
+            <input id="new-blog-date" type="text" required placeholder="Örn. 12 Mayıs 2026"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div>
+          <label for="new-blog-body" class="mb-2 block text-sm font-semibold text-ink-700">İçerik</label>
+          <textarea id="new-blog-body" rows="8" required
+            placeholder="Yazının içeriğini girin. Paragrafları ayırmak için aralarına boş bir satır bırakın."
+            class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30"></textarea>
+          <p class="mt-1.5 text-xs text-ink-400">Kartlarda görünecek özet, ilk paragraftan otomatik oluşturulur.</p>
+        </div>
+
+        <div id="blog-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+          role="alert"></div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <button type="submit" id="blog-modal-admin-submit"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+            Yazıyı Ekle
+          </button>
+          <button type="button" id="blog-modal-admin-cancel"
+            class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+            Vazgeç
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Message Detail Modal -->
+  <div id="message-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="message-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="mb-6 flex items-center justify-between">
+        <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
+        <button type="button" id="message-modal-close" aria-label="Kapat"
+          class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Ad Soyad</p>
+            <p id="message-modal-name" class="mt-1 font-semibold text-ink-800"></p>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Tarih</p>
+            <p id="message-modal-date" class="mt-1 text-ink-800"></p>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">E-posta</p>
+            <a id="message-modal-email" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Telefon</p>
+            <a id="message-modal-phone" href="#" class="mt-1 block text-clay-600 hover:underline"></a>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
+          <p id="message-modal-body"
+            class="mt-2 whitespace-pre-line rounded-lg bg-ink-50 p-4 text-sm leading-relaxed text-ink-700"></p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center gap-3">
+        <button type="button" id="message-modal-delete"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-500 transition-colors duration-200 hover:bg-red-50">
+          Sil
+        </button>
+        <button type="button" id="message-modal-close-secondary"
+          class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal (generic — reused for workshops and blog posts) -->
+  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="confirm-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <h2 id="confirm-modal-title" class="font-display text-lg font-semibold text-ink-900">Sil</h2>
+      <p id="confirm-modal-message" class="mt-3 text-sm leading-relaxed text-ink-500"></p>
+      <div id="confirm-modal-error" class="mt-3 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+        role="alert"></div>
+      <div class="mt-6 flex items-center gap-3">
+        <button type="button" id="confirm-modal-accept"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-60">
+          Evet, Sil
+        </button>
+        <button type="button" id="confirm-modal-cancel"
+          class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+          Vazgeç
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================================
+    // AUTH GUARD
+    //
+    // ⚠️ SECURITY WARNING — PROTOTYPE ONLY, NOT REAL AUTHENTICATION:
+    // The credential check below is a hardcoded value living in client-side
+    // JavaScript. Anyone can read it in "view source", bypass the login form
+    // entirely by running setAuthenticated(true) in the browser console, or
+    // read the session flag straight out of sessionStorage. None of this
+    // protects any real data.
+    //
+    // Before this ships to production, this whole block MUST be replaced with
+    // a real authentication flow: submit credentials to a backend/auth
+    // provider (e.g. Supabase Auth, Firebase Auth, or a first-party API that
+    // issues a signed JWT), store only a short-lived session token, verify
+    // that token server-side on every admin request/API call, and never trust
+    // client-side state (isAuthenticated, sessionStorage, etc.) to gate access
+    // to real content — the server must enforce it independently.
+    // ==========================================================================
+    const DEMO_CREDENTIALS = { email: 'admin@harmony.com', password: 'admin123' };
+    const AUTH_SESSION_KEY = 'harmonyAdminAuthed';
+
+    const loginScreen = document.getElementById('login-screen');
+    const adminDashboard = document.getElementById('admin-dashboard');
+    const loginForm = document.getElementById('login-form');
+    const loginEmailInput = document.getElementById('login-email');
+    const loginPasswordInput = document.getElementById('login-password');
+    const loginSubmitBtn = document.getElementById('login-submit');
+    const loginSubmitLabel = document.getElementById('login-submit-label');
+    const loginSpinner = document.getElementById('login-spinner');
+    const loginErrorBox = document.getElementById('login-error');
+    const loginPasswordToggle = document.getElementById('login-password-toggle');
+    const loginEyeIcon = document.getElementById('login-eye-icon');
+    const logoutButton = document.getElementById('logout-button');
+
+    const eyeOpenIconPath = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+    const eyeOffIconPath = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>';
+
+    function updateLoginSubmitState() {
+      const hasEmail = loginEmailInput.value.trim().length > 0;
+      const hasPassword = loginPasswordInput.value.length > 0;
+      loginSubmitBtn.disabled = !(hasEmail && hasPassword);
+    }
+    loginEmailInput.addEventListener('input', updateLoginSubmitState);
+    loginPasswordInput.addEventListener('input', updateLoginSubmitState);
+
+    loginPasswordToggle.addEventListener('click', () => {
+      const isCurrentlyVisible = loginPasswordInput.type === 'text';
+      loginPasswordInput.type = isCurrentlyVisible ? 'password' : 'text';
+      loginPasswordToggle.setAttribute('aria-pressed', String(!isCurrentlyVisible));
+      loginPasswordToggle.setAttribute('aria-label', isCurrentlyVisible ? 'Şifreyi göster' : 'Şifreyi gizle');
+      loginEyeIcon.innerHTML = isCurrentlyVisible ? eyeOpenIconPath : eyeOffIconPath;
+    });
+
+    function setAuthenticated(isAuthenticated) {
+      if (isAuthenticated) {
+        sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
+        loginScreen.classList.add('hidden');
+        adminDashboard.classList.remove('hidden');
+      } else {
+        sessionStorage.removeItem(AUTH_SESSION_KEY);
+        adminDashboard.classList.add('hidden');
+        loginScreen.classList.remove('hidden');
+        loginForm.reset();
+        loginPasswordInput.type = 'password';
+        loginEyeIcon.innerHTML = eyeOpenIconPath;
+        loginErrorBox.classList.add('hidden');
+        updateLoginSubmitState();
+        loginEmailInput.focus();
+      }
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (loginSubmitBtn.disabled) return;
+
+      // Minimal frontend-side sanitization of the raw input before it's ever
+      // compared or used. This is a defensive placeholder only — real
+      // validation/sanitization of untrusted input must happen server-side.
+      const email = loginEmailInput.value.trim().replace(/[<>]/g, '').toLowerCase();
+      const password = loginPasswordInput.value.replace(/[<>]/g, '');
+
+      loginErrorBox.classList.add('hidden');
+      loginSubmitBtn.disabled = true;
+      loginEmailInput.disabled = true;
+      loginPasswordInput.disabled = true;
+      loginSpinner.classList.remove('hidden');
+      loginSubmitLabel.textContent = 'Giriş yapılıyor…';
+
+      // Simulated network latency so the mock check feels like a real request.
+      window.setTimeout(() => {
+        const isValid = email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password;
+
+        if (isValid) {
+          setAuthenticated(true);
+          return;
+        }
+
+        loginSpinner.classList.add('hidden');
+        loginSubmitLabel.textContent = 'Giriş Yap';
+        loginEmailInput.disabled = false;
+        loginPasswordInput.disabled = false;
+        loginErrorBox.textContent = 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.';
+        loginErrorBox.classList.remove('hidden');
+        loginPasswordInput.value = '';
+        updateLoginSubmitState();
+        loginPasswordInput.focus();
+      }, 1000);
+    });
+
+    logoutButton.addEventListener('click', () => setAuthenticated(false));
+
+    // Restore an existing session — sessionStorage clears itself once the tab
+    // closes, so this only skips the login screen within the same tab session.
+    if (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') {
+      setAuthenticated(true);
+    }
+
+    // Mobile sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      sidebarBackdrop.classList.remove('hidden');
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      sidebarBackdrop.classList.add('hidden');
+    }
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    });
+    sidebarBackdrop.addEventListener('click', closeSidebar);
+
+    // ---- Tab / view state ----
+    let activeTab = 'dashboard';
+
+    const viewTitles = {
+      dashboard: 'Genel Bakış',
+      workshops: 'Atölye Yönetimi',
+      blog: 'Blog ve Yayın Yönetimi',
+      messages: 'Gelen Mesajlar',
+      gallery: 'Dijital Sergi Yönetimi',
+      settings: 'Sistem Ayarları',
+    };
+
+    function setActiveTab(tab) {
+      activeTab = tab;
+      document.querySelectorAll('[data-view]').forEach((view) => {
+        view.classList.toggle('hidden', view.dataset.view !== tab);
+      });
+      document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
+        link.classList.toggle('active', link.dataset.nav === tab);
+      });
+      document.getElementById('view-title').textContent = viewTitles[tab] || '';
+      if (tab === 'messages') loadMessages();
+      closeSidebar();
+    }
+
+    document.querySelectorAll('.admin-nav-link[data-nav]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        setActiveTab(link.dataset.nav);
+      });
+    });
+
+    // ---- Icon helpers (Lucide-style, matching the rest of the panel) ----
+    const editIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>';
+    const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+
+    // ---- Workshops view: backed by /api/workshops.php (see api/workshops.php) ----
+    // No local array of truth anymore — `workshops` is just the last list we
+    // fetched, kept in memory so the table/search can re-render instantly.
+    // Every add/edit/delete round-trips through the API so the public site
+    // (which reads the same endpoint) stays in sync.
+    const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
+    const WORKSHOPS_API = '/api/workshops.php';
+
+    // ⚠️ Must match API_WRITE_KEY defined at the top of each api/*.php file —
+    // change both to your own long random secret before going live.
+    //
+    // NOT: Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
+    // sildiği için anahtar artık header yerine URL sorgu parametresi (?apikey=)
+    // ile gönderiliyor.
+    const API_KEY = 'HarmonyAdmin2026!';
+
+    let workshops = [];
+
+    async function apiRequest(url, options = {}) {
+      const separator = url.includes('?') ? '&' : '?';
+      const urlWithKey = `${url}${separator}apikey=${encodeURIComponent(API_KEY)}`;
+      const res = await fetch(urlWithKey, options);
+      let payload = null;
+      try { payload = await res.json(); } catch (_) { /* no body */ }
+      if (!res.ok) {
+        throw new Error((payload && payload.error) || `İstek başarısız oldu (${res.status}).`);
+      }
+      return payload;
+    }
+
+    async function fetchWorkshops() {
+      workshops = await apiRequest(WORKSHOPS_API);
+    }
+
+    function statusBadge(status) {
+      return status === 'active'
+        ? '<span class="inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600"><span class="h-1.5 w-1.5 rounded-full bg-sage-500"></span>Aktif</span>'
+        : '<span class="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-2.5 py-1 text-xs font-bold text-ink-500"><span class="h-1.5 w-1.5 rounded-full bg-ink-400"></span>Pasif</span>';
+    }
+
+    function workshopRowHtml(w) {
+      return `
       <tr class="transition-colors hover:bg-ink-50/60">
         <td class="px-6 py-4">
           <span class="block h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-ink-50">
@@ -971,282 +1195,282 @@
         </td>
       </tr>
     `;
-  }
-
-  function renderDashboardRecent() {
-    const tbody = document.getElementById('dashboard-recent-workshops-body');
-    if (!tbody) return;
-    tbody.innerHTML = workshops.slice(0, 3).map(workshopRowHtml).join('');
-  }
-
-  function renderWorkshops(filter = '') {
-    const tbody = document.getElementById('workshops-table-body');
-    const q = filter.trim().toLocaleLowerCase('tr');
-    const rows = workshops.filter((w) => w.name.toLocaleLowerCase('tr').includes(q));
-
-    tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
-    renderDashboardRecent();
-  }
-
-  function renderWorkshopsLoading() {
-    const loadingRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Atölyeler yükleniyor…</td></tr>`;
-    document.getElementById('workshops-table-body').innerHTML = loadingRow;
-    const dashTbody = document.getElementById('dashboard-recent-workshops-body');
-    if (dashTbody) dashTbody.innerHTML = loadingRow;
-  }
-
-  function renderWorkshopsError(message) {
-    const errorRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
-    document.getElementById('workshops-table-body').innerHTML = errorRow;
-    const dashTbody = document.getElementById('dashboard-recent-workshops-body');
-    if (dashTbody) dashTbody.innerHTML = errorRow;
-  }
-
-  async function loadWorkshops(filter = '') {
-    renderWorkshopsLoading();
-    try {
-      await fetchWorkshops();
-      renderWorkshops(filter);
-    } catch (err) {
-      console.error('Atölyeler yüklenemedi:', err);
-      renderWorkshopsError('Atölyeler yüklenemedi: ' + err.message);
     }
-  }
 
-  loadWorkshops();
-  document.getElementById('workshop-search').addEventListener('input', (e) => renderWorkshops(e.target.value));
+    function renderDashboardRecent() {
+      const tbody = document.getElementById('dashboard-recent-workshops-body');
+      if (!tbody) return;
+      tbody.innerHTML = workshops.slice(0, 3).map(workshopRowHtml).join('');
+    }
 
-  // ---- Add / Edit Workshop modal ----
-  const workshopModal = document.getElementById('workshop-modal');
-  const workshopForm = document.getElementById('workshop-form');
-  const workshopNameInput = document.getElementById('new-workshop-name');
-  const workshopModalTitle = document.getElementById('workshop-modal-title');
-  const workshopModalSubmit = document.getElementById('workshop-modal-submit');
-  const workshopImageInput = document.getElementById('new-workshop-image');
-  const workshopImagePreview = document.getElementById('workshop-image-preview');
-  const workshopFormError = document.getElementById('workshop-form-error');
-  let editingWorkshopId = null;
-  let pendingImage = null;
+    function renderWorkshops(filter = '') {
+      const tbody = document.getElementById('workshops-table-body');
+      const q = filter.trim().toLocaleLowerCase('tr');
+      const rows = workshops.filter((w) => w.name.toLocaleLowerCase('tr').includes(q));
 
-  // Large camera-phone photos would bloat the JSON file (and can exceed the
-  // GitHub Contents API's payload limits), so downscale/re-encode on the
-  // client before it ever becomes a data URL.
-  function resizeImageFile(file, maxWidth = 960, quality = 0.82) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = () => reject(new Error('Görsel okunamadı.'));
-      reader.onload = () => {
-        const img = new Image();
-        img.onerror = () => reject(new Error('Görsel işlenemedi.'));
-        img.onload = () => {
-          const scale = Math.min(1, maxWidth / img.width);
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.max(1, Math.round(img.width * scale));
-          canvas.height = Math.max(1, Math.round(img.height * scale));
-          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-          resolve(canvas.toDataURL('image/jpeg', quality));
+      tbody.innerHTML = rows.map(workshopRowHtml).join('') || `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Aramanızla eşleşen atölye bulunamadı.</td></tr>`;
+      renderDashboardRecent();
+    }
+
+    function renderWorkshopsLoading() {
+      const loadingRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-ink-400">Atölyeler yükleniyor…</td></tr>`;
+      document.getElementById('workshops-table-body').innerHTML = loadingRow;
+      const dashTbody = document.getElementById('dashboard-recent-workshops-body');
+      if (dashTbody) dashTbody.innerHTML = loadingRow;
+    }
+
+    function renderWorkshopsError(message) {
+      const errorRow = `<tr><td colspan="9" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
+      document.getElementById('workshops-table-body').innerHTML = errorRow;
+      const dashTbody = document.getElementById('dashboard-recent-workshops-body');
+      if (dashTbody) dashTbody.innerHTML = errorRow;
+    }
+
+    async function loadWorkshops(filter = '') {
+      renderWorkshopsLoading();
+      try {
+        await fetchWorkshops();
+        renderWorkshops(filter);
+      } catch (err) {
+        console.error('Atölyeler yüklenemedi:', err);
+        renderWorkshopsError('Atölyeler yüklenemedi: ' + err.message);
+      }
+    }
+
+    loadWorkshops();
+    document.getElementById('workshop-search').addEventListener('input', (e) => renderWorkshops(e.target.value));
+
+    // ---- Add / Edit Workshop modal ----
+    const workshopModal = document.getElementById('workshop-modal');
+    const workshopForm = document.getElementById('workshop-form');
+    const workshopNameInput = document.getElementById('new-workshop-name');
+    const workshopModalTitle = document.getElementById('workshop-modal-title');
+    const workshopModalSubmit = document.getElementById('workshop-modal-submit');
+    const workshopImageInput = document.getElementById('new-workshop-image');
+    const workshopImagePreview = document.getElementById('workshop-image-preview');
+    const workshopFormError = document.getElementById('workshop-form-error');
+    let editingWorkshopId = null;
+    let pendingImage = null;
+
+    // Large camera-phone photos would bloat the JSON file (and can exceed the
+    // GitHub Contents API's payload limits), so downscale/re-encode on the
+    // client before it ever becomes a data URL.
+    function resizeImageFile(file, maxWidth = 960, quality = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('Görsel okunamadı.'));
+        reader.onload = () => {
+          const img = new Image();
+          img.onerror = () => reject(new Error('Görsel işlenemedi.'));
+          img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(img.width * scale));
+            canvas.height = Math.max(1, Math.round(img.height * scale));
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.src = reader.result;
         };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    workshopImageInput.addEventListener('change', async () => {
+      const file = workshopImageInput.files[0];
+      if (!file) return;
+      try {
+        pendingImage = await resizeImageFile(file);
+        workshopImagePreview.src = pendingImage;
+      } catch (err) {
+        workshopFormError.textContent = err.message;
+        workshopFormError.classList.remove('hidden');
+      }
     });
-  }
 
-  workshopImageInput.addEventListener('change', async () => {
-    const file = workshopImageInput.files[0];
-    if (!file) return;
-    try {
-      pendingImage = await resizeImageFile(file);
-      workshopImagePreview.src = pendingImage;
-    } catch (err) {
-      workshopFormError.textContent = err.message;
-      workshopFormError.classList.remove('hidden');
-    }
-  });
+    function openWorkshopModal(workshop) {
+      editingWorkshopId = workshop ? workshop.id : null;
+      workshopForm.reset();
+      pendingImage = null;
+      workshopFormError.classList.add('hidden');
+      workshopImagePreview.src = workshop ? workshop.image : placeholderWorkshopImage;
 
-  function openWorkshopModal(workshop) {
-    editingWorkshopId = workshop ? workshop.id : null;
-    workshopForm.reset();
-    pendingImage = null;
-    workshopFormError.classList.add('hidden');
-    workshopImagePreview.src = workshop ? workshop.image : placeholderWorkshopImage;
-
-    if (workshop) {
-      workshopModalTitle.textContent = 'Atölyeyi Düzenle';
-      workshopModalSubmit.textContent = 'Değişiklikleri Kaydet';
-      workshopNameInput.value = workshop.name;
-      document.getElementById('new-workshop-age').value = workshop.age;
-      document.getElementById('new-workshop-month').value = workshop.month;
-      document.getElementById('new-workshop-date').value = workshop.date;
-      document.getElementById('new-workshop-time').value = workshop.time;
-      document.getElementById('new-workshop-price').value = workshop.price;
-      document.getElementById('new-workshop-status').value = workshop.status;
-    } else {
-      workshopModalTitle.textContent = 'Yeni Atölye Ekle';
-      workshopModalSubmit.textContent = 'Atölyeyi Ekle';
-      document.getElementById('new-workshop-status').value = 'active';
-    }
-
-    workshopModal.classList.remove('hidden');
-    workshopModal.classList.add('flex');
-    workshopNameInput.focus();
-  }
-
-  function closeWorkshopModal() {
-    workshopModal.classList.add('hidden');
-    workshopModal.classList.remove('flex');
-    workshopForm.reset();
-    editingWorkshopId = null;
-    pendingImage = null;
-  }
-
-  document.querySelectorAll('[data-open-workshop-modal]').forEach((btn) => {
-    btn.addEventListener('click', () => openWorkshopModal(null));
-  });
-  document.getElementById('workshop-modal-backdrop').addEventListener('click', closeWorkshopModal);
-  document.getElementById('workshop-modal-close').addEventListener('click', closeWorkshopModal);
-  document.getElementById('workshop-modal-cancel').addEventListener('click', closeWorkshopModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !workshopModal.classList.contains('hidden')) closeWorkshopModal();
-  });
-
-  workshopForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = workshopNameInput.value.trim();
-    const age = document.getElementById('new-workshop-age').value;
-    const month = document.getElementById('new-workshop-month').value;
-    const date = document.getElementById('new-workshop-date').value.trim();
-    const time = document.getElementById('new-workshop-time').value.trim();
-    const price = document.getElementById('new-workshop-price').value.trim();
-    const status = document.getElementById('new-workshop-status').value;
-    if (!name || !date || !time || !price) return;
-
-    const payload = { name, age, month, date, time, price, status };
-    if (pendingImage) payload.image = pendingImage;
-
-    workshopFormError.classList.add('hidden');
-    workshopModalSubmit.disabled = true;
-    const originalLabel = workshopModalSubmit.textContent;
-    workshopModalSubmit.textContent = 'Kaydediliyor…';
-
-    try {
-      if (editingWorkshopId != null) {
-        await apiRequest(`${WORKSHOPS_API}?id=${editingWorkshopId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+      if (workshop) {
+        workshopModalTitle.textContent = 'Atölyeyi Düzenle';
+        workshopModalSubmit.textContent = 'Değişiklikleri Kaydet';
+        workshopNameInput.value = workshop.name;
+        document.getElementById('new-workshop-age').value = workshop.age;
+        document.getElementById('new-workshop-month').value = workshop.month;
+        document.getElementById('new-workshop-date').value = workshop.date;
+        document.getElementById('new-workshop-time').value = workshop.time;
+        document.getElementById('new-workshop-price').value = workshop.price;
+        document.getElementById('new-workshop-status').value = workshop.status;
       } else {
-        await apiRequest(WORKSHOPS_API, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+        workshopModalTitle.textContent = 'Yeni Atölye Ekle';
+        workshopModalSubmit.textContent = 'Atölyeyi Ekle';
+        document.getElementById('new-workshop-status').value = 'active';
       }
 
-      closeWorkshopModal();
-      document.getElementById('workshop-search').value = '';
-      setActiveTab('workshops');
-      await loadWorkshops();
-    } catch (err) {
-      workshopFormError.textContent = err.message;
-      workshopFormError.classList.remove('hidden');
-    } finally {
-      workshopModalSubmit.disabled = false;
-      workshopModalSubmit.textContent = originalLabel;
+      workshopModal.classList.remove('hidden');
+      workshopModal.classList.add('flex');
+      workshopNameInput.focus();
     }
-  });
 
-  // ---- Delete confirmation (generic — reused by workshops and blog posts) ----
-  const confirmModal = document.getElementById('confirm-modal');
-  const confirmModalTitle = document.getElementById('confirm-modal-title');
-  const confirmModalMessage = document.getElementById('confirm-modal-message');
-  const confirmModalError = document.getElementById('confirm-modal-error');
-  const confirmModalAccept = document.getElementById('confirm-modal-accept');
-  let pendingConfirmAction = null;
-
-  function openDeleteConfirm(title, message, onConfirm) {
-    confirmModalTitle.textContent = title;
-    confirmModalMessage.textContent = message;
-    confirmModalError.classList.add('hidden');
-    confirmModal.classList.remove('hidden');
-    confirmModal.classList.add('flex');
-    pendingConfirmAction = onConfirm;
-  }
-
-  function closeDeleteConfirm() {
-    pendingConfirmAction = null;
-    confirmModal.classList.add('hidden');
-    confirmModal.classList.remove('flex');
-  }
-
-  document.getElementById('confirm-modal-backdrop').addEventListener('click', closeDeleteConfirm);
-  document.getElementById('confirm-modal-cancel').addEventListener('click', closeDeleteConfirm);
-  confirmModalAccept.addEventListener('click', async () => {
-    if (!pendingConfirmAction) return;
-
-    confirmModalError.classList.add('hidden');
-    confirmModalAccept.disabled = true;
-    const originalLabel = confirmModalAccept.textContent;
-    confirmModalAccept.textContent = 'Siliniyor…';
-
-    try {
-      await pendingConfirmAction();
-      closeDeleteConfirm();
-    } catch (err) {
-      confirmModalError.textContent = err.message;
-      confirmModalError.classList.remove('hidden');
-    } finally {
-      confirmModalAccept.disabled = false;
-      confirmModalAccept.textContent = originalLabel;
+    function closeWorkshopModal() {
+      workshopModal.classList.add('hidden');
+      workshopModal.classList.remove('flex');
+      workshopForm.reset();
+      editingWorkshopId = null;
+      pendingImage = null;
     }
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !confirmModal.classList.contains('hidden')) closeDeleteConfirm();
-  });
 
-  function openDeleteWorkshopConfirm(workshop) {
-    openDeleteConfirm('Atölyeyi Sil', `"${workshop.name}" atölyesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
-      await apiRequest(`${WORKSHOPS_API}?id=${workshop.id}`, { method: 'DELETE' });
-      await loadWorkshops(document.getElementById('workshop-search').value);
+    document.querySelectorAll('[data-open-workshop-modal]').forEach((btn) => {
+      btn.addEventListener('click', () => openWorkshopModal(null));
     });
-  }
+    document.getElementById('workshop-modal-backdrop').addEventListener('click', closeWorkshopModal);
+    document.getElementById('workshop-modal-close').addEventListener('click', closeWorkshopModal);
+    document.getElementById('workshop-modal-cancel').addEventListener('click', closeWorkshopModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !workshopModal.classList.contains('hidden')) closeWorkshopModal();
+    });
 
-  // ---- Edit / delete row actions (event delegation, works for both tables) ----
-  function handleWorkshopRowAction(e) {
-    const editBtn = e.target.closest('[data-action="edit"]');
-    const deleteBtn = e.target.closest('[data-action="delete"]');
-    if (editBtn) {
-      const workshop = workshops.find((w) => w.id === Number(editBtn.dataset.id));
-      if (workshop) openWorkshopModal(workshop);
-    } else if (deleteBtn) {
-      const workshop = workshops.find((w) => w.id === Number(deleteBtn.dataset.id));
-      if (workshop) openDeleteWorkshopConfirm(workshop);
+    workshopForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = workshopNameInput.value.trim();
+      const age = document.getElementById('new-workshop-age').value;
+      const month = document.getElementById('new-workshop-month').value;
+      const date = document.getElementById('new-workshop-date').value.trim();
+      const time = document.getElementById('new-workshop-time').value.trim();
+      const price = document.getElementById('new-workshop-price').value.trim();
+      const status = document.getElementById('new-workshop-status').value;
+      if (!name || !date || !time || !price) return;
+
+      const payload = { name, age, month, date, time, price, status };
+      if (pendingImage) payload.image = pendingImage;
+
+      workshopFormError.classList.add('hidden');
+      workshopModalSubmit.disabled = true;
+      const originalLabel = workshopModalSubmit.textContent;
+      workshopModalSubmit.textContent = 'Kaydediliyor…';
+
+      try {
+        if (editingWorkshopId != null) {
+          await apiRequest(`${WORKSHOPS_API}?id=${editingWorkshopId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        } else {
+          await apiRequest(WORKSHOPS_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        }
+
+        closeWorkshopModal();
+        document.getElementById('workshop-search').value = '';
+        setActiveTab('workshops');
+        await loadWorkshops();
+      } catch (err) {
+        workshopFormError.textContent = err.message;
+        workshopFormError.classList.remove('hidden');
+      } finally {
+        workshopModalSubmit.disabled = false;
+        workshopModalSubmit.textContent = originalLabel;
+      }
+    });
+
+    // ---- Delete confirmation (generic — reused by workshops and blog posts) ----
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmModalTitle = document.getElementById('confirm-modal-title');
+    const confirmModalMessage = document.getElementById('confirm-modal-message');
+    const confirmModalError = document.getElementById('confirm-modal-error');
+    const confirmModalAccept = document.getElementById('confirm-modal-accept');
+    let pendingConfirmAction = null;
+
+    function openDeleteConfirm(title, message, onConfirm) {
+      confirmModalTitle.textContent = title;
+      confirmModalMessage.textContent = message;
+      confirmModalError.classList.add('hidden');
+      confirmModal.classList.remove('hidden');
+      confirmModal.classList.add('flex');
+      pendingConfirmAction = onConfirm;
     }
-  }
-  document.getElementById('workshops-table-body').addEventListener('click', handleWorkshopRowAction);
-  document.getElementById('dashboard-recent-workshops-body').addEventListener('click', handleWorkshopRowAction);
 
-  // ---- Blog view: backed by /api/blog.php ----
-  const placeholderBlogImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
-  const BLOG_API = '/api/blog.php';
-  const CATEGORY_BADGE_CLASS = {
-    'Pedagoji': 'bg-clay-100 text-clay-700',
-    'Kent Bilinci': 'bg-mustard-100 text-mustard-600',
-    'Sürdürülebilirlik': 'bg-sage-100 text-sage-600',
-  };
-  const CATEGORY_BADGE_PALETTE = ['bg-clay-100 text-clay-700', 'bg-mustard-100 text-mustard-600', 'bg-sage-100 text-sage-600'];
-  function categoryBadgeClass(category) {
-    if (CATEGORY_BADGE_CLASS[category]) return CATEGORY_BADGE_CLASS[category];
-    let hash = 0;
-    for (let i = 0; i < category.length; i++) hash = (hash * 31 + category.charCodeAt(i)) >>> 0;
-    return CATEGORY_BADGE_PALETTE[hash % CATEGORY_BADGE_PALETTE.length];
-  }
+    function closeDeleteConfirm() {
+      pendingConfirmAction = null;
+      confirmModal.classList.add('hidden');
+      confirmModal.classList.remove('flex');
+    }
 
-  let blogPosts = [];
+    document.getElementById('confirm-modal-backdrop').addEventListener('click', closeDeleteConfirm);
+    document.getElementById('confirm-modal-cancel').addEventListener('click', closeDeleteConfirm);
+    confirmModalAccept.addEventListener('click', async () => {
+      if (!pendingConfirmAction) return;
 
-  function blogRowHtml(p) {
-    return `
+      confirmModalError.classList.add('hidden');
+      confirmModalAccept.disabled = true;
+      const originalLabel = confirmModalAccept.textContent;
+      confirmModalAccept.textContent = 'Siliniyor…';
+
+      try {
+        await pendingConfirmAction();
+        closeDeleteConfirm();
+      } catch (err) {
+        confirmModalError.textContent = err.message;
+        confirmModalError.classList.remove('hidden');
+      } finally {
+        confirmModalAccept.disabled = false;
+        confirmModalAccept.textContent = originalLabel;
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !confirmModal.classList.contains('hidden')) closeDeleteConfirm();
+    });
+
+    function openDeleteWorkshopConfirm(workshop) {
+      openDeleteConfirm('Atölyeyi Sil', `"${workshop.name}" atölyesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
+        await apiRequest(`${WORKSHOPS_API}?id=${workshop.id}`, { method: 'DELETE' });
+        await loadWorkshops(document.getElementById('workshop-search').value);
+      });
+    }
+
+    // ---- Edit / delete row actions (event delegation, works for both tables) ----
+    function handleWorkshopRowAction(e) {
+      const editBtn = e.target.closest('[data-action="edit"]');
+      const deleteBtn = e.target.closest('[data-action="delete"]');
+      if (editBtn) {
+        const workshop = workshops.find((w) => w.id === Number(editBtn.dataset.id));
+        if (workshop) openWorkshopModal(workshop);
+      } else if (deleteBtn) {
+        const workshop = workshops.find((w) => w.id === Number(deleteBtn.dataset.id));
+        if (workshop) openDeleteWorkshopConfirm(workshop);
+      }
+    }
+    document.getElementById('workshops-table-body').addEventListener('click', handleWorkshopRowAction);
+    document.getElementById('dashboard-recent-workshops-body').addEventListener('click', handleWorkshopRowAction);
+
+    // ---- Blog view: backed by /api/blog.php ----
+    const placeholderBlogImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
+    const BLOG_API = '/api/blog.php';
+    const CATEGORY_BADGE_CLASS = {
+      'Pedagoji': 'bg-clay-100 text-clay-700',
+      'Kent Bilinci': 'bg-mustard-100 text-mustard-600',
+      'Sürdürülebilirlik': 'bg-sage-100 text-sage-600',
+    };
+    const CATEGORY_BADGE_PALETTE = ['bg-clay-100 text-clay-700', 'bg-mustard-100 text-mustard-600', 'bg-sage-100 text-sage-600'];
+    function categoryBadgeClass(category) {
+      if (CATEGORY_BADGE_CLASS[category]) return CATEGORY_BADGE_CLASS[category];
+      let hash = 0;
+      for (let i = 0; i < category.length; i++) hash = (hash * 31 + category.charCodeAt(i)) >>> 0;
+      return CATEGORY_BADGE_PALETTE[hash % CATEGORY_BADGE_PALETTE.length];
+    }
+
+    let blogPosts = [];
+
+    function blogRowHtml(p) {
+      return `
       <tr class="transition-colors hover:bg-ink-50/60">
         <td class="px-6 py-3">
           <span class="block h-12 w-16 overflow-hidden rounded-lg bg-ink-50">
@@ -1266,177 +1490,177 @@
         </td>
       </tr>
     `;
-  }
-
-  function renderBlogTableLoading() {
-    document.getElementById('blog-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Yazılar yükleniyor…</td></tr>`;
-  }
-
-  function renderBlogTableError(message) {
-    document.getElementById('blog-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
-  }
-
-  function renderBlogTable() {
-    document.getElementById('blog-table-body').innerHTML = blogPosts.map(blogRowHtml).join('')
-      || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz bir yazı yok.</td></tr>`;
-  }
-
-  async function loadBlogPosts() {
-    renderBlogTableLoading();
-    try {
-      blogPosts = await apiRequest(BLOG_API);
-      renderBlogTable();
-    } catch (err) {
-      console.error('Yazılar yüklenemedi:', err);
-      renderBlogTableError('Yazılar yüklenemedi: ' + err.message);
-    }
-  }
-
-  loadBlogPosts();
-
-  // ---- Add / Edit Blog Post modal ----
-  const blogModalAdmin = document.getElementById('blog-modal-admin');
-  const blogForm = document.getElementById('blog-form');
-  const blogTitleInput = document.getElementById('new-blog-title');
-  const blogModalAdminTitle = document.getElementById('blog-modal-admin-title');
-  const blogModalAdminSubmit = document.getElementById('blog-modal-admin-submit');
-  const blogImageInput = document.getElementById('new-blog-image');
-  const blogImagePreview = document.getElementById('blog-image-preview');
-  const blogFormError = document.getElementById('blog-form-error');
-  let editingBlogId = null;
-  let pendingBlogImage = null;
-
-  blogImageInput.addEventListener('change', async () => {
-    const file = blogImageInput.files[0];
-    if (!file) return;
-    try {
-      pendingBlogImage = await resizeImageFile(file, 960, 0.82);
-      blogImagePreview.src = pendingBlogImage;
-    } catch (err) {
-      blogFormError.textContent = err.message;
-      blogFormError.classList.remove('hidden');
-    }
-  });
-
-  function openBlogModal(post) {
-    editingBlogId = post ? post.id : null;
-    blogForm.reset();
-    pendingBlogImage = null;
-    blogFormError.classList.add('hidden');
-    blogImagePreview.src = post ? post.image : placeholderBlogImage;
-
-    if (post) {
-      blogModalAdminTitle.textContent = 'Yazıyı Düzenle';
-      blogModalAdminSubmit.textContent = 'Değişiklikleri Kaydet';
-      blogTitleInput.value = post.title;
-      document.getElementById('new-blog-category').value = post.category;
-      document.getElementById('new-blog-date').value = post.date;
-      document.getElementById('new-blog-body').value = post.body.join('\n\n');
-    } else {
-      blogModalAdminTitle.textContent = 'Yeni Yazı Ekle';
-      blogModalAdminSubmit.textContent = 'Yazıyı Ekle';
     }
 
-    blogModalAdmin.classList.remove('hidden');
-    blogModalAdmin.classList.add('flex');
-    blogTitleInput.focus();
-  }
+    function renderBlogTableLoading() {
+      document.getElementById('blog-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Yazılar yükleniyor…</td></tr>`;
+    }
 
-  function closeBlogModal() {
-    blogModalAdmin.classList.add('hidden');
-    blogModalAdmin.classList.remove('flex');
-    blogForm.reset();
-    editingBlogId = null;
-    pendingBlogImage = null;
-  }
+    function renderBlogTableError(message) {
+      document.getElementById('blog-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">${message}</td></tr>`;
+    }
 
-  document.querySelectorAll('[data-open-blog-modal]').forEach((btn) => {
-    btn.addEventListener('click', () => openBlogModal(null));
-  });
-  document.getElementById('blog-modal-admin-backdrop').addEventListener('click', closeBlogModal);
-  document.getElementById('blog-modal-admin-close').addEventListener('click', closeBlogModal);
-  document.getElementById('blog-modal-admin-cancel').addEventListener('click', closeBlogModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !blogModalAdmin.classList.contains('hidden')) closeBlogModal();
-  });
+    function renderBlogTable() {
+      document.getElementById('blog-table-body').innerHTML = blogPosts.map(blogRowHtml).join('')
+        || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz bir yazı yok.</td></tr>`;
+    }
 
-  blogForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = blogTitleInput.value.trim();
-    const category = document.getElementById('new-blog-category').value.trim();
-    const date = document.getElementById('new-blog-date').value.trim();
-    const body = document.getElementById('new-blog-body').value.trim();
-    if (!title || !category || !date || !body) return;
+    async function loadBlogPosts() {
+      renderBlogTableLoading();
+      try {
+        blogPosts = await apiRequest(BLOG_API);
+        renderBlogTable();
+      } catch (err) {
+        console.error('Yazılar yüklenemedi:', err);
+        renderBlogTableError('Yazılar yüklenemedi: ' + err.message);
+      }
+    }
 
-    const payload = { title, category, date, body };
-    if (pendingBlogImage) payload.image = pendingBlogImage;
+    loadBlogPosts();
 
-    blogFormError.classList.add('hidden');
-    blogModalAdminSubmit.disabled = true;
-    const originalLabel = blogModalAdminSubmit.textContent;
-    blogModalAdminSubmit.textContent = 'Kaydediliyor…';
+    // ---- Add / Edit Blog Post modal ----
+    const blogModalAdmin = document.getElementById('blog-modal-admin');
+    const blogForm = document.getElementById('blog-form');
+    const blogTitleInput = document.getElementById('new-blog-title');
+    const blogModalAdminTitle = document.getElementById('blog-modal-admin-title');
+    const blogModalAdminSubmit = document.getElementById('blog-modal-admin-submit');
+    const blogImageInput = document.getElementById('new-blog-image');
+    const blogImagePreview = document.getElementById('blog-image-preview');
+    const blogFormError = document.getElementById('blog-form-error');
+    let editingBlogId = null;
+    let pendingBlogImage = null;
 
-    try {
-      if (editingBlogId != null) {
-        await apiRequest(`${BLOG_API}?id=${editingBlogId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+    blogImageInput.addEventListener('change', async () => {
+      const file = blogImageInput.files[0];
+      if (!file) return;
+      try {
+        pendingBlogImage = await resizeImageFile(file, 960, 0.82);
+        blogImagePreview.src = pendingBlogImage;
+      } catch (err) {
+        blogFormError.textContent = err.message;
+        blogFormError.classList.remove('hidden');
+      }
+    });
+
+    function openBlogModal(post) {
+      editingBlogId = post ? post.id : null;
+      blogForm.reset();
+      pendingBlogImage = null;
+      blogFormError.classList.add('hidden');
+      blogImagePreview.src = post ? post.image : placeholderBlogImage;
+
+      if (post) {
+        blogModalAdminTitle.textContent = 'Yazıyı Düzenle';
+        blogModalAdminSubmit.textContent = 'Değişiklikleri Kaydet';
+        blogTitleInput.value = post.title;
+        document.getElementById('new-blog-category').value = post.category;
+        document.getElementById('new-blog-date').value = post.date;
+        document.getElementById('new-blog-body').value = post.body.join('\n\n');
       } else {
-        await apiRequest(BLOG_API, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+        blogModalAdminTitle.textContent = 'Yeni Yazı Ekle';
+        blogModalAdminSubmit.textContent = 'Yazıyı Ekle';
       }
 
-      closeBlogModal();
-      setActiveTab('blog');
-      await loadBlogPosts();
-    } catch (err) {
-      blogFormError.textContent = err.message;
-      blogFormError.classList.remove('hidden');
-    } finally {
-      blogModalAdminSubmit.disabled = false;
-      blogModalAdminSubmit.textContent = originalLabel;
+      blogModalAdmin.classList.remove('hidden');
+      blogModalAdmin.classList.add('flex');
+      blogTitleInput.focus();
     }
-  });
 
-  function openDeleteBlogConfirm(post) {
-    openDeleteConfirm('Yazıyı Sil', `"${post.title}" yazısını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
-      await apiRequest(`${BLOG_API}?id=${post.id}`, { method: 'DELETE' });
-      await loadBlogPosts();
+    function closeBlogModal() {
+      blogModalAdmin.classList.add('hidden');
+      blogModalAdmin.classList.remove('flex');
+      blogForm.reset();
+      editingBlogId = null;
+      pendingBlogImage = null;
+    }
+
+    document.querySelectorAll('[data-open-blog-modal]').forEach((btn) => {
+      btn.addEventListener('click', () => openBlogModal(null));
     });
-  }
+    document.getElementById('blog-modal-admin-backdrop').addEventListener('click', closeBlogModal);
+    document.getElementById('blog-modal-admin-close').addEventListener('click', closeBlogModal);
+    document.getElementById('blog-modal-admin-cancel').addEventListener('click', closeBlogModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !blogModalAdmin.classList.contains('hidden')) closeBlogModal();
+    });
 
-  document.getElementById('blog-table-body').addEventListener('click', (e) => {
-    const editBtn = e.target.closest('[data-blog-action="edit"]');
-    const deleteBtn = e.target.closest('[data-blog-action="delete"]');
-    if (editBtn) {
-      const post = blogPosts.find((p) => p.id === Number(editBtn.dataset.id));
-      if (post) openBlogModal(post);
-    } else if (deleteBtn) {
-      const post = blogPosts.find((p) => p.id === Number(deleteBtn.dataset.id));
-      if (post) openDeleteBlogConfirm(post);
+    blogForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = blogTitleInput.value.trim();
+      const category = document.getElementById('new-blog-category').value.trim();
+      const date = document.getElementById('new-blog-date').value.trim();
+      const body = document.getElementById('new-blog-body').value.trim();
+      if (!title || !category || !date || !body) return;
+
+      const payload = { title, category, date, body };
+      if (pendingBlogImage) payload.image = pendingBlogImage;
+
+      blogFormError.classList.add('hidden');
+      blogModalAdminSubmit.disabled = true;
+      const originalLabel = blogModalAdminSubmit.textContent;
+      blogModalAdminSubmit.textContent = 'Kaydediliyor…';
+
+      try {
+        if (editingBlogId != null) {
+          await apiRequest(`${BLOG_API}?id=${editingBlogId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        } else {
+          await apiRequest(BLOG_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        }
+
+        closeBlogModal();
+        setActiveTab('blog');
+        await loadBlogPosts();
+      } catch (err) {
+        blogFormError.textContent = err.message;
+        blogFormError.classList.remove('hidden');
+      } finally {
+        blogModalAdminSubmit.disabled = false;
+        blogModalAdminSubmit.textContent = originalLabel;
+      }
+    });
+
+    function openDeleteBlogConfirm(post) {
+      openDeleteConfirm('Yazıyı Sil', `"${post.title}" yazısını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
+        await apiRequest(`${BLOG_API}?id=${post.id}`, { method: 'DELETE' });
+        await loadBlogPosts();
+      });
     }
-  });
 
-  // ---- Messages view: backed by /api/messages.php (read-only inbox) ----
-  const MESSAGES_API = '/api/messages.php';
-  let contactMessages = [];
+    document.getElementById('blog-table-body').addEventListener('click', (e) => {
+      const editBtn = e.target.closest('[data-blog-action="edit"]');
+      const deleteBtn = e.target.closest('[data-blog-action="delete"]');
+      if (editBtn) {
+        const post = blogPosts.find((p) => p.id === Number(editBtn.dataset.id));
+        if (post) openBlogModal(post);
+      } else if (deleteBtn) {
+        const post = blogPosts.find((p) => p.id === Number(deleteBtn.dataset.id));
+        if (post) openDeleteBlogConfirm(post);
+      }
+    });
 
-  function formatMessageDate(iso) {
-    try {
-      return new Date(iso).toLocaleString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    } catch (_) {
-      return iso;
+    // ---- Messages view: backed by /api/messages.php (read-only inbox) ----
+    const MESSAGES_API = '/api/messages.php';
+    let contactMessages = [];
+
+    function formatMessageDate(iso) {
+      try {
+        return new Date(iso).toLocaleString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      } catch (_) {
+        return iso;
+      }
     }
-  }
 
-  function messageRowHtml(m) {
-    const preview = m.message.length > 80 ? m.message.slice(0, 80).trim() + '…' : m.message;
-    return `
+    function messageRowHtml(m) {
+      const preview = m.message.length > 80 ? m.message.slice(0, 80).trim() + '…' : m.message;
+      return `
       <tr class="cursor-pointer transition-colors hover:bg-ink-50/60" data-message-row data-id="${m.id}">
         <td class="px-6 py-4 font-semibold text-ink-800">${m.name}</td>
         <td class="px-6 py-4 text-ink-500">
@@ -1455,109 +1679,109 @@
         </td>
       </tr>
     `;
-  }
-
-  function updateMessagesNavBadge() {
-    const badge = document.getElementById('messages-nav-badge');
-    if (!badge) return;
-    if (contactMessages.length > 0) {
-      badge.textContent = contactMessages.length;
-      badge.classList.remove('hidden');
-    } else {
-      badge.classList.add('hidden');
     }
-  }
 
-  function renderMessagesTable() {
-    document.getElementById('messages-table-body').innerHTML = contactMessages.map(messageRowHtml).join('')
-      || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz mesaj yok.</td></tr>`;
-    updateMessagesNavBadge();
-  }
-
-  async function loadMessages() {
-    document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Mesajlar yükleniyor…</td></tr>`;
-    try {
-      contactMessages = await apiRequest(MESSAGES_API);
-      renderMessagesTable();
-    } catch (err) {
-      console.error('Mesajlar yüklenemedi:', err);
-      document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
+    function updateMessagesNavBadge() {
+      const badge = document.getElementById('messages-nav-badge');
+      if (!badge) return;
+      if (contactMessages.length > 0) {
+        badge.textContent = contactMessages.length;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
     }
-  }
-  loadMessages();
 
-  const messageModal = document.getElementById('message-modal');
-  let viewingMessageId = null;
+    function renderMessagesTable() {
+      document.getElementById('messages-table-body').innerHTML = contactMessages.map(messageRowHtml).join('')
+        || `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Henüz mesaj yok.</td></tr>`;
+      updateMessagesNavBadge();
+    }
 
-  function openMessageModal(message) {
-    viewingMessageId = message.id;
-    document.getElementById('message-modal-name').textContent = message.name;
-    document.getElementById('message-modal-date').textContent = formatMessageDate(message.createdAt);
-    const emailLink = document.getElementById('message-modal-email');
-    emailLink.textContent = message.email;
-    emailLink.href = `mailto:${message.email}`;
-    const phoneLink = document.getElementById('message-modal-phone');
-    phoneLink.textContent = message.phone;
-    phoneLink.href = `tel:${message.phone.replace(/\s+/g, '')}`;
-    document.getElementById('message-modal-body').textContent = message.message;
+    async function loadMessages() {
+      document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-ink-400">Mesajlar yükleniyor…</td></tr>`;
+      try {
+        contactMessages = await apiRequest(MESSAGES_API);
+        renderMessagesTable();
+      } catch (err) {
+        console.error('Mesajlar yüklenemedi:', err);
+        document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
+      }
+    }
+    loadMessages();
 
-    messageModal.classList.remove('hidden');
-    messageModal.classList.add('flex');
-  }
+    const messageModal = document.getElementById('message-modal');
+    let viewingMessageId = null;
 
-  function closeMessageModal() {
-    viewingMessageId = null;
-    messageModal.classList.add('hidden');
-    messageModal.classList.remove('flex');
-  }
+    function openMessageModal(message) {
+      viewingMessageId = message.id;
+      document.getElementById('message-modal-name').textContent = message.name;
+      document.getElementById('message-modal-date').textContent = formatMessageDate(message.createdAt);
+      const emailLink = document.getElementById('message-modal-email');
+      emailLink.textContent = message.email;
+      emailLink.href = `mailto:${message.email}`;
+      const phoneLink = document.getElementById('message-modal-phone');
+      phoneLink.textContent = message.phone;
+      phoneLink.href = `tel:${message.phone.replace(/\s+/g, '')}`;
+      document.getElementById('message-modal-body').textContent = message.message;
 
-  document.getElementById('message-modal-backdrop').addEventListener('click', closeMessageModal);
-  document.getElementById('message-modal-close').addEventListener('click', closeMessageModal);
-  document.getElementById('message-modal-close-secondary').addEventListener('click', closeMessageModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !messageModal.classList.contains('hidden')) closeMessageModal();
-  });
+      messageModal.classList.remove('hidden');
+      messageModal.classList.add('flex');
+    }
 
-  function openDeleteMessageConfirm(message) {
-    openDeleteConfirm('Mesajı Sil', `"${message.name}" adlı kişiden gelen mesajı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
-      await apiRequest(`${MESSAGES_API}?id=${message.id}`, { method: 'DELETE' });
-      closeMessageModal();
-      await loadMessages();
+    function closeMessageModal() {
+      viewingMessageId = null;
+      messageModal.classList.add('hidden');
+      messageModal.classList.remove('flex');
+    }
+
+    document.getElementById('message-modal-backdrop').addEventListener('click', closeMessageModal);
+    document.getElementById('message-modal-close').addEventListener('click', closeMessageModal);
+    document.getElementById('message-modal-close-secondary').addEventListener('click', closeMessageModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !messageModal.classList.contains('hidden')) closeMessageModal();
     });
-  }
 
-  document.getElementById('message-modal-delete').addEventListener('click', () => {
-    const message = contactMessages.find((m) => m.id === viewingMessageId);
-    if (message) openDeleteMessageConfirm(message);
-  });
+    function openDeleteMessageConfirm(message) {
+      openDeleteConfirm('Mesajı Sil', `"${message.name}" adlı kişiden gelen mesajı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
+        await apiRequest(`${MESSAGES_API}?id=${message.id}`, { method: 'DELETE' });
+        closeMessageModal();
+        await loadMessages();
+      });
+    }
 
-  document.getElementById('messages-table-body').addEventListener('click', (e) => {
-    const viewBtn = e.target.closest('[data-message-action="view"]');
-    const deleteBtn = e.target.closest('[data-message-action="delete"]');
-    const row = e.target.closest('[data-message-row]');
-
-    if (deleteBtn) {
-      const message = contactMessages.find((m) => m.id === Number(deleteBtn.dataset.id));
+    document.getElementById('message-modal-delete').addEventListener('click', () => {
+      const message = contactMessages.find((m) => m.id === viewingMessageId);
       if (message) openDeleteMessageConfirm(message);
-      return;
-    }
-    if (viewBtn || row) {
-      const id = Number((viewBtn || row).dataset.id);
-      const message = contactMessages.find((m) => m.id === id);
-      if (message) openMessageModal(message);
-    }
-  });
+    });
 
-  // ---- Gallery view: uploaded pieces grid ----
-  const galleryImages = [
-    'atölyecalismalari/atölye1.jpg', 'atölyecalismalari/atölye3.jpg', 'atölyecalismalari/atölye5.jpg',
-    'atölyecalismalari/atölye6.jpg', 'atölyecalismalari/atölye7.jpg', 'atölyecalismalari/atölye8.jpg',
-    'atölyecalismalari/atölye10.jpg', 'atölyecalismalari/atölye13.jpg', 'atölyecalismalari/atölye14.jpg',
-    'atölyecalismalari/atölye18.jpg', 'atölyecalismalari/atölye19.jpg', 'atölyecalismalari/atölye20.jpg',
-  ];
+    document.getElementById('messages-table-body').addEventListener('click', (e) => {
+      const viewBtn = e.target.closest('[data-message-action="view"]');
+      const deleteBtn = e.target.closest('[data-message-action="delete"]');
+      const row = e.target.closest('[data-message-row]');
 
-  const galleryGrid = document.querySelector('[data-view="gallery"] .grid');
-  galleryGrid.innerHTML = galleryImages.map((src, i) => `
+      if (deleteBtn) {
+        const message = contactMessages.find((m) => m.id === Number(deleteBtn.dataset.id));
+        if (message) openDeleteMessageConfirm(message);
+        return;
+      }
+      if (viewBtn || row) {
+        const id = Number((viewBtn || row).dataset.id);
+        const message = contactMessages.find((m) => m.id === id);
+        if (message) openMessageModal(message);
+      }
+    });
+
+    // ---- Gallery view: uploaded pieces grid ----
+    const galleryImages = [
+      'atölyecalismalari/atölye1.jpg', 'atölyecalismalari/atölye3.jpg', 'atölyecalismalari/atölye5.jpg',
+      'atölyecalismalari/atölye6.jpg', 'atölyecalismalari/atölye7.jpg', 'atölyecalismalari/atölye8.jpg',
+      'atölyecalismalari/atölye10.jpg', 'atölyecalismalari/atölye13.jpg', 'atölyecalismalari/atölye14.jpg',
+      'atölyecalismalari/atölye18.jpg', 'atölyecalismalari/atölye19.jpg', 'atölyecalismalari/atölye20.jpg',
+    ];
+
+    const galleryGrid = document.querySelector('[data-view="gallery"] .grid');
+    galleryGrid.innerHTML = galleryImages.map((src, i) => `
     <div class="group relative aspect-square overflow-hidden rounded-xl border border-ink-100 bg-ink-50">
       <img src="${src}" alt="Sergilenen eser ${i + 1}" class="h-full w-full object-cover" />
       <div class="absolute inset-0 flex items-start justify-end bg-ink-900/0 p-2 transition-colors duration-200 group-hover:bg-ink-900/20">
@@ -1566,25 +1790,26 @@
     </div>
   `).join('');
 
-  // ---- Settings view: mock save ----
-  const settingsForm = document.getElementById('settings-form');
-  const settingsSuccess = document.getElementById('settings-success');
+    // ---- Settings view: mock save ----
+    const settingsForm = document.getElementById('settings-form');
+    const settingsSuccess = document.getElementById('settings-success');
 
-  const settingDescription = document.getElementById('setting-description');
-  const settingDescriptionCount = document.getElementById('setting-description-count');
-  function updateDescriptionCount() {
-    settingDescriptionCount.textContent = settingDescription.value.length;
-  }
-  settingDescription.addEventListener('input', updateDescriptionCount);
-  updateDescriptionCount();
+    const settingDescription = document.getElementById('setting-description');
+    const settingDescriptionCount = document.getElementById('setting-description-count');
+    function updateDescriptionCount() {
+      settingDescriptionCount.textContent = settingDescription.value.length;
+    }
+    settingDescription.addEventListener('input', updateDescriptionCount);
+    updateDescriptionCount();
 
-  settingsForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    settingsSuccess.classList.remove('hidden');
-    clearTimeout(settingsForm._hideTimer);
-    settingsForm._hideTimer = setTimeout(() => settingsSuccess.classList.add('hidden'), 3000);
-  });
-</script>
+    settingsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      settingsSuccess.classList.remove('hidden');
+      clearTimeout(settingsForm._hideTimer);
+      settingsForm._hideTimer = setTimeout(() => settingsSuccess.classList.add('hidden'), 3000);
+    });
+  </script>
 
 </body>
+
 </html>
