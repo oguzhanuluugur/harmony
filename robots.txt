@@ -6,4 +6,4 @@ Disallow: /data/
 Disallow: /node_modules/
 Disallow: /resimler/
 
-Sitemap: https://harmonyatolye.com/sitemap.xml
+Sitemap: https://harmonyplanlama.com/sitemap.xml
