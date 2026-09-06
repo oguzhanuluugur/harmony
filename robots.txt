@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /data/
+Disallow: /node_modules/
+Disallow: /resimler/
+
+Sitemap: https://harmonyatolye.com/sitemap.xml
