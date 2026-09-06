@@ -599,7 +599,7 @@
           role="tab" aria-selected="false">11-14 Yaş</button>
       </div>
 
-      <!-- Cards grid: rendered client-side from /api/workshops (see loadWorkshops() below) -->
+      <!-- Cards grid: rendered client-side from /api/workshops.php (see loadWorkshopCards() below) -->
       <div id="workshop-cards-grid" class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7" aria-live="polite">
         <div class="col-span-full flex items-center justify-center py-16 text-ink-300">
           <svg class="animate-spin" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1436,7 +1436,7 @@
       menuToggle.setAttribute('aria-label', isOpen ? 'Menüyü aç' : 'Menüyü kapat');
     });
 
-    // ---- Atölyeler: rendered from /api/workshops (see api/workshops.js) ----
+    // ---- Atölyeler: rendered from /api/workshops.php (see api/workshops.php) ----
     // Same endpoint the admin panel writes to, so an edit/add/delete there
     // shows up here — only "Aktif" workshops are shown publicly.
     const AGE_BADGE_CLASS = {
@@ -1509,7 +1509,7 @@
 
     async function loadWorkshopCards() {
       try {
-        const res = await fetch('/api/workshops');
+        const res = await fetch('/api/workshops.php');
         if (!res.ok) throw new Error('İstek başarısız: ' + res.status);
         const workshops = await res.json();
         const activeWorkshops = workshops.filter((w) => w.status === 'active');
@@ -1564,7 +1564,7 @@
       contactSubmitLabel.textContent = 'Gönderiliyor…';
 
       try {
-        const res = await fetch('/api/messages', {
+        const res = await fetch('/api/messages.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -1583,7 +1583,7 @@
       }
     });
 
-    // ---- Blog & Yayınlar: rendered from /api/blog (see api/blog.js) ----
+    // ---- Blog & Yayınlar: rendered from /api/blog.php (see api/blog.php) ----
     // Same endpoint the admin panel writes to, so a new/edited/deleted post
     // there shows up here.
     const BLOG_CATEGORY_BADGE_CLASS = {
@@ -1641,7 +1641,7 @@
 
     async function loadBlogCards() {
       try {
-        const res = await fetch('/api/blog');
+        const res = await fetch('/api/blog.php');
         if (!res.ok) throw new Error('İstek başarısız: ' + res.status);
         blogPosts = await res.json();
         blogCardsGrid.innerHTML = blogPosts.length

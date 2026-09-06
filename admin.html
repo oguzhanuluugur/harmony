@@ -913,18 +913,23 @@
   const editIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>';
   const trashIconSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
 
-  // ---- Workshops view: backed by /api/workshops (see api/workshops.js) ----
+  // ---- Workshops view: backed by /api/workshops.php (see api/workshops.php) ----
   // No local array of truth anymore — `workshops` is just the last list we
   // fetched, kept in memory so the table/search can re-render instantly.
   // Every add/edit/delete round-trips through the API so the public site
   // (which reads the same endpoint) stays in sync.
   const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
-  const WORKSHOPS_API = '/api/workshops';
+  const WORKSHOPS_API = '/api/workshops.php';
+
+  // ⚠️ Must match API_WRITE_KEY defined at the top of each api/*.php file —
+  // change both to your own long random secret before going live.
+  const API_KEY = 'CHANGE-ME-TO-A-LONG-RANDOM-SECRET';
 
   let workshops = [];
 
-  async function apiRequest(url, options) {
-    const res = await fetch(url, options);
+  async function apiRequest(url, options = {}) {
+    const opts = { ...options, headers: { ...(options.headers || {}), 'X-Api-Key': API_KEY } };
+    const res = await fetch(url, opts);
     let payload = null;
     try { payload = await res.json(); } catch (_) { /* no body */ }
     if (!res.ok) {
@@ -1222,9 +1227,9 @@
   document.getElementById('workshops-table-body').addEventListener('click', handleWorkshopRowAction);
   document.getElementById('dashboard-recent-workshops-body').addEventListener('click', handleWorkshopRowAction);
 
-  // ---- Blog view: backed by /api/blog ----
+  // ---- Blog view: backed by /api/blog.php ----
   const placeholderBlogImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
-  const BLOG_API = '/api/blog';
+  const BLOG_API = '/api/blog.php';
   const CATEGORY_BADGE_CLASS = {
     'Pedagoji': 'bg-clay-100 text-clay-700',
     'Kent Bilinci': 'bg-mustard-100 text-mustard-600',
@@ -1417,8 +1422,8 @@
     }
   });
 
-  // ---- Messages view: backed by /api/messages (read-only inbox) ----
-  const MESSAGES_API = '/api/messages';
+  // ---- Messages view: backed by /api/messages.php (read-only inbox) ----
+  const MESSAGES_API = '/api/messages.php';
   let contactMessages = [];
 
   function formatMessageDate(iso) {
