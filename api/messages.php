@@ -15,6 +15,14 @@ define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/messages.json');
 
+// ⚠️ DEĞİŞTİRİN: Yeni mesaj bildirimlerinin gideceği e-posta adresi.
+$admin_email = 'kendi_epostaniz@gmail.com';
+
+// ⚠️ DEĞİŞTİRİN: mail() başlığında kullanılan gönderen adresi — spam'e
+// düşmemesi için sitenizin kendi alan adına ait bir adres olmalı.
+define('MAIL_FROM_ADDRESS', 'noreply@harmonyplanlama.com');
+define('MAIL_FROM_NAME', 'Harmony İletişim Formu');
+
 function send_json($status, $payload) {
     http_response_code($status);
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -95,6 +103,58 @@ function normalize_message_input($body) {
     return [$errors, $entry];
 }
 
+function e($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+function build_notification_email($entry) {
+    $isCorporate = $entry['type'] === 'kurumsal';
+    $typeLabel = $isCorporate ? 'Kurumsal' : 'Bireysel';
+
+    $rows = '';
+    if ($isCorporate) {
+        $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;">Kurum/Okul Adı</td><td style="padding:8px 12px;">' . e($entry['institutionName']) . '</td></tr>';
+        $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;">Yetkili Kişi</td><td style="padding:8px 12px;">' . e($entry['authorizedPerson']) . '</td></tr>';
+    } else {
+        $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;">Ad Soyad</td><td style="padding:8px 12px;">' . e($entry['name']) . '</td></tr>';
+    }
+    $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;">E-posta</td><td style="padding:8px 12px;"><a href="mailto:' . e($entry['email']) . '">' . e($entry['email']) . '</a></td></tr>';
+    $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;">Telefon</td><td style="padding:8px 12px;"><a href="tel:' . e($entry['phone']) . '">' . e($entry['phone']) . '</a></td></tr>';
+    $rows .= '<tr><td style="padding:8px 12px;font-weight:bold;color:#4c5561;vertical-align:top;">' . ($isCorporate ? 'İşbirliği Konusu' : 'Mesaj') . '</td><td style="padding:8px 12px;white-space:pre-line;">' . e($entry['message']) . '</td></tr>';
+
+    $subject = '[Harmony] Yeni İletişim Mesajı (' . $typeLabel . ')';
+
+    $body = '<!doctype html><html lang="tr"><head><meta charset="UTF-8"></head>'
+        . '<body style="font-family:Arial,Helvetica,sans-serif;background:#f4f5f6;padding:24px;margin:0;">'
+        . '<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e4e6e9;">'
+        . '<div style="background:#1A2E40;padding:20px 24px;">'
+        . '<span style="display:inline-block;background:' . ($isCorporate ? '#d1652c' : '#5c8a6b') . ';color:#ffffff;font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;">' . e($typeLabel) . '</span>'
+        . '<h1 style="color:#ffffff;font-size:18px;margin:12px 0 0;">Yeni İletişim Formu Mesajı</h1>'
+        . '</div>'
+        . '<table style="width:100%;border-collapse:collapse;font-size:14px;color:#1d2129;">' . $rows . '</table>'
+        . '<div style="padding:12px 24px;font-size:12px;color:#9aa2ad;border-top:1px solid #e4e6e9;">Harmony Planlama ve Kentsel Tasarım Atölyesi — harmonyplanlama.com</div>'
+        . '</div>'
+        . '</body></html>';
+
+    return [$subject, $body];
+}
+
+function send_message_notification($entry, $admin_email) {
+    if (empty($admin_email)) return;
+
+    list($subject, $body) = build_notification_email($entry);
+
+    $headers = "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= 'From: ' . MAIL_FROM_NAME . ' <' . MAIL_FROM_ADDRESS . ">\r\n";
+    $headers .= 'Reply-To: ' . $entry['email'] . "\r\n";
+
+    // Bildirim e-postası gönderilemese bile (paylaşımlı hosting'te mail()
+    // güvenilmez olabilir) mesaj zaten JSON'a kaydedildi — bu yüzden hata
+    // burada sessizce yutulur, isteğin başarısını etkilemez.
+    @mail($admin_email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
+}
+
 $method = $_SERVER['REQUEST_METHOD'];
 $id = $_GET['id'] ?? null;
 
@@ -118,6 +178,9 @@ if ($method === 'POST') {
     $created = array_merge(['id' => $nextId], $entry, ['createdAt' => date('c')]);
     array_unshift($data, $created);
     write_data($data);
+
+    send_message_notification($created, $admin_email);
+
     send_json(201, $created);
 }
 
