@@ -16,20 +16,47 @@ define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 define('DATA_FILE', __DIR__ . '/../data/messages.json');
 
 // ⚠️ DEĞİŞTİRİN: Yeni mesaj bildirimlerinin gideceği e-posta adresi.
-$admin_email = 'kendi_epostaniz@gmail.com';
+$admin_email = 'sclsayar@gmail.com';
 
-// ⚠️ DEĞİŞTİRİN: mail() başlığında kullanılan gönderen adresi — spam'e
-// düşmemesi için sitenizin kendi alan adına ait bir adres olmalı.
-define('MAIL_FROM_ADDRESS', 'noreply@harmonyplanlama.com');
+// ==========================================================================
+// Gmail SMTP ayarları (PHPMailer ile) — hosting firmanızın sunucu içi
+// mail() fonksiyonunu kapatmış olması ihtimaline karşı, e-postalar artık
+// doğrudan Gmail'in SMTP sunucusu üzerinden gönderiliyor.
+//
+// ⚠️ DEĞİŞTİRİN — SMTP_USERNAME: Gönderici olarak kullanılacak Gmail adresi
+// (örn. harmonyplanlama@gmail.com). Bu, Gmail üzerinden gönderim yaptığınız
+// için "Kimden" (From) alanında da görünecek adrestir — Gmail, kendi
+// hesabınız dışındaki bir adresten gönderim yapmanıza izin vermez.
+//
+// ⚠️ DEĞİŞTİRİN — SMTP_PASSWORD: Bu adresin normal Gmail şifresi DEĞİL, bir
+// "Uygulama Şifresi" (App Password) olmalı. Almak için:
+//   1. Bu Gmail hesabında 2 Adımlı Doğrulama'yı açın (myaccount.google.com/security)
+//   2. myaccount.google.com/apppasswords adresine gidin
+//   3. "Diğer (Özel ad)" seçip "Harmony Website" gibi bir isim verin, oluşturun
+//   4. Size gösterilen 16 haneli kodu (boşluksuz) aşağıya yapıştırın
+// ==========================================================================
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_USERNAME', 'harmonyplanlama@gmail.com');
+define('SMTP_PASSWORD', 'xxxxxxxxxxxxxxxx');
 define('MAIL_FROM_NAME', 'Harmony İletişim Formu');
 
-function send_json($status, $payload) {
+require __DIR__ . '/PHPMailer/Exception.php';
+require __DIR__ . '/PHPMailer/PHPMailer.php';
+require __DIR__ . '/PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception as PHPMailerException;
+
+function send_json($status, $payload)
+{
     http_response_code($status);
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
-function read_data() {
+function read_data()
+{
     if (!file_exists(DATA_FILE)) return [];
     $fp = @fopen(DATA_FILE, 'r');
     if (!$fp) send_json(500, ['error' => 'Veri dosyası okunamadı. Dosya/klasör izinlerini kontrol edin.']);
@@ -41,7 +68,8 @@ function read_data() {
     return is_array($data) ? $data : [];
 }
 
-function write_data($data) {
+function write_data($data)
+{
     $fp = @fopen(DATA_FILE, 'c+');
     if (!$fp) send_json(500, ['error' => 'Veri dosyasına yazılamadı. data/ klasörü ve messages.json dosya izinlerini kontrol edin (bkz. CHMOD notları).']);
     if (!flock($fp, LOCK_EX)) send_json(500, ['error' => 'Veri dosyası kilitlenemedi.']);
@@ -53,12 +81,14 @@ function write_data($data) {
     fclose($fp);
 }
 
-function sanitize_text($value) {
+function sanitize_text($value)
+{
     if (!is_string($value)) return '';
     return trim(str_replace(['<', '>'], '', $value));
 }
 
-function require_write_key() {
+function require_write_key()
+{
     // Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
     // sildiği için anahtar artık header yerine URL sorgu parametresinden okunuyor.
     $provided = $_GET['apikey'] ?? '';
@@ -67,7 +97,8 @@ function require_write_key() {
     }
 }
 
-function normalize_message_input($body) {
+function normalize_message_input($body)
+{
     $errors = [];
     $type = sanitize_text($body['type'] ?? 'bireysel');
     if ($type !== 'kurumsal') $type = 'bireysel';
@@ -103,11 +134,13 @@ function normalize_message_input($body) {
     return [$errors, $entry];
 }
 
-function e($value) {
+function e($value)
+{
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-function build_notification_email($entry) {
+function build_notification_email($entry)
+{
     $isCorporate = $entry['type'] === 'kurumsal';
     $typeLabel = $isCorporate ? 'Kurumsal' : 'Bireysel';
 
@@ -139,20 +172,39 @@ function build_notification_email($entry) {
     return [$subject, $body];
 }
 
-function send_message_notification($entry, $admin_email) {
+function send_message_notification($entry, $admin_email)
+{
     if (empty($admin_email)) return;
 
     list($subject, $body) = build_notification_email($entry);
 
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers .= 'From: ' . MAIL_FROM_NAME . ' <' . MAIL_FROM_ADDRESS . ">\r\n";
-    $headers .= 'Reply-To: ' . $entry['email'] . "\r\n";
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->CharSet = PHPMailer::CHARSET_UTF8;
 
-    // Bildirim e-postası gönderilemese bile (paylaşımlı hosting'te mail()
-    // güvenilmez olabilir) mesaj zaten JSON'a kaydedildi — bu yüzden hata
-    // burada sessizce yutulur, isteğin başarısını etkilemez.
-    @mail($admin_email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
+        // Gmail SMTP, gönderim yaptığınız hesaptan başka bir "Kimden"
+        // adresine izin vermez — bu yüzden From, SMTP_USERNAME ile aynı.
+        $mail->setFrom(SMTP_USERNAME, MAIL_FROM_NAME);
+        $mail->addAddress($admin_email);
+        $mail->addReplyTo($entry['email'], $entry['name'] ?? '');
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        $mail->send();
+    } catch (PHPMailerException $e) {
+        // Bildirim e-postası gönderilemese bile mesaj zaten JSON'a
+        // kaydedildi — hata burada loglanır, isteğin başarısını etkilemez.
+        error_log('Harmony mail bildirimi gönderilemedi: ' . $e->getMessage() . ' — ' . $mail->ErrorInfo);
+    }
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -172,7 +224,9 @@ if ($method === 'POST') {
     if (!empty($errors)) send_json(400, ['error' => implode(' ', $errors)]);
 
     $nextId = 0;
-    foreach ($data as $m) { if ($m['id'] > $nextId) $nextId = $m['id']; }
+    foreach ($data as $m) {
+        if ($m['id'] > $nextId) $nextId = $m['id'];
+    }
     $nextId += 1;
 
     $created = array_merge(['id' => $nextId], $entry, ['createdAt' => date('c')]);
@@ -191,7 +245,10 @@ if ($method === 'DELETE') {
     $found = false;
     $next = [];
     foreach ($data as $m) {
-        if ((string) $m['id'] === (string) $id) { $found = true; continue; }
+        if ((string) $m['id'] === (string) $id) {
+            $found = true;
+            continue;
+        }
         $next[] = $m;
     }
     if (!$found) send_json(404, ['error' => 'Mesaj bulunamadı.']);
