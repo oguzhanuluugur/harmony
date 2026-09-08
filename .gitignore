@@ -6,3 +6,6 @@ Thumbs.db
 .env
 .env.local
 .vercel/
+
+# Gerçek Gmail SMTP şifresini içerir — sadece elden cPanel'e yüklenir.
+api/smtp_config.php

@@ -14,36 +14,11 @@ header('Content-Type: application/json; charset=utf-8');
 define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/messages.json');
+define('VISITORS_DATA_FILE', __DIR__ . '/../data/visitors.json');
 
-// ⚠️ DEĞİŞTİRİN: Yeni mesaj bildirimlerinin gideceği e-posta adresi.
-$admin_email = 'sclsayar@gmail.com';
-
-// ==========================================================================
-// Gmail SMTP ayarları (PHPMailer ile) — hosting firmanızın sunucu içi
-// mail() fonksiyonunu kapatmış olması ihtimaline karşı, e-postalar artık
-// doğrudan Gmail'in SMTP sunucusu üzerinden gönderiliyor.
-//
-// ⚠️ DEĞİŞTİRİN — SMTP_USERNAME: Gönderici olarak kullanılacak Gmail adresi
-// (örn. harmonyplanlama@gmail.com). Bu, Gmail üzerinden gönderim yaptığınız
-// için "Kimden" (From) alanında da görünecek adrestir — Gmail, kendi
-// hesabınız dışındaki bir adresten gönderim yapmanıza izin vermez.
-//
-// ⚠️ DEĞİŞTİRİN — SMTP_PASSWORD: Bu adresin normal Gmail şifresi DEĞİL, bir
-// "Uygulama Şifresi" (App Password) olmalı. Almak için:
-//   1. Bu Gmail hesabında 2 Adımlı Doğrulama'yı açın (myaccount.google.com/security)
-//   2. myaccount.google.com/apppasswords adresine gidin
-//   3. "Diğer (Özel ad)" seçip "Harmony Website" gibi bir isim verin, oluşturun
-//   4. Size gösterilen 16 haneli kodu (boşluksuz) aşağıya yapıştırın
-// ==========================================================================
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_PORT', 587);
-define('SMTP_USERNAME', 'harmonyplanlama@gmail.com');
-define('SMTP_PASSWORD', 'xxxxxxxxxxxxxxxx');
-define('MAIL_FROM_NAME', 'Harmony İletişim Formu');
-
-require __DIR__ . '/PHPMailer/Exception.php';
-require __DIR__ . '/PHPMailer/PHPMailer.php';
-require __DIR__ . '/PHPMailer/SMTP.php';
+// Gmail SMTP ayarları ve $admin_email artık api/smtp_config.php içinde —
+// daily_report.php ile ortak kullanılıyor, gerçek şifre tek yerde tutulur.
+require __DIR__ . '/smtp_config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
@@ -139,10 +114,22 @@ function e($value)
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+function get_total_visitor_count()
+{
+    // visitors.php'yi doğrudan require ETMİYORUZ — o dosya kendi
+    // GET/POST/exit akışını çalıştırır. Sadece JSON'u okuyoruz.
+    if (!file_exists(VISITORS_DATA_FILE)) return null;
+    $content = @file_get_contents(VISITORS_DATA_FILE);
+    if ($content === false) return null;
+    $data = json_decode($content, true);
+    return isset($data['toplam_ziyaretci']) ? (int) $data['toplam_ziyaretci'] : null;
+}
+
 function build_notification_email($entry)
 {
     $isCorporate = $entry['type'] === 'kurumsal';
     $typeLabel = $isCorporate ? 'Kurumsal' : 'Bireysel';
+    $totalVisitors = get_total_visitor_count();
 
     $rows = '';
     if ($isCorporate) {
@@ -165,7 +152,10 @@ function build_notification_email($entry)
         . '<h1 style="color:#ffffff;font-size:18px;margin:12px 0 0;">Yeni İletişim Formu Mesajı</h1>'
         . '</div>'
         . '<table style="width:100%;border-collapse:collapse;font-size:14px;color:#1d2129;">' . $rows . '</table>'
-        . '<div style="padding:12px 24px;font-size:12px;color:#9aa2ad;border-top:1px solid #e4e6e9;">Harmony Planlama ve Kentsel Tasarım Atölyesi — harmonyplanlama.com</div>'
+        . '<div style="padding:12px 24px;font-size:12px;color:#9aa2ad;border-top:1px solid #e4e6e9;">'
+        . 'Harmony Planlama ve Kentsel Tasarım Atölyesi — harmonyplanlama.com'
+        . ($totalVisitors !== null ? '<br>Sitenin Güncel Toplam Ziyaretçi Sayısı: ' . e(number_format($totalVisitors, 0, ',', '.')) : '')
+        . '</div>'
         . '</div>'
         . '</body></html>';
 

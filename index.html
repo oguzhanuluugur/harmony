@@ -38,13 +38,15 @@
     "@type": "EducationalOrganization",
     "name": "Harmony Çocuk Atölyesi",
     "alternateName": ["Harmony Planlama", "Harmony Urban Lab for Children"],
+    "description": "Tuzla'da çocukların yaratıcılığını geliştiren mimarlık, tasarım ve sanat odaklı atölye.",
     "url": "https://harmonyplanlama.com",
     "telephone": "+905377818524",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Postane Mah. Bağdagül Sk. No:6",
+      "streetAddress": "Postane Mahallesi, Bağdagül Sokak No:6",
       "addressLocality": "Tuzla",
       "addressRegion": "İstanbul",
+      "postalCode": "34944",
       "addressCountry": "TR"
     },
     "sameAs": [
@@ -1254,12 +1256,12 @@
       </div>
 
       <!-- Map -->
-      <div class="mt-16 sm:mt-20 w-full h-96 sm:h-[400px] rounded-3xl overflow-hidden shadow-lg">
+      <div class="relative mt-16 sm:mt-20 w-full h-96 sm:h-[400px] rounded-3xl overflow-hidden shadow-lg">
         <iframe
-          src="https://www.google.com/maps?q=Postane+Mahallesi+Ba%C4%9Fdag%C3%BCl+Sokak+No%3A6+Tuzla+%C4%B0stanbul&output=embed"
-          title="Harmony Urban Lab konumu - Postane Mah. Bağdagül Sk. No:6, Tuzla, İstanbul"
-          class="h-full w-full grayscale hover:grayscale-0 transition duration-500 ease-out" style="border:0;"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3864.3081958891908!2d29.299609322350296!3d40.81726410237338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caddeea70a2a7d%3A0x505bb98ac1b88b82!2sHarmony%20%C3%87ocuk%20At%C3%B6lyesi!5e1!3m2!1str!2str!4v1788892604224!5m2!1str!2str"
+          title="Harmony Çocuk Atölyesi konumu - Postane Mah. Bağdagül Sk. No:6, Tuzla, İstanbul"
+          class="absolute inset-0 h-full w-full grayscale hover:grayscale-0 transition duration-500 ease-out"
+          style="border:0;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -1621,6 +1623,11 @@
     });
 
     loadWorkshopCards();
+
+    // Ziyaretçi sayacı — arka planda sessizce tetiklenir, kullanıcıyı
+    // bekletmez; hata olursa (ör. istek engellenirse) sessizce yutulur.
+    // Aynı IP aynı gün içinde tekrar sayılmaz (bkz. api/visitors.php).
+    fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
 
     // Shared submit handler for both the individual and corporate contact
     // forms below — same endpoint, same error/success/loading behavior, only
