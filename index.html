@@ -1791,7 +1791,7 @@
       blogModalCategory.className = 'rounded-full text-xs font-bold px-3 py-1.5 tracking-wide ' + blogCategoryBadgeClass(post.category);
       blogModalDate.textContent = post.date;
       blogModalTitle.textContent = post.title;
-      const blogCta = `<p>Hafta sonu atölyelerimize katılmak için <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" class="font-semibold text-clay-600 hover:text-clay-700 hover:underline">Kayıt Sayfamızı</a> ziyaret edebilirsiniz.</p>`;
+      const blogCta = `<p>Hafta sonu atölyelerimize katılmak için <button type="button" data-whatsapp-cta class="cursor-pointer font-semibold text-clay-600 hover:text-clay-700 hover:underline">Kayıt Sayfamızı</button> ziyaret edebilirsiniz.</p>`;
       blogModalBody.innerHTML = post.body.map((paragraph) => `<p>${paragraph}</p>`).join('') + blogCta;
       blogModal.classList.remove('hidden');
       blogModal.classList.add('flex');
