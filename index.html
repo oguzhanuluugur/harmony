@@ -552,9 +552,8 @@
               Gebze ve Tuzla çevresindeki aileler için yaratıcı hafta sonu çocuk etkinlikleri ve okul işbirlikleri
               düzenlemektedir.</p>
             <p>Çocukları geleceğin tasarımcıları olarak yetiştiren atölyemizin güncel etkinliklerini ve atölye içi
-              videolarımızı resmi Instagram hesabımız olan <a href="https://instagram.com/harmony.atolye"
-                target="_blank" rel="noopener noreferrer"
-                class="font-semibold text-clay-600 hover:text-clay-700 hover:underline">@harmony.atolye</a> üzerinden
+              videolarımızı resmi Instagram hesabımız olan <button type="button" data-instagram-cta
+                class="cursor-pointer font-semibold text-clay-600 hover:text-clay-700 hover:underline">@harmony.atolye</button> üzerinden
               takip edebilirsiniz.</p>
           </div>
 
@@ -1875,6 +1874,14 @@
       if (!e.target.closest('[data-whatsapp-cta]')) return;
       trackWhatsappClick();
       window.open(WHATSAPP_URL, '_blank');
+    });
+
+    // Hakkımızda bölümündeki Instagram bahsi de bir buton (gerçek <a href>
+    // değil) — böylece tarayıcı üzerine gelince durum çubuğunda URL
+    // önizlemesi göstermez, tıklanınca aynı şekilde yeni sekmede açılır.
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-instagram-cta]')) return;
+      window.open('https://instagram.com/harmony.atolye', '_blank', 'noopener,noreferrer');
     });
 
     const faqTriggers = document.querySelectorAll('#sss .faq-trigger');
