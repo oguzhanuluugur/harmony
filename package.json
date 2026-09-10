@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "serve": "node serve.mjs"
+    "serve": "node serve.mjs",
+    "build:css": "npx --yes tailwindcss@3.4.17 -c tailwind.config.js -i src/input.css -o dist/styles.css --minify",
+    "build:img": "node optimize-images.mjs"
   },
   "dependencies": {
     "puppeteer": "^23.0.0",

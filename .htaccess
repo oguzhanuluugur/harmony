@@ -1,0 +1,47 @@
+# ===========================================================================
+# Harmony — statik varlık önbellekleme + sıkıştırma
+# ===========================================================================
+
+# --- Sıkıştırma ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript text/javascript
+  AddOutputFilterByType DEFLATE application/json image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff2 font/ttf
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css application/javascript image/svg+xml font/woff2
+</IfModule>
+
+# --- Süre bazlı önbellek ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/avif             "access plus 1 year"
+  ExpiresByType image/jpeg            "access plus 1 year"
+  ExpiresByType image/png             "access plus 1 year"
+  ExpiresByType image/gif             "access plus 1 year"
+  ExpiresByType image/svg+xml        "access plus 1 year"
+  ExpiresByType image/x-icon         "access plus 1 year"
+  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript      "access plus 1 year"
+  ExpiresByType font/woff2           "access plus 1 year"
+  ExpiresByType font/ttf            "access plus 1 year"
+  ExpiresByType video/mp4           "access plus 1 month"
+  ExpiresByType text/html          "access plus 0 seconds"
+</IfModule>
+
+# --- Cache-Control başlıkları ---
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|avif|jpe?g|png|gif|svg|ico|css|js|woff2?|ttf|mp4)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# NOT: css/js/görsel güncellediğinde dosya adını ya da ?v=SÜRÜM parametresini
+# değiştir (ör. dist/styles.css?v=20260910 -> ?v=20260911). Aksi halde
+# tarayıcı 1 yıl boyunca eski dosyayı gösterir. index.html/admin.html hariç.
