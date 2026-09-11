@@ -229,6 +229,13 @@
     .gallery-item:hover {
       transform: translateY(-8px);
     }
+
+    /* Ekran dışındaki uzun bölümlerin ilk yüklemedeki stil/layout maliyetini
+       ertele (görüntüye yaklaşınca tarayıcı normal şekilde render eder). */
+    .cv-auto {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 3100px;
+    }
   </style>
 </head>
 
@@ -240,7 +247,7 @@
       <a href="#top" class="flex items-center gap-3 group">
         <span
           class="block h-20 w-20 shrink-0 transition-transform duration-300 group-hover:scale-105">
-          <img src="brand/harmony-logo-transparent.png" alt="Harmony - Urban Lab for Children" class="h-full w-full object-contain" />
+          <img src="brand/harmony-logo-transparent.webp" width="160" height="160" alt="Harmony - Urban Lab for Children" class="h-full w-full object-contain" />
         </span>
       </a>
 
@@ -432,19 +439,28 @@
       <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 pb-24 relative z-10">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-2.webp" width="1000" height="545" fetchpriority="high" decoding="async"
+            <img src="gallery-photos/gallery-2.webp"
+              srcset="gallery-photos/gallery-2-sm.webp 640w, gallery-photos/gallery-2.webp 1000w"
+              sizes="(min-width: 1024px) 360px, (min-width: 640px) 33vw, 100vw"
+              width="1000" height="545" fetchpriority="high" decoding="async"
               alt="Bir çocuk büyüteçle şehir maketini inceliyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-3.webp" width="1000" height="545" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-3.webp"
+              srcset="gallery-photos/gallery-3-sm.webp 640w, gallery-photos/gallery-3.webp 1000w"
+              sizes="(min-width: 1024px) 360px, (min-width: 640px) 33vw, 100vw"
+              width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk şehir tasarımını çiziyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-4.webp" width="1000" height="545" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-4.webp"
+              srcset="gallery-photos/gallery-4-sm.webp 640w, gallery-photos/gallery-4.webp 1000w"
+              sizes="(min-width: 1024px) 360px, (min-width: 640px) 33vw, 100vw"
+              width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk minyatür binaları yerleştiriyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
@@ -452,13 +468,19 @@
         </div>
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
-            <img src="gallery-photos/gallery-1.webp" width="1000" height="545" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-1.webp"
+              srcset="gallery-photos/gallery-1-sm.webp 640w, gallery-photos/gallery-1.webp 1000w"
+              sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 100vw"
+              width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk atölyede şehir maketi üzerinde çalışıyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
-            <img src="gallery-photos/gallery-5.webp" width="1000" height="545" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-5.webp"
+              srcset="gallery-photos/gallery-5-sm.webp 640w, gallery-photos/gallery-5.webp 1000w"
+              sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 100vw"
+              width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir grup çocuk birlikte şehir maketi tasarlıyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
@@ -668,7 +690,7 @@
   </section>
 
   <!-- DIGITAL EXHIBITION -->
-  <section class="bg-white py-24">
+  <section class="bg-white py-24 cv-auto">
     <div class="mx-auto max-w-6xl px-6 lg:px-10">
       <p
         class="mb-4 flex items-center justify-center gap-2 text-center text-[13px] font-semibold uppercase tracking-[0.14em] text-clay-600">
@@ -1245,7 +1267,7 @@
         <div>
           <div class="flex items-center gap-3">
             <span class="block h-14 w-14 shrink-0 rounded-full bg-white ring-2 ring-white/10">
-              <img src="brand/harmony-logo-transparent.png" alt="Harmony - Urban Lab for Children"
+              <img src="brand/harmony-logo-transparent.webp" width="160" height="160" alt="Harmony - Urban Lab for Children"
                 class="h-full w-full object-contain p-0.5" />
             </span>
             <div>
