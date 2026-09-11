@@ -1619,17 +1619,20 @@
     // requestIdleCallback varsa tarayıcı boşa çıkınca çalıştır, yoksa kısa gecikme.
     const whenIdle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
 
-    // Ziyaretçi sayacı — sayfa tamamen yüklenip boşa çıkana kadar bekler, üstüne
-    // birkaç saniye daha erteler (bu istek sunucu tarafında ~1-2 sn sürebiliyor;
-    // kullanıcı arka planda olduğu için fark etmiyor, ama PageSpeed'in "ağ
-    // bağımlılık ağacı" ölçümünün penceresinden tamamen çıkması için erteliyoruz).
-    // Sonra arka planda sessizce tetiklenir; hata sessizce yutulur. Aynı IP aynı
-    // gün içinde tekrar sayılmaz (bkz. api/visitors.php).
+    // Ziyaretçi sayacı — sayfa tamamen yüklenip boşa çıkana kadar bekler, sonra
+    // arka planda sessizce tetiklenir; hata sessizce yutulur. sendBeacon,
+    // fetch'ten farklı olarak yanıtı hiç beklemez — tarayıcı isteği arka planda
+    // teslim eder ve hemen unutur (bu tür "gönder-unut" sayaç istekleri için
+    // amaca uygun API). Aynı IP aynı gün içinde tekrar sayılmaz (bkz.
+    // api/visitors.php). Sunucunun yanıt süresi ne olursa olsun (paylaşımlı
+    // hostingde birkaç saniye sürebiliyor) sayfanın render'ını hiç etkilemez.
     function pingVisitorCounter() {
       whenIdle(() => {
-        setTimeout(() => {
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/visitors.php', new Blob([], { type: 'text/plain' }));
+        } else {
           fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
-        }, 3000);
+        }
       });
     }
     if (document.readyState === 'complete') {
