@@ -5,10 +5,16 @@ import sharp from "sharp";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 
-const DIRS = ["gallery-photos", "atölyecalismalari", "brand"];
-const MAX_W = 1600;
+// Dizine göre hedef genişlik/kalite — her dizindeki görsellerin sayfada
+// gerçekte gösterildiği en büyük boyuta göre ayarlandı (gereksiz büyük
+// dosya göndermemek için; bkz. PageSpeed "Resim yayınlamayı kolaylaştırın").
+const DIR_CONFIG = {
+  "gallery-photos": { width: 1000, quality: 68 },
+  "atölyecalismalari": { width: 900, quality: 65 },
+  brand: { width: 1600, quality: 72 },
+};
 
-for (const dir of DIRS) {
+for (const [dir, { width: MAX_W, quality }] of Object.entries(DIR_CONFIG)) {
   let files;
   try {
     files = await readdir(dir);
@@ -22,7 +28,7 @@ for (const dir of DIRS) {
     try {
       const info = await sharp(input)
         .resize({ width: MAX_W, withoutEnlargement: true })
-        .webp({ quality: 72 })
+        .webp({ quality })
         .toFile(out);
       console.log(
         `OK  ${out}  ${info.width}x${info.height}  ${(info.size / 1024).toFixed(0)} KB`

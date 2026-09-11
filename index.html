@@ -229,12 +229,6 @@
     .gallery-item:hover {
       transform: translateY(-8px);
     }
-
-    /* Ekran dışındaki uzun bölümlerin render/layout maliyetini ertele */
-    .cv-auto {
-      content-visibility: auto;
-      contain-intrinsic-size: 1px 1200px;
-    }
   </style>
 </head>
 
@@ -438,19 +432,19 @@
       <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 pb-24 relative z-10">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-2.webp" width="1408" height="768" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-2.webp" width="1000" height="545" fetchpriority="high" decoding="async"
               alt="Bir çocuk büyüteçle şehir maketini inceliyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-3.webp" width="1408" height="768" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-3.webp" width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk şehir tasarımını çiziyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
-            <img src="gallery-photos/gallery-4.webp" width="1408" height="768" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-4.webp" width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk minyatür binaları yerleştiriyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
@@ -458,13 +452,13 @@
         </div>
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
-            <img src="gallery-photos/gallery-1.webp" width="1408" height="768" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-1.webp" width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir çocuk atölyede şehir maketi üzerinde çalışıyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </figure>
           <figure class="gallery-item group relative rounded-2xl overflow-hidden shadow-card aspect-[16/10]">
-            <img src="gallery-photos/gallery-5.webp" width="1408" height="768" loading="lazy" decoding="async"
+            <img src="gallery-photos/gallery-5.webp" width="1000" height="545" loading="lazy" decoding="async"
               alt="Bir grup çocuk birlikte şehir maketi tasarlıyor"
               class="h-full w-full object-cover mix-blend-multiply opacity-95" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
@@ -674,7 +668,7 @@
   </section>
 
   <!-- DIGITAL EXHIBITION -->
-  <section class="bg-white py-24 cv-auto">
+  <section class="bg-white py-24">
     <div class="mx-auto max-w-6xl px-6 lg:px-10">
       <p
         class="mb-4 flex items-center justify-center gap-2 text-center text-[13px] font-semibold uppercase tracking-[0.14em] text-clay-600">
@@ -693,7 +687,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
-          <img src="atölyecalismalari/atölye5.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Mahalle sahnesi collage çalışması"
+          <img src="atölyecalismalari/atölye5.webp" width="900" height="900" loading="lazy" decoding="async" alt="Mahalle sahnesi collage çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -706,7 +700,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye2.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Bina cephesi çizim detay çalışması"
+          <img src="atölyecalismalari/atölye2.webp" width="900" height="900" loading="lazy" decoding="async" alt="Bina cephesi çizim detay çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -719,7 +713,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye3.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Renkli çatılı ev collage çalışması"
+          <img src="atölyecalismalari/atölye3.webp" width="900" height="900" loading="lazy" decoding="async" alt="Renkli çatılı ev collage çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -732,7 +726,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye1.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Atölye çocukları eserleriyle"
+          <img src="atölyecalismalari/atölye1.webp" width="900" height="900" loading="lazy" decoding="async" alt="Atölye çocukları eserleriyle"
             class="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -745,7 +739,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
-          <img src="atölyecalismalari/atölye6.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Renkli ahşap ev cepheleri collage çalışması"
+          <img src="atölyecalismalari/atölye6.webp" width="900" height="900" loading="lazy" decoding="async" alt="Renkli ahşap ev cepheleri collage çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -758,7 +752,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye4.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Detaylı cephe çizimi çalışması"
+          <img src="atölyecalismalari/atölye4.webp" width="900" height="900" loading="lazy" decoding="async" alt="Detaylı cephe çizimi çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -771,7 +765,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye7.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Sicim ve karma teknik cephe çalışması"
+          <img src="atölyecalismalari/atölye7.webp" width="900" height="900" loading="lazy" decoding="async" alt="Sicim ve karma teknik cephe çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -784,7 +778,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye8.webp" width="1440" height="1440" loading="lazy" decoding="async" alt="Gece sokak sahnesi collage çalışması"
+          <img src="atölyecalismalari/atölye8.webp" width="900" height="900" loading="lazy" decoding="async" alt="Gece sokak sahnesi collage çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -797,7 +791,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye10.webp" width="1600" height="2000" loading="lazy" decoding="async" alt="Şehir tasarım kartlarıyla çalışan çocuklar"
+          <img src="atölyecalismalari/atölye10.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Şehir tasarım kartlarıyla çalışan çocuklar"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -810,7 +804,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye11.webp" width="1600" height="2000" loading="lazy" decoding="async" alt="Atölyede birlikte üreten çocuklar"
+          <img src="atölyecalismalari/atölye11.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Atölyede birlikte üreten çocuklar"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -823,7 +817,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
-          <img src="atölyecalismalari/atölye12.webp" width="1600" height="2000" loading="lazy" decoding="async" alt="Kesme ve yapıştırma çalışması yapan çocuklar"
+          <img src="atölyecalismalari/atölye12.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Kesme ve yapıştırma çalışması yapan çocuklar"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -836,7 +830,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye13.webp" width="1600" height="2000" loading="lazy" decoding="async" alt="Şehir haritası üzerinde detay çalışması"
+          <img src="atölyecalismalari/atölye13.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Şehir haritası üzerinde detay çalışması"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -849,7 +843,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye14.webp" width="1600" height="2000" loading="lazy" decoding="async" alt="Tamamlanmış şehir haritalarını gösteren çocuklar"
+          <img src="atölyecalismalari/atölye14.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Tamamlanmış şehir haritalarını gösteren çocuklar"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -862,7 +856,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
-          <img src="atölyecalismalari/atölye17.webp" width="1485" height="1856" loading="lazy" decoding="async" alt="Açık havada ekolojik şehir atölyesi"
+          <img src="atölyecalismalari/atölye17.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Açık havada ekolojik şehir atölyesi"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -875,7 +869,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye18.webp" width="1485" height="1856" loading="lazy" decoding="async" alt="Minyatür ekolojik ev maketi yapımı"
+          <img src="atölyecalismalari/atölye18.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Minyatür ekolojik ev maketi yapımı"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -888,7 +882,7 @@
 
         <div
           class="group relative col-span-1 row-span-2 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl">
-          <img src="atölyecalismalari/atölye19.webp" width="1485" height="1856" loading="lazy" decoding="async" alt="Ekolojik şehir maketiyle poz veren çocuk"
+          <img src="atölyecalismalari/atölye19.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Ekolojik şehir maketiyle poz veren çocuk"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -901,7 +895,7 @@
 
         <div
           class="group relative col-span-1 row-span-1 cursor-pointer overflow-hidden rounded-2xl shadow-sm transition-shadow duration-500 hover:shadow-xl md:col-span-2">
-          <img src="atölyecalismalari/atölye20.webp" width="1485" height="1856" loading="lazy" decoding="async" alt="Küçük şehir plancıları maketleriyle"
+          <img src="atölyecalismalari/atölye20.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Küçük şehir plancıları maketleriyle"
             class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#1A2E40]/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -1511,7 +1505,7 @@
           <button type="button" data-whatsapp-cta
             class="card-hover group block w-full cursor-pointer text-left rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
             <div class="relative aspect-[16/10] overflow-hidden bg-ink-50">
-              <img src="${w.image}" alt="${w.name} atölyesi afişi"
+              <img src="${w.image}" alt="${w.name} atölyesi afişi" loading="lazy" decoding="async"
                 class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.04]" />
               <div class="absolute inset-0 bg-gradient-to-t from-ink-900/45 via-transparent to-transparent"></div>
             </div>
@@ -1603,11 +1597,20 @@
     // requestIdleCallback varsa tarayıcı boşa çıkınca çalıştır, yoksa kısa gecikme.
     const whenIdle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
 
-    // Ziyaretçi sayacı — boşta, arka planda sessizce tetiklenir; hata sessizce yutulur.
+    // Ziyaretçi sayacı — sayfa tamamen yüklenip boşa çıkana kadar bekler, sonra
+    // arka planda sessizce tetiklenir; hata sessizce yutulur. Erken tetiklenirse
+    // LCP ile aynı bant genişliğine/bağlantı havuzuna girip onu geciktirebiliyor.
     // Aynı IP aynı gün içinde tekrar sayılmaz (bkz. api/visitors.php).
-    whenIdle(() => {
-      fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
-    });
+    function pingVisitorCounter() {
+      whenIdle(() => {
+        fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
+      });
+    }
+    if (document.readyState === 'complete') {
+      pingVisitorCounter();
+    } else {
+      window.addEventListener('load', pingVisitorCounter);
+    }
 
     // Shared submit handler for both the individual and corporate contact
     // forms below — same endpoint, same error/success/loading behavior, only
@@ -1705,7 +1708,7 @@
         <article
           class="group card-hover rounded-2xl border border-ink-100 bg-white shadow-card hover:shadow-lifted overflow-hidden">
           <div class="relative h-56 overflow-hidden bg-ink-50">
-            <img src="${post.image}" alt="${post.title}"
+            <img src="${post.image}" alt="${post.title}" loading="lazy" decoding="async"
               class="h-full w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-transparent to-transparent"></div>
           </div>
