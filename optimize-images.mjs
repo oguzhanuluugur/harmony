@@ -15,7 +15,7 @@ const DIR_CONFIG = {
   // Hero galerisi: mobilde tek sütun (~365px), sm+'da 2-3 sütun, masaüstünde
   // en fazla ~560px — srcset için 3 kademe.
   "gallery-photos": {
-    quality: 60,
+    quality: 50,
     variants: [
       ["-xs", 480],
       ["-sm", 640],
@@ -23,8 +23,8 @@ const DIR_CONFIG = {
       ["", 1000],
     ],
   },
-  "atölyecalismalari": { quality: 65, variants: [["", 900]] },
-  brand: { quality: 58, variants: [["", 1600]] },
+  "atölyecalismalari": { quality: 58, variants: [["", 900]] },
+  brand: { quality: 48, variants: [["", 1600]] },
 };
 
 // brand/ içindeki logo dosyaları küçük ikonlar olarak kullanılıyor
