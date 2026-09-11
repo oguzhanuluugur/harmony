@@ -23,16 +23,19 @@ const DIR_CONFIG = {
     ],
   },
   "atölyecalismalari": { quality: 65, variants: [["", 900]] },
-  brand: { quality: 72, variants: [["", 1600]] },
+  brand: { quality: 65, variants: [["", 1600]] },
 };
 
 // brand/ içindeki logo dosyaları küçük ikonlar olarak kullanılıyor
-// (nav/footer/admin — en fazla ~80px gösterim); genel "brand" ayarını
+// (nav/footer/admin — en fazla ~80px gösterim, 2x DPR için 160px hedefliyoruz —
+// PageSpeed'in "properly sized" hesabı DPR'ı yok sayıp 1x varsayıyor, bu yüzden
+// hâlâ "büyük" diyor, ama gerçek retina telefonlarda 160px gerekli; boyutu
+// küçültmüyoruz, sadece sıkıştırmayı sıkılaştırıyoruz). Genel "brand" ayarını
 // (1600px) burada geçersiz kılmazsak PNG boyutunda gereksiz büyük WebP
 // üretilir (bkz. PageSpeed "Serve images in next-gen formats").
 const FILE_OVERRIDES = {
-  "brand/harmony-logo-transparent.png": { quality: 90, variants: [["", 160]] },
-  "brand/harmony-logo.png": { quality: 90, variants: [["", 160]] },
+  "brand/harmony-logo-transparent.png": { quality: 78, variants: [["", 160]] },
+  "brand/harmony-logo.png": { quality: 78, variants: [["", 160]] },
 };
 
 for (const [dir, { quality, variants }] of Object.entries(DIR_CONFIG)) {
