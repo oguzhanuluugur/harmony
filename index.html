@@ -1619,13 +1619,17 @@
     // requestIdleCallback varsa tarayıcı boşa çıkınca çalıştır, yoksa kısa gecikme.
     const whenIdle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
 
-    // Ziyaretçi sayacı — sayfa tamamen yüklenip boşa çıkana kadar bekler, sonra
-    // arka planda sessizce tetiklenir; hata sessizce yutulur. Erken tetiklenirse
-    // LCP ile aynı bant genişliğine/bağlantı havuzuna girip onu geciktirebiliyor.
-    // Aynı IP aynı gün içinde tekrar sayılmaz (bkz. api/visitors.php).
+    // Ziyaretçi sayacı — sayfa tamamen yüklenip boşa çıkana kadar bekler, üstüne
+    // birkaç saniye daha erteler (bu istek sunucu tarafında ~1-2 sn sürebiliyor;
+    // kullanıcı arka planda olduğu için fark etmiyor, ama PageSpeed'in "ağ
+    // bağımlılık ağacı" ölçümünün penceresinden tamamen çıkması için erteliyoruz).
+    // Sonra arka planda sessizce tetiklenir; hata sessizce yutulur. Aynı IP aynı
+    // gün içinde tekrar sayılmaz (bkz. api/visitors.php).
     function pingVisitorCounter() {
       whenIdle(() => {
-        fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
+        setTimeout(() => {
+          fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
+        }, 3000);
       });
     }
     if (document.readyState === 'complete') {

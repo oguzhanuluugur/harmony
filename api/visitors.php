@@ -102,6 +102,13 @@ if ($method === 'POST') {
         $data['son_ziyaret_tarihi'] = $today;
         $data['bugunku_ziyaretci'] = 0;
         $data['bugunku_ip_hashleri'] = [];
+
+        // gunluk_gecmis aksi halde sonsuza kadar büyür — dosyayı (ve her
+        // isteğin okuma/yazma süresini) şişirmesin diye son 90 günle sınırla.
+        if (count($data['gunluk_gecmis']) > 90) {
+            ksort($data['gunluk_gecmis']);
+            $data['gunluk_gecmis'] = array_slice($data['gunluk_gecmis'], -90, null, true);
+        }
     }
 
     $isNewVisitor = !in_array($ipHash, $data['bugunku_ip_hashleri'], true);
