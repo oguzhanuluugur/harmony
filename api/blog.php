@@ -22,6 +22,24 @@ define('DATA_FILE', __DIR__ . '/../data/blog.json');
 define('PLACEHOLDER_IMAGE', 'https://placehold.co/600x400/f4f5f6/9aa2ad?text=G%C3%B6rsel');
 define('MAX_IMAGE_LENGTH', 700000);
 define('EXCERPT_LENGTH', 170);
+define('UPLOAD_DIR', __DIR__ . '/../blog-photos');
+define('UPLOAD_URL_PREFIX', 'blog-photos');
+
+// Admin panelinden base64 data URL olarak gelen görseli diske kaydeder ve
+// dosya yolunu döner — JSON'a ham base64 gömülmesin diye (bkz. workshops.php).
+// Zaten bir dosya yolu/URL geldiyse (görsel değiştirilmemişse) null döner.
+function save_base64_image($dataUrl) {
+    if (!preg_match('/^data:image\/(jpeg|png|webp);base64,(.+)$/', $dataUrl, $m)) {
+        return null;
+    }
+    $ext = $m[1] === 'jpeg' ? 'jpg' : $m[1];
+    $binary = base64_decode($m[2]);
+    if ($binary === false) return null;
+    if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
+    $filename = bin2hex(random_bytes(8)) . '.' . $ext;
+    file_put_contents(UPLOAD_DIR . '/' . $filename, $binary);
+    return UPLOAD_URL_PREFIX . '/' . $filename;
+}
 
 function send_json($status, $payload) {
     http_response_code($status);
@@ -98,7 +116,8 @@ function normalize_blog_input($body) {
         if (strlen($body['image']) > MAX_IMAGE_LENGTH) {
             $errors[] = 'Görsel çok büyük. Lütfen daha küçük bir görsel seçin.';
         } else {
-            $image = $body['image'];
+            $saved = save_base64_image($body['image']);
+            $image = $saved ?? $body['image']; // base64 değilse (mevcut yol) aynen kullan
         }
     }
 

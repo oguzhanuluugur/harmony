@@ -1583,7 +1583,7 @@
 
     async function loadWorkshopCards() {
       try {
-        const res = await fetch('/api/workshops.php');
+        const res = await fetch('/api/workshops.php?status=active', { priority: 'low' });
         if (!res.ok) throw new Error('İstek başarısız: ' + res.status);
         const workshops = await res.json();
         const activeWorkshops = workshops.filter((w) => w.status === 'active');

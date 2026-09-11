@@ -21,6 +21,25 @@ define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 define('DATA_FILE', __DIR__ . '/../data/workshops.json');
 define('PLACEHOLDER_IMAGE', 'https://placehold.co/400x280/f4f5f6/9aa2ad?text=G%C3%B6rsel');
 define('MAX_IMAGE_LENGTH', 700000); // ~700KB base64 — dosyanın çok büyümesini önler
+define('UPLOAD_DIR', __DIR__ . '/../workshop-photos');
+define('UPLOAD_URL_PREFIX', 'workshop-photos');
+
+// Admin panelinden base64 data URL olarak gelen görseli diske kaydeder ve
+// dosya yolunu döner — JSON'a ham base64 gömülmesin diye (bkz. PageSpeed
+// "Ağ bağımlılık ağacı" bulgusu: base64 JSON'u şişiriyor, cache'lenemiyor).
+// Zaten bir dosya yolu/URL geldiyse (görsel değiştirilmemişse) null döner.
+function save_base64_image($dataUrl) {
+    if (!preg_match('/^data:image\/(jpeg|png|webp);base64,(.+)$/', $dataUrl, $m)) {
+        return null;
+    }
+    $ext = $m[1] === 'jpeg' ? 'jpg' : $m[1];
+    $binary = base64_decode($m[2]);
+    if ($binary === false) return null;
+    if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
+    $filename = bin2hex(random_bytes(8)) . '.' . $ext;
+    file_put_contents(UPLOAD_DIR . '/' . $filename, $binary);
+    return UPLOAD_URL_PREFIX . '/' . $filename;
+}
 
 function send_json($status, $payload) {
     http_response_code($status);
@@ -88,7 +107,8 @@ function normalize_workshop_input($body) {
         if (strlen($body['image']) > MAX_IMAGE_LENGTH) {
             $errors[] = 'Görsel çok büyük. Lütfen daha küçük bir görsel seçin.';
         } else {
-            $image = $body['image'];
+            $saved = save_base64_image($body['image']);
+            $image = $saved ?? $body['image']; // base64 değilse (mevcut yol) aynen kullan
         }
     }
 
@@ -102,7 +122,13 @@ $method = $_SERVER['REQUEST_METHOD'];
 $id = $_GET['id'] ?? null;
 
 if ($method === 'GET') {
-    send_json(200, read_data());
+    $data = read_data();
+    if (($_GET['status'] ?? '') === 'active') {
+        $data = array_values(array_filter($data, function ($w) {
+            return ($w['status'] ?? '') === 'active';
+        }));
+    }
+    send_json(200, $data);
 }
 
 if ($method === 'POST') {
