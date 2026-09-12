@@ -131,6 +131,13 @@ $method = $_SERVER['REQUEST_METHOD'];
 $id = $_GET['id'] ?? null;
 
 if ($method === 'GET') {
+    // Sadece herkese açık siteden gelen istek (?public=1) önbelleklenir —
+    // admin panelindeki tablo hâlâ her seferinde taze veri çeker, o yüzden
+    // yeni eklenen/düzenlenen bir yazı admin ekranında bayat görünmez
+    // (bkz. api/workshops.php'deki aynı desen).
+    if (($_GET['public'] ?? '') === '1') {
+        header('Cache-Control: public, max-age=60');
+    }
     send_json(200, read_data());
 }
 

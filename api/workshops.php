@@ -127,6 +127,12 @@ if ($method === 'GET') {
         $data = array_values(array_filter($data, function ($w) {
             return ($w['status'] ?? '') === 'active';
         }));
+        // Sadece herkese açık siteden gelen bu filtreli istek önbelleklenir —
+        // admin panelindeki tam listeye (status parametresiz) dokunmuyor, o
+        // yüzden bir düzenlemeden hemen sonra admin tabloda bayat veri
+        // görünmez. 60 sn: performans kazancı ile "yeni eklenen atölye kaç
+        // saniyede sitede görünür" arasında makul bir denge.
+        header('Cache-Control: public, max-age=60');
     }
     send_json(200, $data);
 }
