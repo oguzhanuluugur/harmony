@@ -37,8 +37,16 @@
   <FilesMatch "\.(webp|avif|jpe?g|png|gif|svg|ico|css|js|woff2?|ttf|mp4)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "\.(html|php)$">
+  <FilesMatch "\.html$">
     Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.php$">
+    # "setifempty": PHP script kendi Cache-Control'unu zaten set ettiyse (ör.
+    # api/workshops.php ?status=active, api/blog.php ?public=1 — bkz. o
+    # dosyalardaki header() çağrıları) buradaki değer ONU EZMEZ; sadece PHP
+    # hiç Cache-Control göndermediyse devreye girer. Eski "Header set" burada
+    # koşulsuzdu ve PHP'nin kendi max-age=60 başlığını sessizce siliyordu.
+    Header setifempty Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>
 
