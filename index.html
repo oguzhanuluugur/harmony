@@ -16,7 +16,7 @@
   <!-- LCP görseli: HTML ayrıştırıcısı <img>'e ulaşmadan tarayıcının bunu
        önceden indirmeye başlaması için — srcset/sizes, aşağıdaki gerçek
        <img> etiketiyle birebir aynı olmalı (bkz. hero galerisi, gallery-2). -->
-  <link rel="preload" as="image" href="gallery-photos/gallery-2.webp"
+  <link rel="preload" as="image" href="gallery-photos/gallery-2.webp" fetchpriority="high"
     imagesrcset="gallery-photos/gallery-2-xs.webp 480w, gallery-photos/gallery-2-sm.webp 640w, gallery-photos/gallery-2-md.webp 780w, gallery-photos/gallery-2.webp 1000w"
     imagesizes="(min-width: 1024px) calc((min(100vw, 1152px) - 112px) / 3), (min-width: 640px) calc((100vw - 80px) / 3), calc(100vw - 48px)" />
 
