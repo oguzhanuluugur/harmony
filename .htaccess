@@ -40,14 +40,17 @@
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
-  <FilesMatch "\.php$">
-    # "setifempty": PHP script kendi Cache-Control'unu zaten set ettiyse (ör.
-    # api/workshops.php ?status=active, api/blog.php ?public=1 — bkz. o
-    # dosyalardaki header() çağrıları) buradaki değer ONU EZMEZ; sadece PHP
-    # hiç Cache-Control göndermediyse devreye girer. Eski "Header set" burada
-    # koşulsuzdu ve PHP'nin kendi max-age=60 başlığını sessizce siliyordu.
-    Header setifempty Cache-Control "no-cache, must-revalidate"
-  </FilesMatch>
+  # NOT: .php için burada BİLEREK bir Cache-Control kuralı yok. Sunucu Apache
+  # değil LiteSpeed — "Header setifempty" (koşullu ayarlama) LiteSpeed'de
+  # desteklenmiyor ve tüm .php yanıtlarına anlamsız/bozuk bir "setifempty:"
+  # başlığı olarak sızıyordu. Koşulsuz "Header set" ise eskiden
+  # api/workshops.php (?status=active) ve api/blog.php (?public=1)'in kendi
+  # header('Cache-Control: public, max-age=60') çağrısını sessizce eziyordu.
+  # Çözüm: Apache seviyesinde .php için hiç kural koymamak — her PHP dosyası
+  # kendi Cache-Control'unu kendi ayarlıyor zaten (bkz. o iki dosya), diğer
+  # API uçları (messages.php, visitors.php, vb.) hiç ayarlamıyor ve zaten
+  # dinamik/oturum bazlı oldukları için tarayıcı varsayılan olarak
+  # cache'lemiyor.
 </IfModule>
 
 # NOT: css/js/görsel güncellediğinde dosya adını ya da ?v=SÜRÜM parametresini
