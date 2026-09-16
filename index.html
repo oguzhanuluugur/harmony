@@ -1913,6 +1913,17 @@
           event_label: 'WhatsApp_Click',
         });
       }
+
+      // Kendi dönüşüm sayacımız — admin panelde "WhatsApp'a Tıklayanlar"
+      // kartında gösterilir (bkz. api/whatsapp_track.php). sendBeacon
+      // kullanılıyor ki hemen ardından çağrılan window.open() bu isteği
+      // yarıda kesmesin; sendBeacon tarayıcı tarafından arka planda garanti
+      // teslim edilir (aynı desen: pingVisitorCounter()).
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/whatsapp_track.php', new Blob([], { type: 'text/plain' }));
+      } else {
+        fetch('/api/whatsapp_track.php', { method: 'POST', keepalive: true }).catch(() => {});
+      }
     }
 
     // Delegated to document (not bound per-element) so it also covers the
