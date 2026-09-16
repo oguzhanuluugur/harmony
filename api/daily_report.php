@@ -15,6 +15,11 @@
 // birebir aynı standarttadır.
 // ==========================================================================
 
+// visitors.php artık Europe/Istanbul saatiyle yazıyor — burası da aynı
+// dilimi kullanmazsa "bugünkü" karşılaştırmaları ve rapordaki tarih 3 saat
+// kayar.
+date_default_timezone_set('Europe/Istanbul');
+
 define('VISITORS_DATA_FILE', __DIR__ . '/../data/visitors.json');
 
 // Gmail SMTP ayarları ve $admin_email — messages.php ile ortak.

@@ -12,6 +12,11 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+// Sunucunun varsayılan saat dilimi (Türkticaret'te UTC) yerine Türkiye
+// saatini kullan — aksi halde "saat" alanı ve gün değişimi (son_ziyaret_tarihi)
+// 3 saat geriden hesaplanır.
+date_default_timezone_set('Europe/Istanbul');
+
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
 define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 

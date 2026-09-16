@@ -10,6 +10,10 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+// Sunucunun varsayılan saat dilimi (Türkticaret'te UTC) yerine Türkiye
+// saatini kullan — aksi halde mesajların "Tarih" alanı 3 saat geriden görünür.
+date_default_timezone_set('Europe/Istanbul');
+
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
 define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
