@@ -1651,10 +1651,24 @@
     // hostingde birkaç saniye sürebiliyor) sayfanın render'ını hiç etkilemez.
     function pingVisitorCounter() {
       whenIdle(() => {
+        // "kaynak" burada document.referrer — ziyaretçinin bu isteği
+        // tetiklemeden ÖNCE hangi sayfadan geldiği (Google/Instagram/vb).
+        // Bu isteğin kendi HTTP Referer başlığı her zaman kendi sitemizi
+        // gösterir, bu yüzden asıl kaynağı ancak JS tarafında yakalayıp
+        // gövdede göndererek elde edebiliyoruz.
+        const payload = JSON.stringify({
+          sayfa: location.pathname + location.hash,
+          kaynak: document.referrer || '',
+        });
         if (navigator.sendBeacon) {
-          navigator.sendBeacon('/api/visitors.php', new Blob([], { type: 'text/plain' }));
+          navigator.sendBeacon('/api/visitors.php', new Blob([payload], { type: 'application/json' }));
         } else {
-          fetch('/api/visitors.php', { method: 'POST', keepalive: true }).catch(() => {});
+          fetch('/api/visitors.php', {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json' },
+            body: payload,
+          }).catch(() => {});
         }
       });
     }

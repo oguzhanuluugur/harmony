@@ -87,7 +87,7 @@
     <div class="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-vault sm:p-10">
       <div class="mb-8 flex flex-col items-center text-center">
         <span class="mb-4 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-soft">
-          <img src="brand/harmony-logo.webp" width="160" height="160" alt="Harmony" class="h-full w-full scale-[1.2] object-cover" />
+          <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full scale-[1.2] object-cover" />
         </span>
         <p class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-clay-600">Harmony Admin</p>
         <h1 class="mt-3 font-display text-2xl font-bold tracking-[-0.01em] text-ink-900">Sisteme Giriş Yapın</h1>
@@ -161,7 +161,7 @@
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-ink-100 bg-white">
       <div class="flex h-20 shrink-0 items-center gap-3 border-b border-ink-100 px-6">
         <span class="block h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-soft">
-          <img src="brand/harmony-logo.webp" width="160" height="160" alt="Harmony" class="h-full w-full scale-[1.2] object-cover" />
+          <img src="brand/harmony-logo.png" alt="Harmony" class="h-full w-full scale-[1.2] object-cover" />
         </span>
         <div class="leading-tight">
           <p class="font-display text-[15px] font-semibold tracking-[-0.01em] text-ink-900">HARMONY</p>
@@ -281,14 +281,14 @@
             <div class="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
               <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-ink-500">Bugünkü Ziyaretçi</span>
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-sage-50 text-sage-600">
+                <button type="button" id="visitor-detail-open" aria-label="Bugünkü ziyaretlerin detayını gör"
+                  class="flex h-10 w-10 items-center justify-center rounded-full bg-sage-50 text-sage-600 transition-colors duration-200 hover:bg-sage-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path
-                      d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
-                </span>
+                </button>
               </div>
               <p id="visitor-stat-today" class="mt-4 font-display text-3xl font-bold text-ink-900">—</p>
             </div>
@@ -849,7 +849,8 @@
           <p class="mt-1.5 text-xs text-ink-400">Kartlarda görünecek özet, ilk paragraftan otomatik oluşturulur.</p>
           <p class="mt-1 text-xs text-ink-400">Buraya yazmanıza gerek yok: "Hafta sonu atölyelerimize katılmak için
             <span class="font-semibold text-clay-600">Kayıt Sayfamızı</span> ziyaret edebilirsiniz." yönlendirme
-            satırı, WhatsApp'a bağlı olarak her yazının sonuna sitede otomatik ekleniyor.</p>
+            satırı, WhatsApp'a bağlı olarak her yazının sonuna sitede otomatik ekleniyor.
+          </p>
         </div>
 
         <div id="blog-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
@@ -918,7 +919,8 @@
           </div>
         </div>
         <div>
-          <p id="message-modal-body-label" class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj</p>
+          <p id="message-modal-body-label" class="text-xs font-semibold uppercase tracking-[0.1em] text-ink-400">Mesaj
+          </p>
           <p id="message-modal-body"
             class="mt-2 whitespace-pre-line rounded-lg bg-ink-50 p-4 text-sm leading-relaxed text-ink-700"></p>
         </div>
@@ -933,6 +935,36 @@
           class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
           Kapat
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visitor Detail Modal -->
+  <div id="visitor-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="visitor-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="relative w-full max-w-2xl max-h-[80vh] overflow-hidden rounded-2xl bg-white shadow-card">
+      <div class="flex items-center justify-between border-b border-ink-100 p-6 sm:p-8 sm:pb-6">
+        <div>
+          <h2 class="font-display text-lg font-semibold text-ink-900">Bugünkü Ziyaretler</h2>
+          <p class="mt-1 text-sm text-ink-500">Cihaz tipi ve geldikleri kaynak — IP adresi veya kişisel bilgi
+            tutulmuyor.</p>
+        </div>
+        <button type="button" id="visitor-modal-close" aria-label="Kapat"
+          class="icon-btn flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div id="visitor-modal-body" class="max-h-[60vh] overflow-y-auto p-6 sm:p-8 sm:pt-6">
+        <div class="flex items-center justify-center py-12 text-ink-300">
+          <svg class="animate-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25" />
+            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -1743,6 +1775,72 @@
       }
     }
     loadVisitorStats();
+
+    // ---- Visitor detail modal: today's visit log (device/source/page, no IP) ----
+    const visitorModal = document.getElementById('visitor-modal');
+    const visitorModalBody = document.getElementById('visitor-modal-body');
+
+    function visitorRowHtml(v) {
+      return `
+        <tr>
+          <td class="px-4 py-2.5 text-ink-500">${v.saat}</td>
+          <td class="px-4 py-2.5 font-medium text-ink-800">${v.sayfa}</td>
+          <td class="px-4 py-2.5 text-ink-600">${v.kaynak}</td>
+          <td class="px-4 py-2.5 text-ink-600">${v.cihaz}</td>
+        </tr>
+      `;
+    }
+
+    async function openVisitorModal() {
+      visitorModal.classList.remove('hidden');
+      visitorModal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+      visitorModalBody.innerHTML = `
+        <div class="flex items-center justify-center py-12 text-ink-300">
+          <svg class="animate-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25" />
+            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
+      `;
+      try {
+        const stats = await apiRequest(VISITORS_API);
+        const visits = stats.bugunku_ziyaretler || [];
+        visitorModalBody.innerHTML = visits.length
+          ? `
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[520px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-4 py-2">Saat</th>
+                    <th class="px-4 py-2">Sayfa</th>
+                    <th class="px-4 py-2">Kaynak</th>
+                    <th class="px-4 py-2">Cihaz</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-ink-100">${visits.map(visitorRowHtml).join('')}</tbody>
+              </table>
+            </div>
+          `
+          : `<p class="py-12 text-center text-ink-400">Bugün henüz bir ziyaret kaydı yok.</p>`;
+      } catch (err) {
+        console.error('Ziyaret detayları yüklenemedi:', err);
+        visitorModalBody.innerHTML = `<p class="py-12 text-center text-ink-400">Ziyaret detayları şu anda yüklenemedi.</p>`;
+      }
+    }
+
+    function closeVisitorModal() {
+      visitorModal.classList.add('hidden');
+      visitorModal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.getElementById('visitor-detail-open').addEventListener('click', openVisitorModal);
+    document.getElementById('visitor-modal-backdrop').addEventListener('click', closeVisitorModal);
+    document.getElementById('visitor-modal-close').addEventListener('click', closeVisitorModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !visitorModal.classList.contains('hidden')) closeVisitorModal();
+    });
 
     const messageModal = document.getElementById('message-modal');
     let viewingMessageId = null;

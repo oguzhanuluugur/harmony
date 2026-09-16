@@ -31,8 +31,80 @@ function default_visitor_data()
         'son_ziyaret_tarihi' => '',
         'bugunku_ziyaretci' => 0,
         'bugunku_ip_hashleri' => [],
+        'bugunku_ziyaretler' => [],
         'gunluk_gecmis' => [],
     ];
+}
+
+// Bugünkü ziyaret akışında (admin panelindeki "Göz" ikonu) tek bir günde
+// tutulan kayıt sayısını sınırlar — anormal bir bot trafiği bile
+// visitors.json'u şişirip her isteğin okuma/yazma süresini uzatmasın diye.
+define('MAX_DAILY_VISIT_LOG', 300);
+
+// ⚠️ GİZLİLİK NOTU: Burada KASITLI olarak ham IP adresi, tam User-Agent
+// dizesi veya üçüncü taraf bir servise (ör. ip-api.com) konum sorgusu YOK.
+// Yalnızca kaba/insan-okunur bir cihaz özeti ve trafik kaynağı çıkarılıp
+// saklanıyor — KVKK/GDPR kapsamında "kişisel veri" sayılabilecek ham
+// veriler hiç diske yazılmıyor. Tekil ziyaretçi sayımı için kullanılan IP
+// zaten yalnızca hash'lenmiş haliyle tutuluyor (bkz. hash_ip()).
+function describe_device($userAgent)
+{
+    $ua = (string) $userAgent;
+    if ($ua === '') return 'Bilinmiyor';
+
+    // Instagram/Facebook uygulama içi tarayıcılar önce kontrol edilmeli —
+    // bunların User-Agent'ı genelde bir Chrome/Safari imzası da taşır.
+    if (stripos($ua, 'Instagram') !== false) $app = 'Instagram Uygulaması';
+    elseif (preg_match('/FBAN|FBAV/i', $ua)) $app = 'Facebook Uygulaması';
+    else $app = null;
+
+    if (preg_match('/iPad|Tablet/i', $ua)) $tip = 'Tablet';
+    elseif (preg_match('/Mobile|Android|iPhone/i', $ua)) $tip = 'Mobil';
+    else $tip = 'Masaüstü';
+
+    if ($app) return $tip . ' · ' . $app;
+
+    // Sıra önemli: Edge/OPR imzaları Chrome'u da içerir, Chrome imzası
+    // Safari'yi de içerir — en spesifikten en genele doğru kontrol edilir.
+    if (stripos($ua, 'Edg/') !== false) $tarayici = 'Edge';
+    elseif (stripos($ua, 'OPR/') !== false || stripos($ua, 'Opera') !== false) $tarayici = 'Opera';
+    elseif (stripos($ua, 'SamsungBrowser') !== false) $tarayici = 'Samsung Internet';
+    elseif (stripos($ua, 'Firefox') !== false) $tarayici = 'Firefox';
+    elseif (stripos($ua, 'Chrome') !== false) $tarayici = 'Chrome';
+    elseif (stripos($ua, 'Safari') !== false) $tarayici = 'Safari';
+    else $tarayici = 'Diğer';
+
+    return $tip . ' · ' . $tarayici;
+}
+
+function describe_source($referer)
+{
+    $referer = trim((string) $referer);
+    if ($referer === '') return 'Doğrudan / Yer İmi';
+
+    $host = parse_url($referer, PHP_URL_HOST);
+    if (!$host) return 'Doğrudan / Yer İmi';
+    $host = strtolower(preg_replace('/^www\./', '', $host));
+
+    // Kendi sitemizden gelen bir "referer" (örn. sayfa içi yönlendirme)
+    // dış kaynak sayılmaz.
+    if ($host === 'harmonyplanlama.com') return 'Site içi gezinme';
+
+    $known = [
+        'google.' => 'Google',
+        'instagram.com' => 'Instagram',
+        'facebook.com' => 'Facebook',
+        'fb.com' => 'Facebook',
+        'whatsapp.com' => 'WhatsApp',
+        'bing.com' => 'Bing',
+        'yandex.' => 'Yandex',
+        't.co' => 'Twitter/X',
+        'x.com' => 'Twitter/X',
+    ];
+    foreach ($known as $needle => $label) {
+        if (strpos($host, $needle) !== false) return $label;
+    }
+    return $host;
 }
 
 function read_data()
@@ -69,6 +141,13 @@ function require_write_key()
     }
 }
 
+function sanitize_page($page)
+{
+    $page = trim(str_replace(['<', '>'], '', (string) $page));
+    if ($page === '') return '/';
+    return mb_substr($page, 0, 120);
+}
+
 function get_client_ip()
 {
     // Kasıtlı olarak yalnızca REMOTE_ADDR — X-Forwarded-For / Client-IP gibi
@@ -102,6 +181,7 @@ if ($method === 'POST') {
         $data['son_ziyaret_tarihi'] = $today;
         $data['bugunku_ziyaretci'] = 0;
         $data['bugunku_ip_hashleri'] = [];
+        $data['bugunku_ziyaretler'] = [];
 
         // gunluk_gecmis aksi halde sonsuza kadar büyür — dosyayı (ve her
         // isteğin okuma/yazma süresini) şişirmesin diye son 90 günle sınırla.
@@ -116,8 +196,28 @@ if ($method === 'POST') {
         $data['bugunku_ip_hashleri'][] = $ipHash;
         $data['bugunku_ziyaretci'] += 1;
         $data['toplam_ziyaretci'] += 1;
-        write_data($data);
     }
+
+    // Sayfa/kaynak bilgisi sendBeacon ile gönderilen JSON gövdeden okunur —
+    // "kaynak" burada tarayıcının document.referrer'ıdır (bu isteğin kendi
+    // HTTP Referer başlığı değil, o zaten her zaman kendi sitemizi gösterir).
+    $body = json_decode(file_get_contents('php://input'), true);
+    if (!is_array($body)) $body = [];
+    $sayfa = sanitize_page(is_string($body['sayfa'] ?? null) ? $body['sayfa'] : '/');
+    $kaynak = describe_source(is_string($body['kaynak'] ?? null) ? $body['kaynak'] : '');
+    $cihaz = describe_device($_SERVER['HTTP_USER_AGENT'] ?? '');
+
+    $data['bugunku_ziyaretler'][] = [
+        'saat' => date('H:i'),
+        'sayfa' => $sayfa,
+        'kaynak' => $kaynak,
+        'cihaz' => $cihaz,
+    ];
+    if (count($data['bugunku_ziyaretler']) > MAX_DAILY_VISIT_LOG) {
+        $data['bugunku_ziyaretler'] = array_slice($data['bugunku_ziyaretler'], -MAX_DAILY_VISIT_LOG);
+    }
+
+    write_data($data);
 
     send_json(200, [
         'ok' => true,
@@ -135,6 +235,8 @@ if ($method === 'GET') {
         'bugunku_ziyaretci' => $data['bugunku_ziyaretci'],
         'tarih' => $data['son_ziyaret_tarihi'],
         'gunluk_gecmis' => $data['gunluk_gecmis'],
+        // En yeniler üstte gösterilsin diye ters çevriliyor.
+        'bugunku_ziyaretler' => array_reverse($data['bugunku_ziyaretler']),
     ]);
 }
 
