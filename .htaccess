@@ -56,3 +56,16 @@
 # NOT: css/js/görsel güncellediğinde dosya adını ya da ?v=SÜRÜM parametresini
 # değiştir (ör. dist/styles.css?v=20260910 -> ?v=20260911). Aksi halde
 # tarayıcı 1 yıl boyunca eski dosyayı gösterir. index.html/admin.html hariç.
+
+# --- Güvenlik: geliştirme ve yapılandırma dosyalarını dışarıya kapat ---
+# data/, api/_lib/, node_modules/ ve "temporary screenshots/" klasörlerinin
+# kendi .htaccess dosyaları var. Buradaki kural kökteki tekil dosyalar için.
+<FilesMatch "(\.(zip|md|mjs|sql|log|bak)|^package(-lock)?\.json|^(smtp|admin)_config\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

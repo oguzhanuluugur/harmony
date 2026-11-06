@@ -18,7 +18,7 @@ header('Content-Type: application/json; charset=utf-8');
 date_default_timezone_set('Europe/Istanbul');
 
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
-define('API_WRITE_KEY', 'HarmonyAdmin2026!');
+define('VISITOR_HASH_SALT', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/visitors.json');
 
@@ -140,10 +140,9 @@ function write_data($data)
 
 function require_write_key()
 {
-    $provided = $_GET['apikey'] ?? '';
-    if (!hash_equals(API_WRITE_KEY, (string) $provided)) {
-        send_json(401, ['error' => 'Yetkisiz istek: geçersiz veya eksik API anahtarı.']);
-    }
+    // Yönetim paneli oturumu gerekir (bkz. api/_lib/auth.php ve api/auth.php).
+    require_once __DIR__ . '/_lib/auth.php';
+    harmony_require_admin();
 }
 
 function sanitize_page($page)
@@ -166,8 +165,8 @@ function hash_ip($ip)
 {
     // Ham IP adresini JSON dosyasında saklamamak için hash'liyoruz — sadece
     // "bugün bu IP'yi zaten saydık mı?" kontrolü için kullanılıyor.
-    // API_WRITE_KEY burada salt (tuzlama) amacıyla kullanılıyor.
-    return hash('sha256', $ip . API_WRITE_KEY);
+    // VISITOR_HASH_SALT burada salt (tuzlama) amacıyla kullanılıyor.
+    return hash('sha256', $ip . VISITOR_HASH_SALT);
 }
 
 $method = $_SERVER['REQUEST_METHOD'];

@@ -15,7 +15,7 @@
     rel="stylesheet" />
   <!-- Tailwind: önceden derlenmiş CSS (index.html ile ortak).
        Sınıf değişikliğinde: npm run build:css  (ve ?v= sürümünü artır) -->
-  <link rel="stylesheet" href="dist/styles.css?v=20260910" />
+  <link rel="stylesheet" href="dist/styles.css?v=20261005" />
   <style>
     body {
       font-family: 'Manrope', sans-serif;
@@ -71,6 +71,50 @@
       #sidebar.open {
         transform: translateX(0);
       }
+    }
+
+    /* Modallar ekrandan taşmasın: panel kendi içinde kayar, başlık ve butonlar görünür kalır. */
+    .admin-modal-panel {
+      max-height: calc(100vh - 2rem);
+      max-height: calc(100dvh - 2rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-padding-block: 5rem;
+    }
+
+    /* Sticky öğeler panelin iç boşluğunda durur; boşluğu başlık ve alt bara taşı ki kenara yapışsınlar. */
+    .admin-modal-panel--sticky {
+      padding-block: 0;
+    }
+
+    .admin-modal-panel--sticky-foot {
+      padding-bottom: 0;
+    }
+
+    .admin-modal-head,
+    .admin-modal-foot {
+      position: sticky;
+      z-index: 10;
+      background-color: #fff;
+    }
+
+    .admin-modal-head {
+      top: 0;
+    }
+
+    .admin-modal-head--inset {
+      margin-bottom: 0.75rem;
+      padding-block: 1.5rem 0.75rem;
+    }
+
+    .admin-modal-foot {
+      bottom: 0;
+      padding-block: 0.75rem 1.5rem;
+      border-top: 1px solid rgba(29, 33, 41, 0.08);
+    }
+
+    .admin-modal-foot [role="alert"] {
+      margin-bottom: 0.75rem;
     }
   </style>
 </head>
@@ -197,6 +241,15 @@
           </svg>
           Blog &amp; Yayınlar
         </a>
+        <a href="#" data-nav="events" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 10 12 5l9 5" />
+            <path d="M5 11v8h14v-8" />
+            <path d="M10 19v-4h4v4" />
+          </svg>
+          Kurum Etkinlikleri
+        </a>
         <a href="#" data-nav="messages" class="admin-nav-link">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -206,6 +259,16 @@
           <span class="flex-1">Mesajlar</span>
           <span id="messages-nav-badge"
             class="hidden rounded-full bg-clay-500 px-2 py-0.5 text-[11px] font-bold text-white">0</span>
+        </a>
+        <a href="b2b-takip.html" class="admin-nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+            <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+            <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+            <path d="M10 6h4M10 10h4M10 14h4M10 18h4" />
+          </svg>
+          B2B Kurum Takip
         </a>
         <a href="#" data-nav="gallery" class="admin-nav-link">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -493,6 +556,45 @@
           </div>
         </section>
 
+        <!-- ============ VIEW: events (okul ve kurum etkinlikleri) ============ -->
+        <section data-view="events" class="hidden">
+          <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="font-display text-lg font-semibold text-ink-900">Okul ve Kurum Etkinlikleri</h2>
+                <p class="mt-1 text-sm text-ink-500">Sitede <a href="/okul-ve-kurum-etkinlikleri/" target="_blank"
+                    rel="noopener" class="font-semibold text-clay-600 hover:underline">/okul-ve-kurum-etkinlikleri/</a>
+                  sayfasında ve ana sayfada görünür. Taslaklar sitede görünmez.</p>
+              </div>
+              <button type="button" data-open-event-modal
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Yeni Etkinlik Ekle
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[720px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Fotoğraf</th>
+                    <th class="px-6 py-3">Etkinlik</th>
+                    <th class="px-6 py-3">Kurum</th>
+                    <th class="px-6 py-3">Tarih</th>
+                    <th class="px-6 py-3">Durum</th>
+                    <th class="px-6 py-3 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="events-table-body" class="divide-y divide-ink-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <!-- ============ VIEW: messages ============ -->
         <section data-view="messages" class="hidden">
           <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
@@ -519,6 +621,42 @@
                 <tbody id="messages-table-body" class="divide-y divide-ink-100">
                   <!-- rows injected via messageRowHtml() -->
                 </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ VIEW: crm (B2B Kurum Takip) ============ -->
+        <section data-view="crm" class="hidden">
+          <div class="overflow-hidden rounded-xl border border-ink-100 bg-white shadow-card">
+            <div class="flex flex-col gap-4 border-b border-ink-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="font-display text-lg font-semibold text-ink-900">B2B Kurum Takip</h2>
+                <p class="mt-1 text-sm text-ink-500">Okul ve kreşlerin satış hunisindeki durumu.</p>
+              </div>
+              <button type="button" id="crm-add-button"
+                class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 active:bg-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Yeni Kurum Ekle
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[820px] text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ink-100 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    <th class="px-6 py-3">Kurum Adı</th>
+                    <th class="px-6 py-3">Mahalle / Lokasyon</th>
+                    <th class="px-6 py-3">Yetkili Kişi &amp; Telefon</th>
+                    <th class="px-6 py-3">Durum</th>
+                    <th class="px-6 py-3 text-right">Hızlı Aksiyon</th>
+                  </tr>
+                </thead>
+                <tbody id="crm-table-body" class="divide-y divide-ink-100"></tbody>
               </table>
             </div>
           </div>
@@ -677,8 +815,8 @@
   <!-- Add Workshop Modal -->
   <div id="workshop-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="workshop-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-    <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-card sm:p-8">
-      <div class="mb-6 flex items-center justify-between">
+    <div class="admin-modal-panel admin-modal-panel--sticky relative w-full max-w-md rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="admin-modal-head admin-modal-head--inset mb-6 flex items-center justify-between">
         <h2 id="workshop-modal-title" class="font-display text-lg font-semibold text-ink-900">Yeni Atölye Ekle</h2>
         <button type="button" id="workshop-modal-close" aria-label="Kapat"
           class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
@@ -717,6 +855,12 @@
             class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
         </div>
 
+        <div>
+          <label for="new-workshop-description" class="mb-2 block text-sm font-semibold text-ink-700">Atölye Açıklaması <span class="font-normal text-ink-400">(isteğe bağlı)</span></label>
+          <textarea id="new-workshop-description" rows="4" placeholder="Atölyenin içeriğini kısaca anlatın..."
+            class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30"></textarea>
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label for="new-workshop-age" class="mb-2 block text-sm font-semibold text-ink-700">Yaş Grubu</label>
@@ -728,66 +872,106 @@
             </select>
           </div>
           <div>
-            <label for="new-workshop-month" class="mb-2 block text-sm font-semibold text-ink-700">Ay</label>
-            <select id="new-workshop-month"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
-              <option>Ocak</option>
-              <option>Şubat</option>
-              <option>Mart</option>
-              <option>Nisan</option>
-              <option>Mayıs</option>
-              <option selected>Haziran</option>
-              <option>Temmuz</option>
-              <option>Ağustos</option>
-              <option>Eylül</option>
-              <option>Ekim</option>
-              <option>Kasım</option>
-              <option>Aralık</option>
-            </select>
+            <label for="new-workshop-month" class="mb-2 block text-sm font-semibold text-ink-700">Ay <span class="font-normal text-ink-400">(otomatik)</span></label>
+            <input id="new-workshop-month" type="text" readonly tabindex="-1" placeholder="Tarih seçince dolar"
+              class="w-full cursor-not-allowed rounded-lg border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-600 placeholder:text-ink-300" />
+          </div>
+        </div>
+
+        <div id="workshop-date-picker" class="relative">
+          <span class="mb-2 block text-sm font-semibold text-ink-700">Tarih</span>
+          <button type="button" id="new-workshop-date-trigger" aria-haspopup="dialog" aria-expanded="false"
+            class="flex w-full items-center justify-between gap-3 rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-left text-sm text-ink-800 transition-colors hover:border-clay-400 focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+            <span id="new-workshop-date-label" class="truncate text-ink-300">Gün veya tarih aralığı seçin</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-ink-400" aria-hidden="true">
+              <rect width="18" height="18" x="3" y="4" rx="2" />
+              <path d="M3 10h18M8 2v4M16 2v4" />
+            </svg>
+          </button>
+          <p id="new-workshop-date-legacy" class="mt-2 hidden text-xs text-ink-400"></p>
+
+          <div id="date-picker-panel" role="dialog" aria-label="Tarih seçici"
+            class="absolute left-0 right-0 z-[60] mt-2 hidden rounded-xl border border-ink-100 bg-white p-4 shadow-floating">
+            <div class="mb-3 flex items-center justify-between">
+              <button type="button" id="date-picker-prev" aria-label="Önceki ay"
+                class="flex h-8 w-8 items-center justify-center rounded-lg text-ink-500 transition-colors hover:bg-ink-50 hover:text-ink-800 active:bg-ink-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <span id="date-picker-title" class="text-sm font-semibold text-ink-800"></span>
+              <button type="button" id="date-picker-next" aria-label="Sonraki ay"
+                class="flex h-8 w-8 items-center justify-center rounded-lg text-ink-500 transition-colors hover:bg-ink-50 hover:text-ink-800 active:bg-ink-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+            <div class="mb-1 grid grid-cols-7 gap-1 text-center text-[11px] font-semibold uppercase tracking-wide text-ink-400" style="grid-template-columns: repeat(7, minmax(0, 1fr));">
+              <span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><span>Cmt</span><span>Paz</span>
+            </div>
+            <div id="date-picker-grid" class="grid grid-cols-7 gap-1" style="grid-template-columns: repeat(7, minmax(0, 1fr));"></div>
+            <div class="mt-4 flex items-center justify-between gap-3 border-t border-ink-100 pt-3">
+              <p id="date-picker-hint" class="text-xs text-ink-400"></p>
+              <div class="flex items-center gap-2">
+                <button type="button" id="date-picker-clear"
+                  class="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-500 transition-colors hover:bg-ink-50 hover:text-ink-700 active:bg-ink-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">Temizle</button>
+                <button type="button" id="date-picker-done"
+                  class="rounded-lg bg-clay-500 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-clay-600 active:bg-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">Tamam</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="new-workshop-external-partner"
+            class="flex cursor-pointer items-center gap-3 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-700 transition-colors duration-200 hover:border-clay-400">
+            <input id="new-workshop-external-partner" type="checkbox"
+              class="h-4 w-4 shrink-0 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500"
+              style="accent-color: #d1652c;" />
+            Dış Kurum İşbirliği
+          </label>
+          <div id="workshop-external-link-field" class="mt-4 hidden">
+            <label for="new-workshop-external-link" class="mb-2 block text-sm font-semibold text-ink-700">Yönlendirme Linki <span class="font-normal text-ink-400">(isteğe bağlı)</span></label>
+            <input id="new-workshop-external-link" type="url" placeholder="https://kurum-adresi.gov.tr"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+            <p class="mt-1.5 text-xs text-ink-400">Boş bırakılırsa "Kurumdan Bilgi Al" butonu sitedeki İletişim bölümüne gider.</p>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="new-workshop-date" class="mb-2 block text-sm font-semibold text-ink-700">Tarih</label>
-            <input id="new-workshop-date" type="text" required placeholder="Örn. 6 & 27 Haziran 2026"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
-          </div>
           <div>
             <label for="new-workshop-time" class="mb-2 block text-sm font-semibold text-ink-700">Saat</label>
             <input id="new-workshop-time" type="text" required placeholder="Örn. 15:30 - 16:30"
               class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
           </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div>
+          <div id="workshop-price-field">
             <label for="new-workshop-price" class="mb-2 block text-sm font-semibold text-ink-700">Fiyat</label>
             <input id="new-workshop-price" type="text" required placeholder="Örn. 500 TL"
               class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
           </div>
-          <div>
-            <label for="new-workshop-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
-            <select id="new-workshop-status"
-              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
-              <option value="active">Aktif</option>
-              <option value="passive">Pasif</option>
-            </select>
-          </div>
         </div>
 
-        <div id="workshop-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
-          role="alert"></div>
+        <div>
+          <label for="new-workshop-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
+          <select id="new-workshop-status"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+            <option value="active">Aktif</option>
+            <option value="passive">Pasif</option>
+          </select>
+        </div>
 
-        <div class="flex items-center gap-3 pt-2">
-          <button type="submit" id="workshop-modal-submit"
-            class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
-            Atölyeyi Ekle
-          </button>
-          <button type="button" id="workshop-modal-cancel"
-            class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-            Vazgeç
-          </button>
+        <div class="admin-modal-foot">
+          <div id="workshop-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+            role="alert"></div>
+
+          <div class="flex items-center gap-3">
+            <button type="submit" id="workshop-modal-submit"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+              Atölyeyi Ekle
+            </button>
+            <button type="button" id="workshop-modal-cancel"
+              class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+              Vazgeç
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -796,8 +980,8 @@
   <!-- Add/Edit Blog Post Modal -->
   <div id="blog-modal-admin" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="blog-modal-admin-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-    <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
-      <div class="mb-6 flex items-center justify-between">
+    <div class="admin-modal-panel admin-modal-panel--sticky relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="admin-modal-head admin-modal-head--inset mb-6 flex items-center justify-between">
         <h2 id="blog-modal-admin-title" class="font-display text-lg font-semibold text-ink-900">Yeni Yazı Ekle</h2>
         <button type="button" id="blog-modal-admin-close" aria-label="Kapat"
           class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
@@ -809,7 +993,7 @@
         </button>
       </div>
 
-      <form id="blog-form" class="max-h-[70vh] space-y-4 overflow-y-auto pr-1">
+      <form id="blog-form" class="space-y-4">
         <div>
           <label class="mb-2 block text-sm font-semibold text-ink-700">Görsel</label>
           <div class="flex items-center gap-4">
@@ -867,18 +1051,164 @@
           </p>
         </div>
 
-        <div id="blog-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
-          role="alert"></div>
+        <div class="admin-modal-foot">
+          <div id="blog-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+            role="alert"></div>
 
-        <div class="flex items-center gap-3 pt-2">
-          <button type="submit" id="blog-modal-admin-submit"
-            class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
-            Yazıyı Ekle
-          </button>
-          <button type="button" id="blog-modal-admin-cancel"
-            class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
-            Vazgeç
-          </button>
+          <div class="flex items-center gap-3">
+            <button type="submit" id="blog-modal-admin-submit"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+              Yazıyı Ekle
+            </button>
+            <button type="button" id="blog-modal-admin-cancel"
+              class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+              Vazgeç
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Event (okul/kurum etkinliği) Add/Edit Modal -->
+  <div id="event-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="event-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
+    <div class="admin-modal-panel admin-modal-panel--sticky relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="admin-modal-head admin-modal-head--inset mb-6 flex items-center justify-between">
+        <h2 id="event-modal-title" class="font-display text-lg font-semibold text-ink-900">Yeni Etkinlik Ekle</h2>
+        <button type="button" id="event-modal-close" aria-label="Kapat"
+          class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-50 hover:text-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="event-form" class="space-y-4" novalidate>
+        <div>
+          <label for="event-title" class="mb-2 block text-sm font-semibold text-ink-700">Etkinlik adı</label>
+          <input id="event-title" type="text" required placeholder="Örn. Mahallemi Tasarlıyorum"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="event-institution" class="mb-2 block text-sm font-semibold text-ink-700">Kurum adı</label>
+            <input id="event-institution" type="text" required placeholder="Örn. Tuzla Atatürk İlkokulu"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="event-institution-type" class="mb-2 block text-sm font-semibold text-ink-700">Kurum türü</label>
+            <select id="event-institution-type"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+              <option value="okul">Okul</option>
+              <option value="anaokulu">Anaokulu / Kreş</option>
+              <option value="kutuphane">Kütüphane</option>
+              <option value="belediye">Belediye</option>
+              <option value="muze">Müze / Kültür Merkezi</option>
+              <option value="diger">Diğer Kurum</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="event-district" class="mb-2 block text-sm font-semibold text-ink-700">İlçe</label>
+            <input id="event-district" type="text" required placeholder="Örn. Tuzla"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="event-neighborhood" class="mb-2 block text-sm font-semibold text-ink-700">Mahalle <span class="font-normal text-ink-400">(isteğe bağlı)</span></label>
+            <input id="event-neighborhood" type="text" placeholder="Örn. Postane Mah."
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="event-start" class="mb-2 block text-sm font-semibold text-ink-700">Başlangıç tarihi</label>
+            <input id="event-start" type="date" required
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="event-end" class="mb-2 block text-sm font-semibold text-ink-700">Bitiş tarihi <span class="font-normal text-ink-400">(çok günlüyse)</span></label>
+            <input id="event-end" type="date"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="event-age" class="mb-2 block text-sm font-semibold text-ink-700">Yaş grubu / sınıf</label>
+            <input id="event-age" type="text" placeholder="Örn. 7-10 yaş veya 3. sınıflar"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="event-participants" class="mb-2 block text-sm font-semibold text-ink-700">Katılan çocuk sayısı</label>
+            <input id="event-participants" type="number" min="1" placeholder="İsteğe bağlı"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+        </div>
+
+        <div>
+          <label for="event-description" class="mb-2 block text-sm font-semibold text-ink-700">Açıklama</label>
+          <textarea id="event-description" rows="5" required
+            placeholder="Ne yapıldı, çocuklar ne üretti? 2-4 cümle yeterli."
+            class="w-full resize-none rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30"></textarea>
+        </div>
+
+        <div>
+          <span class="mb-2 block text-sm font-semibold text-ink-700">Fotoğraf ve videolar <span class="font-normal text-ink-400">(en fazla 3 fotoğraf ve 3 video)</span></span>
+          <div id="event-photos" class="flex flex-wrap items-center gap-3"></div>
+          <label for="event-photo-input" id="event-photo-add"
+            class="mt-3 inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12" />
+              <path d="m17 8-5-5-5 5" />
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            </svg>
+            Fotoğraf veya video ekle
+          </label>
+          <input id="event-photo-input" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,.mp4,.webm" multiple class="sr-only" />
+          <div class="mt-4">
+            <p class="mt-1.5 text-xs text-ink-400">MP4 veya WebM, dosya başına en fazla 20 MB. Sunucunun yükleme sınırı daha düşük olabilir.</p>
+            <div id="event-videos" class="mt-3 flex flex-wrap gap-3"></div>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-400">Çocukların yüzü görünen fotoğrafları yalnızca veli izni varsa ekleyin.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="event-link" class="mb-2 block text-sm font-semibold text-ink-700">Kurumun duyuru linki</label>
+            <input id="event-link" type="url" placeholder="https://… (isteğe bağlı)"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+          </div>
+          <div>
+            <label for="event-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
+            <select id="event-status"
+              class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30">
+              <option value="published">Yayında</option>
+              <option value="draft">Taslak (sitede görünmez)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-modal-foot">
+          <div id="event-form-error" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+            role="alert"></div>
+          <div class="flex items-center gap-3">
+            <button type="submit" id="event-modal-submit"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-clay-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600 disabled:cursor-not-allowed disabled:opacity-60">
+              Etkinliği Ekle
+            </button>
+            <button type="button" id="event-modal-cancel"
+              class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-ink-500 transition-colors duration-200 hover:bg-ink-50 hover:text-ink-700">
+              Vazgeç
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -887,8 +1217,8 @@
   <!-- Message Detail Modal -->
   <div id="message-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="message-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-    <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
-      <div class="mb-6 flex items-center justify-between">
+    <div class="admin-modal-panel admin-modal-panel--sticky relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-card sm:p-8">
+      <div class="admin-modal-head admin-modal-head--inset mb-6 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <h2 class="font-display text-lg font-semibold text-ink-900">Mesaj Detayı</h2>
           <span id="message-modal-type-badge"></span>
@@ -940,7 +1270,7 @@
         </div>
       </div>
 
-      <div class="mt-6 flex items-center gap-3">
+      <div class="admin-modal-foot mt-6 flex items-center gap-3">
         <button type="button" id="message-modal-delete"
           class="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-500 transition-colors duration-200 hover:bg-red-50">
           Sil
@@ -956,8 +1286,8 @@
   <!-- Visitor Detail Modal -->
   <div id="visitor-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="visitor-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-    <div class="relative w-full max-w-2xl max-h-[80vh] overflow-hidden rounded-2xl bg-white shadow-card">
-      <div class="flex items-center justify-between border-b border-ink-100 p-6 sm:p-8 sm:pb-6">
+    <div class="admin-modal-panel relative w-full max-w-2xl rounded-2xl bg-white shadow-card">
+      <div class="admin-modal-head flex items-center justify-between border-b border-ink-100 p-6 sm:p-8 sm:pb-6">
         <div>
           <h2 class="font-display text-lg font-semibold text-ink-900">Bugünkü Ziyaretler</h2>
           <p class="mt-1 text-sm text-ink-500">Cihaz tipi ve geldikleri kaynak — IP adresi veya kişisel bilgi
@@ -972,7 +1302,7 @@
           </svg>
         </button>
       </div>
-      <div id="visitor-modal-body" class="max-h-[60vh] overflow-y-auto p-6 sm:p-8 sm:pt-6">
+      <div id="visitor-modal-body" class="p-6 sm:p-8 sm:pt-6">
         <div class="flex items-center justify-center py-12 text-ink-300">
           <svg class="animate-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25" />
@@ -986,7 +1316,7 @@
   <!-- Confirm Delete Modal (generic — reused for workshops and blog posts) -->
   <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="confirm-modal-backdrop" class="absolute inset-0 bg-ink-900/40"></div>
-    <div class="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-card sm:p-8">
+    <div class="admin-modal-panel relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-card sm:p-8">
       <h2 id="confirm-modal-title" class="font-display text-lg font-semibold text-ink-900">Sil</h2>
       <p id="confirm-modal-message" class="mt-3 text-sm leading-relaxed text-ink-500"></p>
       <div id="confirm-modal-error" class="mt-3 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
@@ -1008,23 +1338,12 @@
     // ==========================================================================
     // AUTH GUARD
     //
-    // ⚠️ SECURITY WARNING — PROTOTYPE ONLY, NOT REAL AUTHENTICATION:
-    // The credential check below is a hardcoded value living in client-side
-    // JavaScript. Anyone can read it in "view source", bypass the login form
-    // entirely by running setAuthenticated(true) in the browser console, or
-    // read the session flag straight out of sessionStorage. None of this
-    // protects any real data.
-    //
-    // Before this ships to production, this whole block MUST be replaced with
-    // a real authentication flow: submit credentials to a backend/auth
-    // provider (e.g. Supabase Auth, Firebase Auth, or a first-party API that
-    // issues a signed JWT), store only a short-lived session token, verify
-    // that token server-side on every admin request/API call, and never trust
-    // client-side state (isAuthenticated, sessionStorage, etc.) to gate access
-    // to real content — the server must enforce it independently.
+    // Giriş sunucuda yapılır (api/auth.php). E-posta/şifre bu sayfada yoktur;
+    // sunucu başarılı girişte HttpOnly bir oturum çerezi verir ve her API
+    // isteğinde bu oturumu kendisi kontrol eder. Buradaki görünür/gizli
+    // durumu yalnızca arayüz içindir, güvenliği sağlayan sunucudur.
     // ==========================================================================
-    const DEMO_CREDENTIALS = { email: 'admin@harmony.com', password: 'admin123' };
-    const AUTH_SESSION_KEY = 'harmonyAdminAuthed';
+    const AUTH_API = '/api/auth.php';
 
     const loginScreen = document.getElementById('login-screen');
     const adminDashboard = document.getElementById('admin-dashboard');
@@ -1060,11 +1379,10 @@
 
     function setAuthenticated(isAuthenticated) {
       if (isAuthenticated) {
-        sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
         loginScreen.classList.add('hidden');
         adminDashboard.classList.remove('hidden');
+        loadDashboardData();
       } else {
-        sessionStorage.removeItem(AUTH_SESSION_KEY);
         adminDashboard.classList.add('hidden');
         loginScreen.classList.remove('hidden');
         loginForm.reset();
@@ -1084,7 +1402,7 @@
       // compared or used. This is a defensive placeholder only — real
       // validation/sanitization of untrusted input must happen server-side.
       const email = loginEmailInput.value.trim().replace(/[<>]/g, '').toLowerCase();
-      const password = loginPasswordInput.value.replace(/[<>]/g, '');
+      const password = loginPasswordInput.value;
 
       loginErrorBox.classList.add('hidden');
       loginSubmitBtn.disabled = true;
@@ -1093,34 +1411,58 @@
       loginSpinner.classList.remove('hidden');
       loginSubmitLabel.textContent = 'Giriş yapılıyor…';
 
-      // Simulated network latency so the mock check feels like a real request.
-      window.setTimeout(() => {
-        const isValid = email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password;
-
-        if (isValid) {
-          setAuthenticated(true);
-          return;
-        }
-
-        loginSpinner.classList.add('hidden');
-        loginSubmitLabel.textContent = 'Giriş Yap';
-        loginEmailInput.disabled = false;
-        loginPasswordInput.disabled = false;
-        loginErrorBox.textContent = 'E-posta veya şifre hatalı. Lütfen tekrar deneyin.';
-        loginErrorBox.classList.remove('hidden');
-        loginPasswordInput.value = '';
-        updateLoginSubmitState();
-        loginPasswordInput.focus();
-      }, 1000);
+      fetch(AUTH_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ email, password }),
+      })
+        .then(async (res) => {
+          let payload = null;
+          try { payload = await res.json(); } catch (_) { /* no body */ }
+          if (res.ok && payload && payload.authenticated) {
+            setAuthenticated(true);
+            return;
+          }
+          showLoginError((payload && payload.error) || 'Giriş yapılamadı. Lütfen tekrar deneyin.');
+        })
+        .catch(() => showLoginError('Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.'));
     });
 
-    logoutButton.addEventListener('click', () => setAuthenticated(false));
-
-    // Restore an existing session — sessionStorage clears itself once the tab
-    // closes, so this only skips the login screen within the same tab session.
-    if (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') {
-      setAuthenticated(true);
+    function showLoginError(message) {
+      loginSpinner.classList.add('hidden');
+      loginSubmitLabel.textContent = 'Giriş Yap';
+      loginEmailInput.disabled = false;
+      loginPasswordInput.disabled = false;
+      loginErrorBox.textContent = message;
+      loginErrorBox.classList.remove('hidden');
+      loginPasswordInput.value = '';
+      updateLoginSubmitState();
+      loginPasswordInput.focus();
     }
+
+    logoutButton.addEventListener('click', () => {
+      fetch(AUTH_API, { method: 'DELETE', credentials: 'same-origin' }).catch(() => {});
+      setAuthenticated(false);
+    });
+
+    // Panel verileri yalnızca giriş yapıldıktan sonra yüklenir.
+    function loadDashboardData() {
+      loadWorkshops();
+      loadBlogPosts();
+      loadEvents();
+      loadMessages();
+      loadVisitorStats();
+      loadWhatsappClickStats();
+      loadSettings();
+    }
+
+    // Sunucuda hâlâ geçerli bir oturum varsa giriş ekranını atla.
+    // (Sayfadaki tüm script çalıştıktan sonra çözülür; yükleyiciler hazırdır.)
+    fetch(AUTH_API, { credentials: 'same-origin', cache: 'no-store' })
+      .then((r) => r.json())
+      .then((d) => { if (d && d.authenticated) setAuthenticated(true); })
+      .catch(() => {});
 
     // Mobile sidebar toggle
     const sidebar = document.getElementById('sidebar');
@@ -1147,9 +1489,11 @@
       dashboard: 'Genel Bakış',
       workshops: 'Atölye Yönetimi',
       blog: 'Blog ve Yayın Yönetimi',
+      events: 'Okul ve Kurum Etkinlikleri',
       messages: 'Gelen Mesajlar',
       gallery: 'Dijital Sergi Yönetimi',
       settings: 'Sistem Ayarları',
+      crm: 'B2B Kurum Takip',
     };
 
     function setActiveTab(tab) {
@@ -1184,20 +1528,15 @@
     const placeholderWorkshopImage = 'https://placehold.co/200x140/f4f5f6/9aa2ad?text=G%C3%B6rsel';
     const WORKSHOPS_API = '/api/workshops.php';
 
-    // ⚠️ Must match API_WRITE_KEY defined at the top of each api/*.php file —
-    // change both to your own long random secret before going live.
-    //
-    // NOT: Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
-    // sildiği için anahtar artık header yerine URL sorgu parametresi (?apikey=)
-    // ile gönderiliyor.
-    const API_KEY = 'HarmonyAdmin2026!';
-
     let workshops = [];
 
     async function apiRequest(url, options = {}) {
-      const separator = url.includes('?') ? '&' : '?';
-      const urlWithKey = `${url}${separator}apikey=${encodeURIComponent(API_KEY)}`;
-      const res = await fetch(urlWithKey, options);
+      // Kimlik doğrulama sunucudaki oturum çereziyle yapılır (bkz. api/auth.php).
+      const res = await fetch(url, { credentials: 'same-origin', ...options });
+      if (res.status === 401) {
+        setAuthenticated(false);
+        throw new Error('Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.');
+      }
       let payload = null;
       try { payload = await res.json(); } catch (_) { /* no body */ }
       if (!res.ok) {
@@ -1229,7 +1568,7 @@
         <td class="px-6 py-4 text-ink-500">${w.month}</td>
         <td class="px-6 py-4 text-ink-500">${w.date}</td>
         <td class="px-6 py-4 text-ink-500">${w.time}</td>
-        <td class="px-6 py-4 font-medium text-ink-800">${w.price}</td>
+        <td class="px-6 py-4 font-medium text-ink-800">${w.externalPartner ? 'Dış Kurum' : w.price}</td>
         <td class="px-6 py-4">${statusBadge(w.status)}</td>
         <td class="px-6 py-4">
           <div class="flex items-center justify-end gap-1.5">
@@ -1281,7 +1620,6 @@
       }
     }
 
-    loadWorkshops();
     document.getElementById('workshop-search').addEventListener('input', (e) => renderWorkshops(e.target.value));
 
     // ---- Add / Edit Workshop modal ----
@@ -1293,8 +1631,20 @@
     const workshopImageInput = document.getElementById('new-workshop-image');
     const workshopImagePreview = document.getElementById('workshop-image-preview');
     const workshopFormError = document.getElementById('workshop-form-error');
+    const workshopPriceInput = document.getElementById('new-workshop-price');
+    const workshopPartnerCheckbox = document.getElementById('new-workshop-external-partner');
+    const workshopExternalLinkInput = document.getElementById('new-workshop-external-link');
     let editingWorkshopId = null;
     let pendingImage = null;
+
+    // Dış kurum atölyesinde fiyat gizlenir; gizli alan "required" kalırsa form sessizce gönderilmez.
+    function syncWorkshopPartnerFields() {
+      const isPartner = workshopPartnerCheckbox.checked;
+      document.getElementById('workshop-price-field').classList.toggle('hidden', isPartner);
+      document.getElementById('workshop-external-link-field').classList.toggle('hidden', !isPartner);
+      workshopPriceInput.required = !isPartner;
+    }
+    workshopPartnerCheckbox.addEventListener('change', syncWorkshopPartnerFields);
 
     // Large camera-phone photos would bloat the JSON file (and can exceed the
     // GitHub Contents API's payload limits), so downscale/re-encode on the
@@ -1332,28 +1682,190 @@
       }
     });
 
+    // ---- Tarih seçici (takvim), otomatik ay ve Türkçe tarih formatı ----
+    // Seçimler "YYYY-MM-DD" olarak tutulur; Date nesneleri yerel bileşenlerle
+    // kurulduğu için saat dilimi kayması olmaz. Ekranda ve kayıtta görünen
+    // metin Intl.DateTimeFormat ile üretilir. Ay alanı başlangıç tarihinden
+    // otomatik türetilir, elle seçilmez.
+    const datePickerWrap = document.getElementById('workshop-date-picker');
+    const datePickerTrigger = document.getElementById('new-workshop-date-trigger');
+    const datePickerLabel = document.getElementById('new-workshop-date-label');
+    const datePickerPanel = document.getElementById('date-picker-panel');
+    const datePickerGrid = document.getElementById('date-picker-grid');
+    const datePickerTitle = document.getElementById('date-picker-title');
+    const datePickerHint = document.getElementById('date-picker-hint');
+    const datePickerLegacy = document.getElementById('new-workshop-date-legacy');
+    const workshopMonthInput = document.getElementById('new-workshop-month');
+    const TR_LONG_DATE = new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    const TR_MONTH_YEAR = new Intl.DateTimeFormat('tr-TR', { month: 'long', year: 'numeric' });
+    let dateRange = { start: null, end: null };
+    let pickerViewMonth = new Date();
+
+    function capitalizeTr(text) {
+      return text.charAt(0).toLocaleUpperCase('tr-TR') + text.slice(1);
+    }
+
+    function trDateParts(date) {
+      const parts = Object.fromEntries(TR_LONG_DATE.formatToParts(date).map((p) => [p.type, p.value]));
+      return { day: parts.day, month: capitalizeTr(parts.month), year: parts.year };
+    }
+
+    function isoDayToDate(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function dateToIsoDay(date) {
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+    }
+
+    // "1 Kasım 2026", "11-30 Ekim 2026", "28 Ekim - 3 Kasım 2026", "28 Aralık 2026 - 3 Ocak 2027"
+    function formatWorkshopDateRange(startIso, endIso) {
+      if (!startIso) return '';
+      const s = trDateParts(isoDayToDate(startIso));
+      if (!endIso || endIso === startIso) return `${s.day} ${s.month} ${s.year}`;
+      const e = trDateParts(isoDayToDate(endIso));
+      if (s.year === e.year && s.month === e.month) return `${s.day}-${e.day} ${e.month} ${e.year}`;
+      if (s.year === e.year) return `${s.day} ${s.month} - ${e.day} ${e.month} ${e.year}`;
+      return `${s.day} ${s.month} ${s.year} - ${e.day} ${e.month} ${e.year}`;
+    }
+
+    function renderDatePicker() {
+      const first = new Date(pickerViewMonth.getFullYear(), pickerViewMonth.getMonth(), 1);
+      datePickerTitle.textContent = capitalizeTr(TR_MONTH_YEAR.format(first));
+
+      const { start, end } = dateRange;
+      const todayIso = dateToIsoDay(new Date());
+      const leadingBlanks = (first.getDay() + 6) % 7; // takvim Pazartesi ile başlar
+      const daysInMonth = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+      const cells = [];
+      for (let i = 0; i < leadingBlanks; i++) cells.push('<span></span>');
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const iso = dateToIsoDay(new Date(first.getFullYear(), first.getMonth(), day));
+        const isEdge = iso === start || iso === end;
+        const inRange = start && end && iso > start && iso < end;
+        let cls = 'h-9 w-full rounded-lg text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 ';
+        if (isEdge) cls += 'bg-clay-600 text-white shadow-soft hover:bg-clay-700 active:bg-clay-800';
+        else if (inRange) cls += 'bg-clay-50 text-clay-700 hover:bg-clay-100 active:bg-clay-200';
+        else cls += 'text-ink-700 hover:bg-ink-50 active:bg-ink-100';
+        if (iso === todayIso && !isEdge) cls += ' ring-1 ring-inset ring-clay-300';
+        const label = formatWorkshopDateRange(iso);
+        cells.push(`<button type="button" data-day="${iso}" aria-label="${label}" aria-pressed="${isEdge}" class="${cls}">${day}</button>`);
+      }
+      datePickerGrid.innerHTML = cells.join('');
+
+      if (!start) datePickerHint.textContent = 'Tek gün için bir tarih, aralık için iki tarih seçin.';
+      else if (!end) datePickerHint.textContent = 'Aralık için bitiş tarihini seçin; tek gün için bu adım gerekmez.';
+      else datePickerHint.textContent = 'Yeni bir başlangıç seçerek aralığı değiştirebilirsiniz.';
+    }
+
+    function updateDatePickerView() {
+      const text = formatWorkshopDateRange(dateRange.start, dateRange.end);
+      datePickerLabel.textContent = text || 'Gün veya tarih aralığı seçin';
+      datePickerLabel.classList.toggle('text-ink-300', !text);
+      datePickerLabel.classList.toggle('text-ink-800', !!text);
+      workshopMonthInput.value = dateRange.start ? trDateParts(isoDayToDate(dateRange.start)).month : '';
+      renderDatePicker();
+    }
+
+    function pickDay(iso) {
+      const { start, end } = dateRange;
+      if (!start || end || iso < start) {
+        dateRange = { start: iso, end: null };
+      } else {
+        dateRange = { start, end: iso === start ? null : iso };
+      }
+      datePickerLegacy.classList.add('hidden');
+      updateDatePickerView();
+    }
+
+    function isDatePickerOpen() {
+      return !datePickerPanel.classList.contains('hidden');
+    }
+
+    function openDatePicker() {
+      if (dateRange.start) pickerViewMonth = isoDayToDate(dateRange.start);
+      datePickerPanel.classList.remove('hidden');
+      datePickerTrigger.setAttribute('aria-expanded', 'true');
+      renderDatePicker();
+      datePickerPanel.scrollIntoView({ block: 'nearest' });
+    }
+
+    function closeDatePicker() {
+      datePickerPanel.classList.add('hidden');
+      datePickerTrigger.setAttribute('aria-expanded', 'false');
+    }
+
+    // Düzenlemede yeni alanlar (startDate/endDate) varsa takvimi doldurur.
+    // Eski kayıtlarda yalnızca metin tarih olduğu için kullanıcıdan yeni seçim istenir.
+    function resetDatePicker(workshop) {
+      closeDatePicker();
+      datePickerLegacy.classList.add('hidden');
+      pickerViewMonth = new Date();
+      if (workshop && workshop.startDate) {
+        dateRange = { start: workshop.startDate, end: workshop.endDate || null };
+        updateDatePickerView();
+        return;
+      }
+      dateRange = { start: null, end: null };
+      updateDatePickerView();
+      if (workshop && workshop.date) {
+        datePickerLegacy.textContent = `Mevcut kayıt: ${workshop.date}. Lütfen takvimden yeni tarih seçin.`;
+        datePickerLegacy.classList.remove('hidden');
+        workshopMonthInput.value = workshop.month || '';
+      }
+    }
+
+    datePickerTrigger.addEventListener('click', () => (isDatePickerOpen() ? closeDatePicker() : openDatePicker()));
+    datePickerGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-day]');
+      if (btn) pickDay(btn.dataset.day);
+    });
+    document.getElementById('date-picker-prev').addEventListener('click', () => {
+      pickerViewMonth = new Date(pickerViewMonth.getFullYear(), pickerViewMonth.getMonth() - 1, 1);
+      renderDatePicker();
+    });
+    document.getElementById('date-picker-next').addEventListener('click', () => {
+      pickerViewMonth = new Date(pickerViewMonth.getFullYear(), pickerViewMonth.getMonth() + 1, 1);
+      renderDatePicker();
+    });
+    document.getElementById('date-picker-clear').addEventListener('click', () => {
+      dateRange = { start: null, end: null };
+      datePickerLegacy.classList.add('hidden');
+      updateDatePickerView();
+    });
+    document.getElementById('date-picker-done').addEventListener('click', closeDatePicker);
+    document.addEventListener('click', (e) => {
+      if (isDatePickerOpen() && !datePickerWrap.contains(e.target)) closeDatePicker();
+    });
+
     function openWorkshopModal(workshop) {
       editingWorkshopId = workshop ? workshop.id : null;
       workshopForm.reset();
       pendingImage = null;
       workshopFormError.classList.add('hidden');
       workshopImagePreview.src = workshop ? workshop.image : placeholderWorkshopImage;
+      resetDatePicker(workshop);
 
       if (workshop) {
         workshopModalTitle.textContent = 'Atölyeyi Düzenle';
         workshopModalSubmit.textContent = 'Değişiklikleri Kaydet';
         workshopNameInput.value = workshop.name;
         document.getElementById('new-workshop-age').value = workshop.age;
-        document.getElementById('new-workshop-month').value = workshop.month;
-        document.getElementById('new-workshop-date').value = workshop.date;
+        document.getElementById('new-workshop-description').value = workshop.description || '';
         document.getElementById('new-workshop-time').value = workshop.time;
-        document.getElementById('new-workshop-price').value = workshop.price;
+        workshopPriceInput.value = workshop.price;
+        workshopPartnerCheckbox.checked = Boolean(workshop.externalPartner);
+        workshopExternalLinkInput.value = workshop.externalLink || '';
         document.getElementById('new-workshop-status').value = workshop.status;
       } else {
         workshopModalTitle.textContent = 'Yeni Atölye Ekle';
         workshopModalSubmit.textContent = 'Atölyeyi Ekle';
         document.getElementById('new-workshop-status').value = 'active';
       }
+      syncWorkshopPartnerFields();
 
       workshopModal.classList.remove('hidden');
       workshopModal.classList.add('flex');
@@ -1375,21 +1887,41 @@
     document.getElementById('workshop-modal-close').addEventListener('click', closeWorkshopModal);
     document.getElementById('workshop-modal-cancel').addEventListener('click', closeWorkshopModal);
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !workshopModal.classList.contains('hidden')) closeWorkshopModal();
+      if (e.key !== 'Escape' || workshopModal.classList.contains('hidden')) return;
+      if (isDatePickerOpen()) closeDatePicker();
+      else closeWorkshopModal();
     });
 
     workshopForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = workshopNameInput.value.trim();
       const age = document.getElementById('new-workshop-age').value;
-      const month = document.getElementById('new-workshop-month').value;
-      const date = document.getElementById('new-workshop-date').value.trim();
       const time = document.getElementById('new-workshop-time').value.trim();
-      const price = document.getElementById('new-workshop-price').value.trim();
+      const externalPartner = workshopPartnerCheckbox.checked;
+      const price = externalPartner ? '' : workshopPriceInput.value.trim();
       const status = document.getElementById('new-workshop-status').value;
-      if (!name || !date || !time || !price) return;
+      if (!dateRange.start) {
+        workshopFormError.textContent = 'Lütfen takvimden bir gün veya tarih aralığı seçin.';
+        workshopFormError.classList.remove('hidden');
+        openDatePicker();
+        return;
+      }
+      if (!name || !time || (!price && !externalPartner)) return;
 
-      const payload = { name, age, month, date, time, price, status };
+      const payload = {
+        name,
+        age,
+        month: trDateParts(isoDayToDate(dateRange.start)).month,
+        date: formatWorkshopDateRange(dateRange.start, dateRange.end),
+        startDate: dateRange.start,
+        endDate: dateRange.end,
+        description: document.getElementById('new-workshop-description').value.trim(),
+        time,
+        price,
+        externalPartner,
+        externalLink: externalPartner ? workshopExternalLinkInput.value.trim() : '',
+        status,
+      };
       if (pendingImage) payload.image = pendingImage;
 
       workshopFormError.classList.add('hidden');
@@ -1560,7 +2092,6 @@
       }
     }
 
-    loadBlogPosts();
 
     // ---- Add / Edit Blog Post modal ----
     const blogModalAdmin = document.getElementById('blog-modal-admin');
@@ -1690,6 +2221,281 @@
       }
     });
 
+    // ---- Okul ve kurum etkinlikleri: backed by /api/events.php ----
+    // Herkese açık sayfa /okul-ve-kurum-etkinlikleri/ aynı veriyi sunucuda okur.
+    const EVENTS_API = '/api/events.php';
+    const EVENT_MAX_PHOTOS = 3;
+    const EVENT_TYPE_LABELS = {
+      okul: 'Okul', anaokulu: 'Anaokulu / Kreş', kutuphane: 'Kütüphane',
+      belediye: 'Belediye', muze: 'Müze / Kültür Merkezi', diger: 'Diğer Kurum',
+    };
+    const TR_MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    let events = [];
+
+    function formatEventDates(start, end) {
+      const fmt = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${TR_MONTHS[m - 1]} ${y}`; };
+      if (!start) return '';
+      return end && end !== start ? `${fmt(start)} – ${fmt(end)}` : fmt(start);
+    }
+
+    function eventPhotoUrl(src) {
+      return /^https?:|^data:/.test(src) ? src : '/' + String(src).replace(/^\/+/, '');
+    }
+
+    function eventRowHtml(ev) {
+      const photo = ev.images && ev.images[0]
+        ? `<img src="${escapeHtml(eventPhotoUrl(ev.images[0].src))}" alt="" class="h-full w-full object-cover" />` : '';
+      const status = ev.status === 'draft'
+        ? '<span class="rounded-full bg-ink-100 px-2.5 py-1 text-xs font-bold text-ink-500">Taslak</span>'
+        : '<span class="rounded-full bg-sage-100 px-2.5 py-1 text-xs font-bold text-sage-600">Yayında</span>';
+      return `
+      <tr class="transition-colors hover:bg-ink-50/60">
+        <td class="px-6 py-3"><span class="block h-12 w-16 overflow-hidden rounded-lg bg-ink-50">${photo}</span></td>
+        <td class="max-w-xs px-6 py-3 font-semibold text-ink-800">${escapeHtml(ev.title)}</td>
+        <td class="px-6 py-3 text-ink-600">${escapeHtml(ev.institutionName)}<span class="block text-xs text-ink-400">${escapeHtml(EVENT_TYPE_LABELS[ev.institutionType] || 'Diğer Kurum')} · ${escapeHtml(ev.district)}</span></td>
+        <td class="px-6 py-3 text-ink-500">${escapeHtml(formatEventDates(ev.startDate, ev.endDate))}</td>
+        <td class="px-6 py-3">${status}</td>
+        <td class="px-6 py-3">
+          <div class="flex items-center justify-end gap-1.5">
+            <button type="button" data-event-action="edit" data-id="${Number(ev.id)}" aria-label="Düzenle" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-clay-50 hover:text-clay-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">${editIconSvg}</button>
+            <button type="button" data-event-action="delete" data-id="${Number(ev.id)}" aria-label="Sil" class="icon-btn flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-red-50 hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">${trashIconSvg}</button>
+          </div>
+        </td>
+      </tr>`;
+    }
+
+    function renderEventsTable(message, isError) {
+      const body = document.getElementById('events-table-body');
+      if (message) {
+        body.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-sm ${isError ? 'text-red-500' : 'text-ink-400'}">${escapeHtml(message)}</td></tr>`;
+        return;
+      }
+      const sorted = [...events].sort((a, b) => String(b.startDate).localeCompare(String(a.startDate)));
+      body.innerHTML = sorted.map(eventRowHtml).join('')
+        || '<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-ink-400">Henüz etkinlik yok. "Yeni Etkinlik Ekle" ile ilkini girin.</td></tr>';
+    }
+
+    async function loadEvents() {
+      renderEventsTable('Etkinlikler yükleniyor…');
+      try {
+        events = await apiRequest(EVENTS_API);
+        renderEventsTable();
+      } catch (err) {
+        console.error('Etkinlikler yüklenemedi:', err);
+        renderEventsTable('Etkinlikler yüklenemedi: ' + err.message, true);
+      }
+    }
+
+    // ---- Add / Edit event modal ----
+    const eventModal = document.getElementById('event-modal');
+    const eventForm = document.getElementById('event-form');
+    const eventModalTitle = document.getElementById('event-modal-title');
+    const eventModalSubmit = document.getElementById('event-modal-submit');
+    const eventFormError = document.getElementById('event-form-error');
+    const eventPhotosBox = document.getElementById('event-photos');
+    const eventPhotoInput = document.getElementById('event-photo-input');
+    const eventPhotoAdd = document.getElementById('event-photo-add');
+    const eventField = (id) => document.getElementById(id);
+    let eventVideos = [];
+    function clearEventVideos() {
+      eventVideos.forEach(v => { if (v.file) URL.revokeObjectURL(v.src); });
+      eventVideos = [];
+    }
+    function renderEventVideos() {
+      document.getElementById('event-videos').innerHTML = eventVideos.map((v, i) => `
+        <div><video src="${escapeHtml(v.src.startsWith('blob:') ? v.src : eventPhotoUrl(v.src))}" controls playsinline preload="metadata" style="width:220px;max-width:100%;border-radius:8px"></video>
+        <button type="button" data-remove-video="${i}" class="text-sm text-red-500">Videoyu kaldır</button></div>`).join('');
+    }
+    document.getElementById('event-videos').addEventListener('click', e => {
+      const btn = e.target.closest('[data-remove-video]');
+      if (!btn) return;
+      const [removed] = eventVideos.splice(Number(btn.dataset.removeVideo), 1);
+      if (removed.file) URL.revokeObjectURL(removed.src);
+      renderEventVideos();
+      renderEventPhotos();
+    });
+    let editingEventId = null;
+    let eventPhotos = []; // [{ src, alt }] — src: kayıtlı yol ya da yeni seçilmiş data URL
+
+    function showEventError(message) {
+      eventFormError.textContent = message;
+      eventFormError.classList.remove('hidden');
+    }
+
+    function renderEventPhotos() {
+      eventPhotosBox.innerHTML = eventPhotos.map((p, i) => `
+        <span class="relative block h-16 w-24 overflow-hidden rounded-lg border border-ink-100 bg-ink-50">
+          <img src="${escapeHtml(eventPhotoUrl(p.src))}" alt="" class="h-full w-full object-cover" />
+          <button type="button" data-remove-photo="${i}" aria-label="Fotoğrafı kaldır"
+            style="top:4px;right:4px;width:24px;height:24px" class="absolute flex items-center justify-center rounded-full bg-white text-ink-600 shadow-soft hover:text-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-clay-500">×</button>
+        </span>`).join('');
+      eventPhotoAdd.classList.toggle('hidden', eventPhotos.length >= EVENT_MAX_PHOTOS && eventVideos.length >= 3);
+    }
+
+    eventPhotosBox.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-remove-photo]');
+      if (!btn) return;
+      eventPhotos.splice(Number(btn.dataset.removePhoto), 1);
+      renderEventPhotos();
+    });
+
+    eventPhotoInput.addEventListener('change', async () => {
+      const files = [...eventPhotoInput.files];
+      eventPhotoInput.value = '';
+      const photos = files.filter(f => ['image/jpeg', 'image/png', 'image/webp'].includes(f.type));
+      const videos = files.filter(f => /\.(mp4|webm)$/i.test(f.name));
+      if (photos.length + videos.length !== files.length) {
+        showEventError('JPG, PNG, WebP, MP4 veya WebM dosyası seçin.'); return;
+      }
+      if (photos.length + eventPhotos.length > EVENT_MAX_PHOTOS || videos.length + eventVideos.length > 3) {
+        showEventError('En fazla 3 fotoğraf ve 3 video ekleyebilirsiniz.'); return;
+      }
+      if (videos.some(f => f.size > 20 * 1024 * 1024 || !f.size)) {
+        showEventError('Her video en fazla 20 MB olmalı.'); return;
+      }
+      eventPhotoInput.disabled = true;
+      eventModalSubmit.disabled = true;
+      try {
+        const addedPhotos = [];
+        for (const file of photos) {
+          addedPhotos.push({ src: await resizeImageFile(file, 1400, 0.82), alt: '' });
+        }
+        eventPhotos.push(...addedPhotos);
+        videos.forEach(file => eventVideos.push({src: URL.createObjectURL(file), file}));
+        eventFormError.classList.add('hidden');
+        renderEventPhotos();
+        renderEventVideos();
+      } catch (err) {
+        showEventError(err.message);
+      } finally {
+        eventPhotoInput.disabled = false;
+        eventModalSubmit.disabled = false;
+      }
+    });
+
+    function openEventModal(ev) {
+      clearEventVideos();
+      eventVideos = ev && Array.isArray(ev.videos) ? ev.videos.map(v => ({...v})) : [];
+      renderEventVideos();
+      editingEventId = ev ? ev.id : null;
+      eventForm.reset();
+      eventFormError.classList.add('hidden');
+      eventPhotos = ev && Array.isArray(ev.images) ? ev.images.map((im) => ({ ...im })) : [];
+      eventModalTitle.textContent = ev ? 'Etkinliği Düzenle' : 'Yeni Etkinlik Ekle';
+      eventModalSubmit.textContent = ev ? 'Değişiklikleri Kaydet' : 'Etkinliği Ekle';
+      if (ev) {
+        eventField('event-title').value = ev.title || '';
+        eventField('event-institution').value = ev.institutionName || '';
+        eventField('event-institution-type').value = ev.institutionType || 'diger';
+        eventField('event-district').value = ev.district || '';
+        eventField('event-neighborhood').value = ev.neighborhood || '';
+        eventField('event-start').value = ev.startDate || '';
+        eventField('event-end').value = ev.endDate || '';
+        eventField('event-age').value = ev.ageGroup || '';
+        eventField('event-participants').value = ev.participants || '';
+        eventField('event-description').value = ev.description || '';
+        eventField('event-link').value = ev.link || '';
+        eventField('event-status').value = ev.status === 'draft' ? 'draft' : 'published';
+      }
+      renderEventPhotos();
+      eventModal.classList.remove('hidden');
+      eventModal.classList.add('flex');
+      eventField('event-title').focus();
+    }
+
+    function closeEventModal() {
+      eventModal.classList.add('hidden');
+      eventModal.classList.remove('flex');
+      eventForm.reset();
+      editingEventId = null;
+      clearEventVideos();
+      eventPhotos = [];
+    }
+
+    document.querySelectorAll('[data-open-event-modal]').forEach((btn) => {
+      btn.addEventListener('click', () => openEventModal(null));
+    });
+    document.getElementById('event-modal-backdrop').addEventListener('click', closeEventModal);
+    document.getElementById('event-modal-close').addEventListener('click', closeEventModal);
+    document.getElementById('event-modal-cancel').addEventListener('click', closeEventModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !eventModal.classList.contains('hidden')) closeEventModal();
+    });
+
+    eventForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        title: eventField('event-title').value.trim(),
+        institutionName: eventField('event-institution').value.trim(),
+        institutionType: eventField('event-institution-type').value,
+        district: eventField('event-district').value.trim(),
+        neighborhood: eventField('event-neighborhood').value.trim(),
+        startDate: eventField('event-start').value,
+        endDate: eventField('event-end').value || null,
+        ageGroup: eventField('event-age').value.trim(),
+        participants: eventField('event-participants').value ? Number(eventField('event-participants').value) : null,
+        description: eventField('event-description').value.trim(),
+        link: eventField('event-link').value.trim(),
+        status: eventField('event-status').value,
+        images: eventPhotos,
+      };
+      const missing = [];
+      if (!payload.title) missing.push('etkinlik adı');
+      if (!payload.institutionName) missing.push('kurum adı');
+      if (!payload.district) missing.push('ilçe');
+      if (!payload.startDate) missing.push('başlangıç tarihi');
+      if (!payload.description) missing.push('açıklama');
+      if (missing.length) { showEventError('Şu alanları doldurun: ' + missing.join(', ') + '.'); return; }
+
+      eventFormError.classList.add('hidden');
+      eventModalSubmit.disabled = true;
+      const originalLabel = eventModalSubmit.textContent;
+      eventModalSubmit.textContent = 'Kaydediliyor…';
+      try {
+        for (const video of eventVideos) {
+          if (!video.file) continue;
+          const form = new FormData();
+          form.append('video', video.file);
+          const response = await fetch(`${EVENTS_API}?upload_video=1`, {method: 'POST', credentials: 'same-origin', body: form});
+          const result = await response.json().catch(() => ({error: 'Video yüklenemedi. Sunucunun dosya yükleme sınırını kontrol edin.'}));
+          if (!response.ok) throw new Error(result.error || 'Video yüklenemedi.');
+          URL.revokeObjectURL(video.src);
+          video.src = result.src;
+          delete video.file;
+        }
+        payload.videos = eventVideos.map(v => ({src: v.src}));
+        renderEventVideos();
+        await apiRequest(editingEventId != null ? `${EVENTS_API}?id=${editingEventId}` : EVENTS_API, {
+          method: editingEventId != null ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        closeEventModal();
+        setActiveTab('events');
+        await loadEvents();
+      } catch (err) {
+        showEventError(err.message);
+      } finally {
+        eventModalSubmit.disabled = false;
+        eventModalSubmit.textContent = originalLabel;
+      }
+    });
+
+    document.getElementById('events-table-body').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-event-action]');
+      if (!btn) return;
+      const ev = events.find((x) => x.id === Number(btn.dataset.id));
+      if (!ev) return;
+      if (btn.dataset.eventAction === 'edit') {
+        openEventModal(ev);
+      } else {
+        openDeleteConfirm('Etkinliği Sil', `"${ev.title}" etkinliğini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`, async () => {
+          await apiRequest(`${EVENTS_API}?id=${ev.id}`, { method: 'DELETE' });
+          await loadEvents();
+        });
+      }
+    });
+
     // ---- Messages view: backed by /api/messages.php (read-only inbox) ----
     const MESSAGES_API = '/api/messages.php';
     let contactMessages = [];
@@ -1769,7 +2575,6 @@
         document.getElementById('messages-table-body').innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-red-500">Mesajlar yüklenemedi: ${err.message}</td></tr>`;
       }
     }
-    loadMessages();
 
     // ---- Visitor stat widget: backed by /api/visitors.php ----
     const VISITORS_API = '/api/visitors.php';
@@ -1788,7 +2593,6 @@
         totalEl.textContent = '—';
       }
     }
-    loadVisitorStats();
 
     // ---- WhatsApp click (conversion) stat widget: backed by /api/whatsapp_track.php ----
     const WHATSAPP_TRACK_API = '/api/whatsapp_track.php';
@@ -1807,7 +2611,6 @@
         todayEl.textContent = '—';
       }
     }
-    loadWhatsappClickStats();
 
     // ---- Visitor detail modal: today's visit log (device/source/page, no IP) ----
     const visitorModal = document.getElementById('visitor-modal');
@@ -1981,12 +2784,246 @@
     settingDescription.addEventListener('input', updateDescriptionCount);
     updateDescriptionCount();
 
-    settingsForm.addEventListener('submit', (e) => {
+    // Ayarlar /api/settings.php üzerinden okunup yazılır; site bu değerleri kullanır.
+    const SETTINGS_API = '/api/settings.php';
+    const settingFields = {
+      title: document.getElementById('setting-title'),
+      description: document.getElementById('setting-description'),
+      phone: document.getElementById('setting-phone'),
+      instagram: document.getElementById('setting-instagram'),
+      address: document.getElementById('setting-address'),
+      whatsappMessage: document.getElementById('setting-message'),
+      gaId: document.getElementById('setting-ga-id'),
+      metaPixelId: document.getElementById('setting-meta-pixel-id'),
+    };
+
+    async function loadSettings() {
+      try {
+        const settings = await fetch(SETTINGS_API, { cache: 'no-store' }).then((r) => r.json());
+        Object.entries(settingFields).forEach(([key, el]) => {
+          if (settings[key] !== undefined) el.value = settings[key];
+        });
+        updateDescriptionCount();
+      } catch (err) {
+        console.error('Ayarlar yüklenemedi:', err);
+      }
+    }
+
+    settingsForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      settingsSuccess.classList.remove('hidden');
+      const payload = {};
+      Object.entries(settingFields).forEach(([key, el]) => { payload[key] = el.value.trim(); });
+
+      const submitBtn = document.querySelector('button[form="settings-form"]');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Kaydediliyor…';
+      settingsSuccess.classList.add('hidden');
+
+      try {
+        await apiRequest(SETTINGS_API, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        settingsSuccess.textContent = 'Ayarlar kaydedildi.';
+        settingsSuccess.classList.remove('hidden');
+        settingsSuccess.classList.remove('text-red-500');
+        settingsSuccess.classList.add('text-sage-600');
+      } catch (err) {
+        settingsSuccess.textContent = 'Kaydedilemedi: ' + err.message;
+        settingsSuccess.classList.remove('hidden', 'text-sage-600');
+        settingsSuccess.classList.add('text-red-500');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
       clearTimeout(settingsForm._hideTimer);
-      settingsForm._hideTimer = setTimeout(() => settingsSuccess.classList.add('hidden'), 3000);
+      settingsForm._hideTimer = setTimeout(() => settingsSuccess.classList.add('hidden'), 4000);
     });
+  </script>
+
+  <!-- B2B Kurum Takip: yerel durum (dummy veri). Sunucu bağlantısı henüz yok. -->
+  <div id="crm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" role="dialog"
+    aria-modal="true" aria-labelledby="crm-modal-title">
+    <div id="crm-modal-backdrop" class="absolute inset-0 bg-ink-900/40 backdrop-blur-sm"></div>
+    <form id="crm-form" class="admin-modal-panel admin-modal-panel--sticky-foot relative z-10 w-full max-w-lg rounded-xl bg-white p-6 shadow-floating sm:p-8" novalidate>
+      <h3 id="crm-modal-title" class="font-display text-lg font-semibold text-ink-900">Yeni Kurum Ekle</h3>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <label for="crm-name" class="mb-2 block text-sm font-semibold text-ink-700">Kurum Adı</label>
+          <input id="crm-name" type="text" required placeholder="Kurum adı"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="crm-location" class="mb-2 block text-sm font-semibold text-ink-700">Mahalle / Lokasyon</label>
+          <input id="crm-location" type="text" placeholder="Örn: Aydınlı Mah., Tuzla"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+        <div>
+          <label for="crm-contact-name" class="mb-2 block text-sm font-semibold text-ink-700">Yetkili Kişi</label>
+          <input id="crm-contact-name" type="text" required placeholder="Ad Soyad"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+        <div>
+          <label for="crm-phone" class="mb-2 block text-sm font-semibold text-ink-700">Telefon</label>
+          <input id="crm-phone" type="tel" placeholder="0XXX XXX XX XX"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder:text-ink-300 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="crm-status" class="mb-2 block text-sm font-semibold text-ink-700">Durum</label>
+          <select id="crm-status"
+            class="w-full rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-400/30"></select>
+        </div>
+      </div>
+      <p id="crm-error" class="mt-4 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></p>
+      <div class="admin-modal-foot mt-6 flex justify-end gap-3">
+        <button type="button" id="crm-cancel"
+          class="rounded-lg border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-600 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 active:bg-ink-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">İptal</button>
+        <button type="submit"
+          class="rounded-lg bg-clay-500 px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors duration-200 hover:bg-clay-600 active:bg-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-600">Kaydet</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // ---- B2B Kurum Takip (CRM) ----
+    // Satış hunisi durumları: etiket + renk sınıfları (mevcut tasarım tokenları).
+    const CRM_STATUSES = {
+      discovered: { label: 'Keşfedildi', badge: 'bg-ink-100 text-ink-600' },
+      messaged: { label: 'Mesaj Atıldı', badge: 'bg-mustard-100 text-mustard-600' },
+      meeting: { label: 'Toplantı / Demo Ayarlandı', badge: 'bg-[#f3e8ff] text-[#7e22ce]' },
+      started: { label: 'İş Birliği Başladı', badge: 'bg-sage-100 text-sage-600' },
+      not_interested: { label: 'İlgilenmiyor', badge: 'bg-red-50 text-red-600' },
+    };
+
+    // Örnek veri (dummy) — sunucu bağlantısı eklenene kadar sayfa bu listeyi kullanır.
+    let crmInstitutions = [
+      { id: 1, name: 'Yıldız Kreş ve Anaokulu', location: 'Postane Mah., Tuzla', contactName: 'Ayşe Demir', phone: '0216 555 01 01', status: 'discovered' },
+      { id: 2, name: 'Güneş Çocuk Bahçesi', location: 'Aydınlı Mah., Tuzla', contactName: 'Mehmet Kaya', phone: '0216 555 02 02', status: 'messaged' },
+      { id: 3, name: 'Papatya Anaokulu', location: 'Orhanlı Mah., Tuzla', contactName: 'Elif Yılmaz', phone: '0216 555 03 03', status: 'meeting' },
+      { id: 4, name: 'Mavi Balon Kreş', location: 'Tepeören Mah., Tuzla', contactName: 'Zeynep Arslan', phone: '0216 555 04 04', status: 'started' },
+    ];
+    let crmNextId = 5;
+    let crmEditingId = null;
+
+    const crmTableBody = document.getElementById('crm-table-body');
+    const crmModal = document.getElementById('crm-modal');
+    const crmForm = document.getElementById('crm-form');
+    const crmError = document.getElementById('crm-error');
+    const crmStatusSelect = document.getElementById('crm-status');
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+      ));
+    }
+
+    function crmRowHtml(item) {
+      const status = CRM_STATUSES[item.status] || CRM_STATUSES.discovered;
+      return `
+        <tr class="transition-colors duration-200 hover:bg-ink-50/60">
+          <td class="px-6 py-4 font-semibold text-ink-900">${escapeHtml(item.name)}</td>
+          <td class="px-6 py-4 text-ink-600">${escapeHtml(item.location)}</td>
+          <td class="px-6 py-4">
+            <p class="font-medium text-ink-800">${escapeHtml(item.contactName)}</p>
+            <p class="mt-0.5 text-xs text-ink-500">${escapeHtml(item.phone)}</p>
+          </td>
+          <td class="px-6 py-4">
+            <span class="inline-flex whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold tracking-wide ${status.badge}">${status.label}</span>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center justify-end gap-2">
+              <button type="button" data-crm-edit="${item.id}" aria-label="Düzenle"
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 text-ink-500 transition-colors duration-200 hover:border-clay-400 hover:text-clay-600 active:bg-clay-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+                ${editIconSvg}
+              </button>
+              <button type="button" data-crm-delete="${item.id}" aria-label="Sil"
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 text-ink-500 transition-colors duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-600 active:bg-red-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">
+                ${trashIconSvg}
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    function renderCrmTable() {
+      crmTableBody.innerHTML = crmInstitutions.length
+        ? crmInstitutions.map(crmRowHtml).join('')
+        : '<tr><td colspan="5" class="px-6 py-10 text-center text-ink-400">Henüz kurum eklenmedi.</td></tr>';
+    }
+
+    // Durum seçeneklerini bir kez doldur.
+    crmStatusSelect.innerHTML = Object.entries(CRM_STATUSES)
+      .map(([key, s]) => `<option value="${key}">${s.label}</option>`).join('');
+
+    function openCrmModal(id = null) {
+      crmEditingId = id;
+      const item = id === null ? null : crmInstitutions.find((i) => i.id === id);
+      document.getElementById('crm-modal-title').textContent = item ? 'Kurumu Düzenle' : 'Yeni Kurum Ekle';
+      document.getElementById('crm-name').value = item ? item.name : '';
+      document.getElementById('crm-location').value = item ? item.location : '';
+      document.getElementById('crm-contact-name').value = item ? item.contactName : '';
+      document.getElementById('crm-phone').value = item ? item.phone : '';
+      crmStatusSelect.value = item ? item.status : 'discovered';
+      crmError.classList.add('hidden');
+      crmModal.classList.remove('hidden');
+      crmModal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+      document.getElementById('crm-name').focus();
+    }
+
+    function closeCrmModal() {
+      crmModal.classList.add('hidden');
+      crmModal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.getElementById('crm-add-button').addEventListener('click', () => openCrmModal());
+    document.getElementById('crm-cancel').addEventListener('click', closeCrmModal);
+    document.getElementById('crm-modal-backdrop').addEventListener('click', closeCrmModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !crmModal.classList.contains('hidden')) closeCrmModal();
+    });
+
+    crmForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const values = {
+        name: document.getElementById('crm-name').value.trim(),
+        location: document.getElementById('crm-location').value.trim(),
+        contactName: document.getElementById('crm-contact-name').value.trim(),
+        phone: document.getElementById('crm-phone').value.trim(),
+        status: crmStatusSelect.value,
+      };
+      if (!values.name || !values.contactName) {
+        crmError.textContent = 'Kurum adı ve yetkili kişi zorunlu.';
+        crmError.classList.remove('hidden');
+        return;
+      }
+      if (crmEditingId === null) {
+        crmInstitutions.unshift({ id: crmNextId++, ...values });
+      } else {
+        crmInstitutions = crmInstitutions.map((i) => (i.id === crmEditingId ? { ...i, ...values } : i));
+      }
+      renderCrmTable();
+      closeCrmModal();
+    });
+
+    crmTableBody.addEventListener('click', (e) => {
+      const editBtn = e.target.closest('[data-crm-edit]');
+      if (editBtn) return openCrmModal(Number(editBtn.dataset.crmEdit));
+      const deleteBtn = e.target.closest('[data-crm-delete]');
+      if (deleteBtn) {
+        const id = Number(deleteBtn.dataset.crmDelete);
+        const item = crmInstitutions.find((i) => i.id === id);
+        if (item && window.confirm(`"${item.name}" kaydı silinsin mi?`)) {
+          crmInstitutions = crmInstitutions.filter((i) => i.id !== id);
+          renderCrmTable();
+        }
+      }
+    });
+
+    renderCrmTable();
   </script>
 
 </body>

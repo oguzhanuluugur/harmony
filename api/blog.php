@@ -16,7 +16,6 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
-define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/blog.json');
 define('PLACEHOLDER_IMAGE', 'https://placehold.co/600x400/f4f5f6/9aa2ad?text=G%C3%B6rsel');
@@ -76,13 +75,11 @@ function sanitize_text($value) {
     return trim(str_replace(['<', '>'], '', $value));
 }
 
-function require_write_key() {
-    // Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
-    // sildiği için anahtar artık header yerine URL sorgu parametresinden okunuyor.
-    $provided = $_GET['apikey'] ?? '';
-    if (!hash_equals(API_WRITE_KEY, (string) $provided)) {
-        send_json(401, ['error' => 'Yetkisiz istek: geçersiz veya eksik API anahtarı.']);
-    }
+function require_write_key()
+{
+    // Yönetim paneli oturumu gerekir (bkz. api/_lib/auth.php ve api/auth.php).
+    require_once __DIR__ . '/_lib/auth.php';
+    harmony_require_admin();
 }
 
 function excerpt_from($paragraphs) {

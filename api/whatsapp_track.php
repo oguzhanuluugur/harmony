@@ -18,7 +18,6 @@ header('Content-Type: application/json; charset=utf-8');
 date_default_timezone_set('Europe/Istanbul');
 
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
-define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/whatsapp_clicks.json');
 
@@ -66,13 +65,9 @@ function write_data($data)
 
 function require_write_key()
 {
-    // Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını sildiği için
-    // anahtar header yerine URL sorgu parametresinden okunuyor (bkz.
-    // diğer api/*.php dosyalarındaki aynı desen).
-    $provided = $_GET['apikey'] ?? '';
-    if (!hash_equals(API_WRITE_KEY, (string) $provided)) {
-        send_json(401, ['error' => 'Yetkisiz istek: geçersiz veya eksik API anahtarı.']);
-    }
+    // Yönetim paneli oturumu gerekir (bkz. api/_lib/auth.php ve api/auth.php).
+    require_once __DIR__ . '/_lib/auth.php';
+    harmony_require_admin();
 }
 
 $method = $_SERVER['REQUEST_METHOD'];

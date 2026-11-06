@@ -9,3 +9,11 @@ Thumbs.db
 
 # Gerçek Gmail SMTP şifresini içerir — sadece elden cPanel'e yüklenir.
 api/smtp_config.php
+
+# Sunucuya özel / kişisel veri — GitHub'a gönderilmez
+api/_lib/admin_config.php
+data/messages.json
+data/visitors.json
+data/login_attempts.json
+data/whatsapp_clicks.json
+php.ini

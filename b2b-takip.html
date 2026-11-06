@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="brand/harmony-logo-transparent.png" />
+  <title>B2B Kurum Takip — Harmony Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+
+<body class="bg-[#faf8f5] text-slate-800 antialiased">
+  <main class="mx-auto max-w-6xl p-5 sm:p-8">
+
+    <!-- Başlık ve aksiyonlar -->
+    <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-[#1A2E40] sm:text-3xl">B2B Kurum Takip</h1>
+        <p class="mt-1 text-sm text-slate-500">Okul ve kreşlerin satış hunisindeki durumu.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <label for="csvUpload"
+          class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition-colors duration-200 hover:border-[#0e7490] hover:text-[#0e7490] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0e7490]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <path d="M17 8l-5-5-5 5" />
+            <path d="M12 3v12" />
+          </svg>
+          <span id="csv-filename">CSV dosyası seç...</span>
+        </label>
+        <input id="csvUpload" type="file" accept=".csv,text/csv" class="sr-only" />
+        <button id="csv-upload-button" type="button" disabled
+          class="inline-flex items-center gap-2 rounded-lg bg-[#0e7490] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#0c5f78] active:bg-[#0a4e63] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0e7490] disabled:cursor-not-allowed disabled:opacity-60">
+          CSV Yükle
+        </button>
+        <button id="add-button" type="button"
+          class="inline-flex items-center gap-2 rounded-lg bg-[#d1652c] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#b04f20] active:bg-[#8c3e1c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d1652c]">
+          + Yeni Kurum Ekle
+        </button>
+      </div>
+    </header>
+
+    <p id="status" class="mt-5 hidden rounded-lg px-4 py-3 text-sm font-medium" role="status" aria-live="polite"></p>
+
+    <!-- CSV sütun eşleme paneli: eklenti anlamlı başlık üretmediğinde (ör. ham CSS sınıf adları) açılır -->
+    <div id="csv-mapping" class="mt-5 hidden rounded-xl border border-[#0e7490]/30 bg-[#ecfeff] p-5">
+      <p class="text-sm font-semibold text-[#0e7490]">CSV'deki sütun başlıkları anlaşılır değil — muhtemelen eklenti sayfayı ham kopyalamış. Aşağıdaki önizlemeden hangi sütunun hangi bilgi olduğunu bulup seçin:</p>
+
+      <div id="csv-preview-wrap" class="mt-4 overflow-x-auto rounded-lg border border-[#0e7490]/20 bg-white"></div>
+
+      <div class="mt-4 grid gap-4 sm:grid-cols-3">
+        <div>
+          <label for="csv-map-name" class="mb-1.5 block text-sm font-semibold text-slate-700">Kurum Adı *</label>
+          <select id="csv-map-name" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-[#0e7490] focus:outline-none focus:ring-2 focus:ring-[#0e7490]/30"></select>
+        </div>
+        <div>
+          <label for="csv-map-location" class="mb-1.5 block text-sm font-semibold text-slate-700">Mahalle / Lokasyon</label>
+          <select id="csv-map-location" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-[#0e7490] focus:outline-none focus:ring-2 focus:ring-[#0e7490]/30"></select>
+        </div>
+        <div>
+          <label for="csv-map-phone" class="mb-1.5 block text-sm font-semibold text-slate-700">Telefon</label>
+          <select id="csv-map-phone" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-[#0e7490] focus:outline-none focus:ring-2 focus:ring-[#0e7490]/30"></select>
+        </div>
+      </div>
+      <p id="csv-map-error" class="mt-3 hidden text-sm font-medium text-red-600"></p>
+      <div class="mt-4 flex gap-3">
+        <button id="csv-map-confirm" type="button"
+          class="rounded-lg bg-[#0e7490] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#0c5f78] active:bg-[#0a4e63] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0e7490]">
+          İçe Aktar
+        </button>
+        <button id="csv-map-cancel" type="button"
+          class="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 transition-colors duration-200 hover:border-slate-300 active:bg-slate-100">
+          Vazgeç
+        </button>
+      </div>
+    </div>
+
+    <!-- Tablo -->
+    <div class="mt-6 overflow-hidden rounded-xl border border-slate-100 bg-white shadow-[0_1px_3px_rgba(28,22,15,.07),0_8px_24px_-12px_rgba(28,22,15,.18)]">
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[820px] text-left text-sm">
+          <thead>
+            <tr class="border-b border-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <th class="px-6 py-3">Kurum Adı</th>
+              <th class="px-6 py-3">Mahalle / Lokasyon</th>
+              <th class="px-6 py-3">Yetkili &amp; Telefon</th>
+              <th class="px-6 py-3">Durum</th>
+              <th class="px-6 py-3 text-right">Aksiyonlar</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal: manuel ekleme / düzenleme -->
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true"
+    aria-labelledby="modal-title">
+    <div id="modal-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <form id="modal-form" class="relative z-10 w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl sm:p-8" novalidate>
+      <h2 id="modal-title" class="text-lg font-bold text-[#1A2E40]">Yeni Kurum Ekle</h2>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <label for="f-name" class="mb-1.5 block text-sm font-semibold text-slate-700">Kurum Adı *</label>
+          <input id="f-name" type="text" required
+            class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#d1652c] focus:outline-none focus:ring-2 focus:ring-[#d1652c]/30" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="f-location" class="mb-1.5 block text-sm font-semibold text-slate-700">Mahalle / Lokasyon</label>
+          <input id="f-location" type="text"
+            class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#d1652c] focus:outline-none focus:ring-2 focus:ring-[#d1652c]/30" />
+        </div>
+        <div>
+          <label for="f-contact" class="mb-1.5 block text-sm font-semibold text-slate-700">Yetkili Kişi</label>
+          <input id="f-contact" type="text"
+            class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#d1652c] focus:outline-none focus:ring-2 focus:ring-[#d1652c]/30" />
+        </div>
+        <div>
+          <label for="f-phone" class="mb-1.5 block text-sm font-semibold text-slate-700">Telefon</label>
+          <input id="f-phone" type="tel"
+            class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-[#d1652c] focus:outline-none focus:ring-2 focus:ring-[#d1652c]/30" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="f-status" class="mb-1.5 block text-sm font-semibold text-slate-700">Durum</label>
+          <select id="f-status"
+            class="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm focus:border-[#d1652c] focus:outline-none focus:ring-2 focus:ring-[#d1652c]/30"></select>
+        </div>
+      </div>
+
+      <p id="modal-error" class="mt-4 hidden rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert"></p>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button id="modal-cancel" type="button"
+          class="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 transition-colors duration-200 hover:border-[#d1652c] hover:text-[#b04f20] active:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d1652c]">İptal</button>
+        <button type="submit"
+          class="rounded-lg bg-[#d1652c] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#b04f20] active:bg-[#8c3e1c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d1652c]">Kaydet</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // ---- Sabitler ----
+    const STORAGE_KEY = 'harmonyB2BData';
+    const LEGACY_STORAGE_KEY = 'harmonyB2B'; // önceki sürümün anahtarı (veri taşıma için)
+
+    const STATUSES = {
+      discovered: { label: 'Keşfedildi', badge: 'bg-gray-100 text-gray-700' },
+      messaged: { label: 'Mesaj Atıldı', badge: 'bg-yellow-100 text-yellow-800' },
+      meeting: { label: 'Toplantı Ayarlandı', badge: 'bg-purple-100 text-purple-700' },
+      started: { label: 'İş Birliği Başladı', badge: 'bg-green-100 text-green-700' },
+      not_interested: { label: 'İlgilenmiyor', badge: 'bg-red-50 text-red-600' },
+    };
+
+    const STATUS_BOX = {
+      success: 'bg-green-50 text-green-700',
+      error: 'bg-red-50 text-red-600',
+      info: 'bg-blue-50 text-blue-700',
+    };
+
+    // İlk açılışta gösterilecek örnek veriler (localStorage boşsa).
+    const SEED = [
+      { id: 'seed-1', name: 'Yıldız Kreş ve Anaokulu', location: 'Postane Mah., Tuzla', contactName: 'Ayşe Demir', phone: '0216 555 01 01', status: 'discovered' },
+      { id: 'seed-2', name: 'Güneş Çocuk Bahçesi', location: 'Aydınlı Mah., Tuzla', contactName: 'Mehmet Kaya', phone: '0216 555 02 02', status: 'messaged' },
+      { id: 'seed-3', name: 'Papatya Anaokulu', location: 'Orhanlı Mah., Tuzla', contactName: 'Elif Yılmaz', phone: '0216 555 03 03', status: 'meeting' },
+      { id: 'seed-4', name: 'Mavi Balon Kreş', location: 'Tepeören Mah., Tuzla', contactName: 'Zeynep Arslan', phone: '0216 555 04 04', status: 'started' },
+    ];
+
+    // ---- Yardımcılar ----
+    function esc(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+      ));
+    }
+
+    function normalizeName(name) {
+      return String(name || '').toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim();
+    }
+
+    function newId() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+
+    // Bazı CSV eklentileri kurum adını ayrı bir sütun yerine Google Haritalar "yer"
+    // linkinin içine kodlar (ör. ".../maps/place/Terakki+Tepe%C3%B6ren+%C4%B0lkokulu/data=...").
+    // Böyle bir değer görürse içindeki gerçek adı çözüp döndürür, değilse null döner.
+    function extractGoogleMapsPlaceName(value) {
+      const text = String(value ?? '').trim();
+      const match = text.match(/\/maps\/place\/([^/?]+)/i);
+      if (!match) return null;
+      try {
+        return decodeURIComponent(match[1].replace(/\+/g, ' ')).trim();
+      } catch (_) {
+        return match[1].replace(/\+/g, ' ').trim();
+      }
+    }
+
+    // CSV'den gelen bir hücre değerini kullanılabilir metne çevirir: Google Haritalar
+    // linkiyse çözümlenmiş adını, değilse düz metnini döndürür.
+    function resolveCsvValue(value) {
+      return extractGoogleMapsPlaceName(value) || String(value ?? '').trim();
+    }
+
+    function looksLikeMapsUrl(value) {
+      return extractGoogleMapsPlaceName(value) !== null;
+    }
+
+    function looksLikePhoneValue(value) {
+      const digits = String(value ?? '').replace(/\D/g, '');
+      return digits.length >= 10 && digits.length <= 13;
+    }
+
+    function looksLikeAddressValue(value) {
+      if (looksLikeMapsUrl(value)) return false;
+      const text = resolveCsvValue(value);
+      if (text.length < 8) return false;
+      return /(mah\.?|mahallesi|sok\.?|sokak|cad\.?|caddesi|no:|i̇stanbul|istanbul|tuzla)/i.test(text);
+    }
+
+    // Sütundaki örnek değerlerin ne kadarının belirtilen desene uyduğunu (0–1) ölçer.
+    function csvColumnMatchRatio(field, rows, predicate, sampleSize) {
+      const sample = rows.slice(0, sampleSize || 10)
+        .map((r) => r[field])
+        .filter((v) => v != null && String(v).trim() !== '');
+      if (sample.length === 0) return 0;
+      return sample.filter(predicate).length / sample.length;
+    }
+
+    // Başlık adına bakmaksızın, sütun İÇERİĞİNİN görünümüne göre en olası sütunu bulur
+    // (ör. örneklerin çoğu 10+ haneli bir numaraysa o sütun telefon sütunudur). Başlıklar
+    // anlamsız olduğunda (ham CSS sınıf adları gibi) asıl kurtarıcı bu fonksiyondur.
+    function guessCsvColumnByValue(fields, rows, predicate, minRatio, excludeFields) {
+      let best = null;
+      let bestRatio = 0;
+      for (const field of fields) {
+        if (excludeFields && excludeFields.includes(field)) continue;
+        const ratio = csvColumnMatchRatio(field, rows, predicate);
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
+          best = field;
+        }
+      }
+      return bestRatio >= minRatio ? best : null;
+    }
+
+    // ---- Depolama (localStorage 'harmonyB2B') ----
+    function loadRecords() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (raw === null) return SEED.map((r) => ({ ...r }));
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch (_) {
+        return SEED.map((r) => ({ ...r }));
+      }
+    }
+
+    let records = loadRecords();
+
+    // Daha önce yanlış sütun seçimiyle kaydedilmiş Google Haritalar linklerini sessizce
+    // temizler — kullanıcının yeniden CSV yüklemesine gerek kalmaz. Kurum Adı alanındaki
+    // link gerçek ada çözülür; Mahalle/Telefon alanına düşmüş bir link ise (yanlış yere
+    // konmuş bir isim orada da anlamsız olacağı için) tamamen temizlenir.
+    (function migrateGoogleMapsLinks() {
+      let changed = false;
+      records = records.map((r) => {
+        let next = r;
+        const resolvedName = extractGoogleMapsPlaceName(r.name);
+        if (resolvedName && resolvedName !== r.name) {
+          next = { ...next, name: resolvedName };
+          changed = true;
+        }
+        if (looksLikeMapsUrl(r.location)) {
+          next = { ...next, location: '' };
+          changed = true;
+        } else if (next.location && normalizeName(next.location) === normalizeName(next.name)) {
+          // Adres alanı kurum adıyla birebir aynıysa bu gerçek bir adres değil, yanlışlıkla
+          // aynı sütunun (ör. ikinci bir Haritalar linkinin) seçilmiş olmasıdır — temizle.
+          next = { ...next, location: '' };
+          changed = true;
+        }
+        if (looksLikeMapsUrl(r.phone)) {
+          next = { ...next, phone: '' };
+          changed = true;
+        }
+        return next;
+      });
+      if (changed) saveRecords();
+    })();
+
+    function saveRecords() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      } catch (_) {
+        showStatus('Kayıt tarayıcı hafızasına yazılamadı.', 'error');
+      }
+    }
+
+    // ---- Tablo ----
+    const tableBody = document.getElementById('table-body');
+
+    function rowHtml(r) {
+      const status = STATUSES[r.status] || STATUSES.discovered;
+      return `
+        <tr class="transition-colors duration-200 hover:bg-slate-50">
+          <td class="px-6 py-4 font-semibold text-slate-900">${esc(r.name)}</td>
+          <td class="px-6 py-4 text-slate-600">${esc(r.location) || '<span class="text-slate-300">—</span>'}</td>
+          <td class="px-6 py-4">
+            <p class="font-medium text-slate-800">${esc(r.contactName) || '<span class="text-slate-300">—</span>'}</p>
+            <p class="mt-0.5 text-xs text-slate-500">${esc(r.phone)}</p>
+          </td>
+          <td class="px-6 py-4">
+            <span class="inline-flex whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold tracking-wide ${status.badge}">${status.label}</span>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex justify-end gap-2">
+              <button type="button" data-whatsapp="${esc(r.id)}" aria-label="WhatsApp'tan yaz" title="WhatsApp'tan yaz"
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors duration-200 hover:border-green-200 hover:bg-green-50 hover:text-green-600 active:bg-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+              </button>
+              <button type="button" data-edit="${esc(r.id)}" aria-label="Düzenle" title="Düzenle"
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors duration-200 hover:border-[#d1652c] hover:text-[#b04f20] active:bg-orange-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d1652c]">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+              </button>
+              <button type="button" data-delete="${esc(r.id)}" aria-label="Sil" title="Sil"
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-600 active:bg-red-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    function render() {
+      tableBody.innerHTML = records.length
+        ? records.map(rowHtml).join('')
+        : '<tr><td colspan="5" class="px-6 py-10 text-center text-slate-400">Henüz kurum eklenmedi.</td></tr>';
+    }
+
+    tableBody.addEventListener('click', (e) => {
+      const whatsappBtn = e.target.closest('[data-whatsapp]');
+      if (whatsappBtn) return whatsappGonder(whatsappBtn.dataset.whatsapp);
+      const editBtn = e.target.closest('[data-edit]');
+      if (editBtn) return openModal(editBtn.dataset.edit);
+      const deleteBtn = e.target.closest('[data-delete]');
+      if (deleteBtn) {
+        const item = records.find((r) => r.id === deleteBtn.dataset.delete);
+        if (item && window.confirm(`"${item.name}" kaydı silinsin mi?`)) {
+          records = records.filter((r) => r.id !== item.id);
+          saveRecords();
+          render();
+        }
+      }
+    });
+
+    // ---- WhatsApp: kurumun kayıtlı numarasına taslak mesajla gidilir, durum "Mesaj Atıldı" olur ----
+    function whatsappGonder(id) {
+      const item = records.find((r) => r.id === id);
+      if (!item) return;
+
+      // Numara boşsa, Gemini'nin "Bulunamadı" dediği hâli hâlâ duruyorsa ya da gerçekçi
+      // uzunlukta değilse (en az 10 rakam) göndermeden önce kullanıcıdan düzeltme ister.
+      const digits = (item.phone || '').replace(/\D/g, '');
+      const unresolved = !item.phone || item.phone.trim().toLocaleLowerCase('tr-TR') === 'bulunamadı';
+      if (unresolved || digits.length < 10) {
+        alert('Lütfen önce Düzenle butonuyla geçerli bir numara ekleyin.');
+        return;
+      }
+
+      // Türkiye numaraları için wa.me formatı: başındaki 0 yerine 90 ülke kodu.
+      const waNumber = digits.startsWith('0') ? '90' + digits.slice(1) : digits;
+
+      const message = `Merhaba ${item.name} Yönetimi, Ben Harmony Çocuk Atölyesi'nden Oğuzhan. Tuzla'da 4-14 yaş arası çocuklar için mimarlık ve şehir tasarımı atölyeleri düzenliyoruz. Bölgedeki vizyonunuzu değerli bulduğumuz için kurumunuza özel 'Partner Okul İndirimi' veya tanışma atölyesi organize edebiliriz. Detaylar: harmonyplanlama.com`;
+
+      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+
+      item.status = 'messaged';
+      saveRecords();
+      render();
+    }
+
+    // ---- Durum bildirimi ----
+    const statusBox = document.getElementById('status');
+    let statusTimer = null;
+
+    function showStatus(message, type = 'info') {
+      statusBox.className = `mt-5 rounded-lg px-4 py-3 text-sm font-medium ${STATUS_BOX[type]}`;
+      statusBox.textContent = message;
+      clearTimeout(statusTimer);
+      statusTimer = setTimeout(() => statusBox.classList.add('hidden'), 6000);
+    }
+
+    // ---- Modal ----
+    const modal = document.getElementById('modal');
+    const form = document.getElementById('modal-form');
+    const modalError = document.getElementById('modal-error');
+    const statusSelect = document.getElementById('f-status');
+    let editingId = null;
+
+    statusSelect.innerHTML = Object.entries(STATUSES)
+      .map(([key, s]) => `<option value="${key}">${s.label}</option>`).join('');
+
+    function openModal(id = null) {
+      editingId = id;
+      const item = id === null ? null : records.find((r) => r.id === id);
+      document.getElementById('modal-title').textContent = item ? 'Kurumu Düzenle' : 'Yeni Kurum Ekle';
+      document.getElementById('f-name').value = item ? item.name : '';
+      document.getElementById('f-location').value = item ? item.location : '';
+      document.getElementById('f-contact').value = item ? item.contactName : '';
+      document.getElementById('f-phone').value = item ? item.phone : '';
+      statusSelect.value = item ? item.status : 'discovered';
+      modalError.classList.add('hidden');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('f-name').focus();
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('add-button').addEventListener('click', () => openModal());
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const values = {
+        name: document.getElementById('f-name').value.trim(),
+        location: document.getElementById('f-location').value.trim(),
+        contactName: document.getElementById('f-contact').value.trim(),
+        phone: document.getElementById('f-phone').value.trim(),
+        status: statusSelect.value,
+      };
+      if (!values.name) {
+        modalError.textContent = 'Kurum adı zorunlu.';
+        modalError.classList.remove('hidden');
+        return;
+      }
+      if (editingId === null) {
+        records.unshift({ id: newId(), ...values });
+      } else {
+        records = records.map((r) => (r.id === editingId ? { ...r, ...values } : r));
+      }
+      saveRecords();
+      render();
+      closeModal();
+    });
+
+    // Ortak ekleme: aynı isimdeki kurum zaten varsa yeniden eklenmez, ama boş kalan
+    // adres/telefon alanları varsa (ör. önceki yüklemede bulunamamıştı) doldurulur.
+    // Böylece aynı CSV düzeltilip tekrar yüklendiğinde eksik veri otomatik tamamlanır.
+    function addDiscovered(items) {
+      const byName = new Map(records.map((r) => [normalizeName(r.name), r]));
+      let added = 0;
+      let updated = 0;
+      let skipped = 0;
+
+      items.forEach((item) => {
+        const key = normalizeName(item.name);
+        if (!key) {
+          skipped++;
+          return;
+        }
+
+        const existing = byName.get(key);
+        if (existing) {
+          let filled = false;
+          if (!existing.location && item.location) { existing.location = item.location; filled = true; }
+          if (!existing.phone && item.phone) { existing.phone = item.phone; filled = true; }
+          filled ? updated++ : skipped++;
+          return;
+        }
+
+        const created = {
+          id: newId(),
+          name: item.name,
+          location: item.location || '',
+          contactName: '',
+          phone: item.phone || '',
+          status: 'discovered',
+        };
+        records.unshift(created);
+        byName.set(key, created);
+        added++;
+      });
+
+      saveRecords();
+      render();
+      return { added, updated, skipped };
+    }
+
+    // ---- CSV içe aktarma: Google Haritalar'dan bir tarayıcı eklentisiyle indirilen CSV ----
+    // Beklenen sütunlar: Name (Kurum Adı), Address (Mahalle/Lokasyon), Phone (Telefon).
+    // Büyük/küçük harf ve bazı Türkçe karşılıklar da (ad, adres, telefon vb.) tanınır.
+    const csvFileInput = document.getElementById('csvUpload');
+    const csvUploadButton = document.getElementById('csv-upload-button');
+    const csvFilenameLabel = document.getElementById('csv-filename');
+    const CSV_UPLOAD_LABEL = 'CSV Yükle';
+
+    const CSV_COLUMN_CANDIDATES = {
+      // "xxvwce", "w4efsd 4", "usdik": Instant Data Scraper eklentisinin Google Haritalar
+      // sonuç kartlarını kazırken ürettiği sabit (ama anlamsız görünen) sütun adları —
+      // sırasıyla kurum adı, adres ve telefon sütunlarına karşılık geliyor.
+      name: ['name', 'ad', 'kurum adı', 'kurum adi', 'title', 'işletme adı', 'isletme adi', 'business name', 'place name', 'store name', 'firma adı', 'firma adi', 'xxvwce'],
+      location: ['address', 'adres', 'mahalle', 'mahalle / lokasyon', 'location', 'full address', 'formatted address', 'tam adres', 'w4efsd 4'],
+      phone: ['phone', 'telefon', 'phone number', 'tel', 'telefon numarası', 'telefon numarasi', 'usdik'],
+    };
+
+    // Excel/eklenti çıktılarında başlığın önünde görünmez bir BOM karakteri veya
+    // bölünmez boşluk kalabiliyor; karşılaştırmadan önce bunları temizler.
+    function cleanCsvHeader(key) {
+      return String(key || "")
+        .replace(/^\uFEFF/, "")
+        .replace(/\u00A0/g, " ")
+        .trim()
+        .toLowerCase();
+    }
+
+    // Önce tam eşleşme, bulunamazsa başlıkta geçen bir anahtar kelimeye göre
+    // (ör. "Business Name", "Full Address") en olası sütunu bulur.
+    function matchCsvColumn(fields, candidates, substrings) {
+      for (const candidate of candidates) {
+        const key = fields.find((f) => cleanCsvHeader(f) === candidate);
+        if (key) return key;
+      }
+      for (const sub of substrings || []) {
+        const key = fields.find((f) => cleanCsvHeader(f).includes(sub));
+        if (key) return key;
+      }
+      return null;
+    }
+
+    function resetCsvUi() {
+      csvFileInput.value = '';
+      csvFilenameLabel.textContent = 'CSV dosyası seç...';
+      csvUploadButton.disabled = true;
+      csvUploadButton.textContent = CSV_UPLOAD_LABEL;
+    }
+
+    // ---- Manuel sütun eşleme: otomatik eşleşme başarısız olduğunda devreye girer ----
+    const csvMappingPanel = document.getElementById('csv-mapping');
+    const csvPreviewWrap = document.getElementById('csv-preview-wrap');
+    const csvMapNameSelect = document.getElementById('csv-map-name');
+    const csvMapLocationSelect = document.getElementById('csv-map-location');
+    const csvMapPhoneSelect = document.getElementById('csv-map-phone');
+    const csvMapError = document.getElementById('csv-map-error');
+    let pendingCsvRows = [];
+
+    function csvCellPreview(value, maxLen) {
+      const text = resolveCsvValue(value);
+      if (text === '') return '<span class="text-slate-300">—</span>';
+      const truncated = text.length > maxLen ? text.slice(0, maxLen) + '…' : text;
+      return `<span title="${esc(text)}">${esc(truncated)}</span>`;
+    }
+
+    // Sütun başlıkları anlamsızsa (ör. ham CSS sınıf adı) bile kullanıcı veriyi gözle
+    // tanıyabilsin diye ilk birkaç satırı gerçek bir tablo olarak gösterir; her sütun
+    // "1.", "2." gibi numaralandırılır ve aşağıdaki seçim kutularıyla aynı numarayı taşır.
+    function renderCsvPreview(fields, rows) {
+      const sampleRows = rows.slice(0, 5);
+      const headerCells = fields.map((f, i) => `
+        <th class="whitespace-nowrap border-b border-[#0e7490]/20 bg-[#f0fcff] px-3 py-2 text-left text-xs font-bold text-[#0e7490]">
+          ${i + 1}. <span class="font-mono font-normal text-slate-500">${esc(f)}</span>
+        </th>`).join('');
+      const bodyRows = sampleRows.map((row) => `
+        <tr class="border-b border-slate-100 last:border-0">
+          ${fields.map((f) => `<td class="whitespace-nowrap px-3 py-2 text-slate-700">${csvCellPreview(row[f], 28)}</td>`).join('')}
+        </tr>`).join('');
+      csvPreviewWrap.innerHTML = `
+        <table class="w-full text-left text-xs">
+          <thead><tr>${headerCells}</tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>`;
+    }
+
+    // Dropdown seçeneğini "2. "Yıldız Anaokulu"" gibi gösterir — numara, önizleme
+    // tablosundaki sütun numarasıyla aynıdır; içerik Google Haritalar linkiyse çözülür.
+    function fieldOptionLabel(field, fields, rows) {
+      const idx = fields.indexOf(field) + 1;
+      const sampleRow = rows.find((r) => r[field] != null && String(r[field]).trim() !== '');
+      const value = sampleRow ? resolveCsvValue(sampleRow[field]) : '';
+      const preview = value.length > 40 ? value.slice(0, 40) + '…' : value;
+      return preview ? `${idx}. "${preview}"` : `${idx}. sütun (boş)`;
+    }
+
+    // `guesses` verilirse (içerik bazlı otomatik tahmin), ilgili seçim kutusu önceden
+    // o sütunla dolu açılır; kullanıcı sadece kontrol edip gerekirse değiştirir.
+    function openCsvMapping(fields, rows, guesses) {
+      pendingCsvRows = rows;
+      renderCsvPreview(fields, rows);
+
+      const optionsHtml = fields.map((f) => `<option value="${esc(f)}">${esc(fieldOptionLabel(f, fields, rows))}</option>`).join('');
+      csvMapNameSelect.innerHTML = '<option value="">— Sütun seçin —</option>' + optionsHtml;
+      csvMapLocationSelect.innerHTML = '<option value="">(yok)</option>' + optionsHtml;
+      csvMapPhoneSelect.innerHTML = '<option value="">(yok)</option>' + optionsHtml;
+
+      const g = guesses || {};
+      if (g.name) csvMapNameSelect.value = g.name;
+      if (g.location) csvMapLocationSelect.value = g.location;
+      if (g.phone) csvMapPhoneSelect.value = g.phone;
+
+      csvMapError.classList.add('hidden');
+      csvMappingPanel.classList.remove('hidden');
+      csvMappingPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeCsvMapping() {
+      csvMappingPanel.classList.add('hidden');
+      pendingCsvRows = [];
+    }
+
+    document.getElementById('csv-map-cancel').addEventListener('click', () => {
+      closeCsvMapping();
+      showStatus('CSV içe aktarma iptal edildi.', 'info');
+    });
+
+    document.getElementById('csv-map-confirm').addEventListener('click', () => {
+      const nameKey = csvMapNameSelect.value;
+      if (!nameKey) {
+        csvMapError.textContent = 'Lütfen kurum adını hangi sütunun içerdiğini seçin.';
+        csvMapError.classList.remove('hidden');
+        return;
+      }
+      const locationKey = csvMapLocationSelect.value;
+      const phoneKey = csvMapPhoneSelect.value;
+
+      const items = pendingCsvRows
+        .map((row) => ({
+          name: resolveCsvValue(row[nameKey]),
+          location: locationKey ? resolveCsvValue(row[locationKey]) : '',
+          phone: phoneKey ? resolveCsvValue(row[phoneKey]) : '',
+        }))
+        .filter((item) => item.name !== '')
+        .map((item) => (normalizeName(item.location) === normalizeName(item.name) ? { ...item, location: '' } : item));
+
+      if (items.length === 0) {
+        csvMapError.textContent = 'Seçilen sütunda dolu bir satır bulunamadı. Başka bir sütun deneyin.';
+        csvMapError.classList.remove('hidden');
+        return;
+      }
+
+      const { added, updated, skipped } = addDiscovered(items);
+      showStatus(`${added} yeni kurum eklendi, ${updated} mevcut kayıtta eksik bilgi tamamlandı. ${skipped} kayıt zaten tamdı. Kaynak: CSV (manuel eşleme).`, 'success');
+      closeCsvMapping();
+    });
+
+    csvFileInput.addEventListener('change', () => {
+      const file = csvFileInput.files[0];
+      csvFilenameLabel.textContent = file ? file.name : 'CSV dosyası seç...';
+      csvUploadButton.disabled = !file;
+    });
+
+    csvUploadButton.addEventListener('click', () => {
+      const file = csvFileInput.files[0];
+      if (!file) return;
+
+      if (typeof Papa === 'undefined') {
+        showStatus('CSV okuma kütüphanesi yüklenemedi. İnternet bağlantınızı kontrol edin.', 'error');
+        return;
+      }
+
+      csvUploadButton.disabled = true;
+      csvUploadButton.textContent = 'Yükleniyor...';
+
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const fields = (results.meta && results.meta.fields) || Object.keys(results.data[0] || {});
+          const rows = results.data || [];
+
+          if (fields.length === 0 || rows.length === 0) {
+            showStatus('CSV dosyası boş görünüyor ya da okunamadı.', 'error');
+            resetCsvUi();
+            return;
+          }
+
+          // 1) Önce sütun BAŞLIĞINA bakarak eşleştirmeyi dene (Name/Address/Phone gibi).
+          let nameKey = matchCsvColumn(fields, CSV_COLUMN_CANDIDATES.name, ['name']);
+          let locationKey = matchCsvColumn(fields, CSV_COLUMN_CANDIDATES.location, ['address', 'adres']);
+          let phoneKey = matchCsvColumn(fields, CSV_COLUMN_CANDIDATES.phone, ['phone', 'telefon']);
+
+          // 2) Başlıklar anlamsızsa (ör. ham CSS sınıf adı), sütunun İÇERİĞİNE bakarak
+          //    tahmin et: Google Haritalar linki taşıyan sütun kurum adıdır, çoğunlukla
+          //    10+ haneli numara içeren sütun telefon, "Mah./Tuzla/İstanbul" geçen sütun adrestir.
+          if (!nameKey) nameKey = guessCsvColumnByValue(fields, rows, looksLikeMapsUrl, 0.5, []);
+          const usedKeys = nameKey ? [nameKey] : [];
+          if (!phoneKey) {
+            phoneKey = guessCsvColumnByValue(fields, rows, looksLikePhoneValue, 0.5, usedKeys);
+            if (phoneKey) usedKeys.push(phoneKey);
+          }
+          if (!locationKey) locationKey = guessCsvColumnByValue(fields, rows, looksLikeAddressValue, 0.3, usedKeys);
+
+          if (!nameKey) {
+            // Kurum adı hiçbir yöntemle bulunamadı — kullanıcıdan seçim iste; tahmin
+            // edilen adres/telefon sütunları varsa önceden seçili gelir.
+            resetCsvUi();
+            openCsvMapping(fields, rows, { location: locationKey, phone: phoneKey });
+            return;
+          }
+
+          const items = rows
+            .map((row) => ({
+              name: resolveCsvValue(row[nameKey]),
+              location: locationKey ? resolveCsvValue(row[locationKey]) : '',
+              phone: phoneKey ? resolveCsvValue(row[phoneKey]) : '',
+            }))
+            .filter((item) => item.name !== '')
+            // Adres, kurum adıyla birebir aynıysa (aynı linkin iki yerde seçilmesi gibi) gerçek bir adres değildir.
+            .map((item) => (normalizeName(item.location) === normalizeName(item.name) ? { ...item, location: '' } : item));
+
+          if (items.length === 0) {
+            showStatus('Kurum adı sütunu bulundu ama dolu bir satır yok.', 'error');
+          } else {
+            const matchedExtras = [locationKey && 'adres', phoneKey && 'telefon'].filter(Boolean);
+            const extraNote = matchedExtras.length ? ` (${matchedExtras.join(', ')} de otomatik eşleşti)` : '';
+            const { added, updated, skipped } = addDiscovered(items);
+            showStatus(`${added} yeni kurum eklendi, ${updated} mevcut kayıtta eksik bilgi tamamlandı. ${skipped} kayıt zaten tamdı.${extraNote}`, 'success');
+          }
+
+          resetCsvUi();
+        },
+        error: (err) => {
+          console.error('CSV okunamadı:', err);
+          showStatus(`CSV okunamadı (${err.message}).`, 'error');
+          csvUploadButton.disabled = false;
+          csvUploadButton.textContent = CSV_UPLOAD_LABEL;
+        },
+      });
+    });
+
+    render();
+  </script>
+</body>
+
+</html>

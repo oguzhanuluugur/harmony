@@ -16,7 +16,6 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // ⚠️ DEĞİŞTİRİN: admin.html'deki API_KEY sabitiyle birebir aynı olmalı.
-define('API_WRITE_KEY', 'HarmonyAdmin2026!');
 
 define('DATA_FILE', __DIR__ . '/../data/workshops.json');
 define('PLACEHOLDER_IMAGE', 'https://placehold.co/400x280/f4f5f6/9aa2ad?text=G%C3%B6rsel');
@@ -76,13 +75,11 @@ function sanitize_text($value) {
     return trim(str_replace(['<', '>'], '', $value));
 }
 
-function require_write_key() {
-    // Turkticaret cPanel güvenlik duvarı özel HTTP başlıklarını (X-Api-Key)
-    // sildiği için anahtar artık header yerine URL sorgu parametresinden okunuyor.
-    $provided = $_GET['apikey'] ?? '';
-    if (!hash_equals(API_WRITE_KEY, (string) $provided)) {
-        send_json(401, ['error' => 'Yetkisiz istek: geçersiz veya eksik API anahtarı.']);
-    }
+function require_write_key()
+{
+    // Yönetim paneli oturumu gerekir (bkz. api/_lib/auth.php ve api/auth.php).
+    require_once __DIR__ . '/_lib/auth.php';
+    harmony_require_admin();
 }
 
 function normalize_workshop_input($body) {
@@ -93,14 +90,32 @@ function normalize_workshop_input($body) {
     $date = sanitize_text($body['date'] ?? '');
     $time = sanitize_text($body['time'] ?? '');
     $price = sanitize_text($body['price'] ?? '');
+    // Fiyatı tek biçimde kaydet: "1000TL", "1000 tl", "1000₺" → "1000 TL".
+    $price = preg_replace('/^(\d[\d.,]*)\s*(tl|₺)$/iu', '$1 TL', $price);
+    $description = sanitize_text($body['description'] ?? ''); // isteğe bağlı
     $status = (($body['status'] ?? '') === 'passive') ? 'passive' : 'active';
+    $externalPartner = ($body['externalPartner'] ?? false) === true;
+    $externalLink = $externalPartner ? sanitize_text($body['externalLink'] ?? '') : '';
+    if ($externalPartner) $price = ''; // Dış kurum atölyesinde fiyat gösterilmez
 
     if ($name === '') $errors[] = 'Atölye adı gerekli.';
     if ($age === '') $errors[] = 'Yaş grubu gerekli.';
     if ($month === '') $errors[] = 'Ay gerekli.';
     if ($date === '') $errors[] = 'Tarih gerekli.';
     if ($time === '') $errors[] = 'Saat gerekli.';
-    if ($price === '') $errors[] = 'Fiyat gerekli.';
+    if ($price === '' && !$externalPartner) $errors[] = 'Fiyat gerekli.';
+    // Link sitede href olarak basılır: yalnızca http(s) kabul et (javascript: vb. engellenir).
+    if ($externalLink !== '' && (!filter_var($externalLink, FILTER_VALIDATE_URL) || !preg_match('#^https?://#i', $externalLink))) {
+        $errors[] = 'Yönlendirme linki http:// veya https:// ile başlayan geçerli bir adres olmalı.';
+    }
+
+    // Takvimden gelen tarihler "YYYY-MM-DD" biçiminde; geçersizse null kalır.
+    $startDate = normalize_iso_day($body['startDate'] ?? null);
+    $endDate = normalize_iso_day($body['endDate'] ?? null);
+    if ($startDate === null) $errors[] = 'Başlangıç tarihi gerekli.';
+    if ($startDate !== null && $endDate !== null && $endDate < $startDate) {
+        $errors[] = 'Bitiş tarihi başlangıç tarihinden önce olamaz.';
+    }
 
     $image = null;
     if (!empty($body['image']) && is_string($body['image'])) {
@@ -114,8 +129,16 @@ function normalize_workshop_input($body) {
 
     return [$errors, [
         'name' => $name, 'age' => $age, 'month' => $month, 'date' => $date,
+        'startDate' => $startDate, 'endDate' => $endDate,
+        'description' => $description,
         'time' => $time, 'price' => $price, 'status' => $status, 'image' => $image,
+        'externalPartner' => $externalPartner, 'externalLink' => $externalLink,
     ]];
+}
+
+function normalize_iso_day($value) {
+    if (!is_string($value) || !preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value, $m)) return null;
+    return checkdate((int) $m[2], (int) $m[3], (int) $m[1]) ? $value : null;
 }
 
 $method = $_SERVER['REQUEST_METHOD'];

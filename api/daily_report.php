@@ -18,6 +18,13 @@
 // visitors.php artık Europe/Istanbul saatiyle yazıyor — burası da aynı
 // dilimi kullanmazsa "bugünkü" karşılaştırmaları ve rapordaki tarih 3 saat
 // kayar.
+// Yalnızca komut satırından (cron) çalışır; web'den çağrılırsa reddedilir —
+// aksi halde herkes adresi açarak e-posta gönderdirebilirdi.
+if (PHP_SAPI !== 'cli') {
+    http_response_code(403);
+    exit('Bu betik yalnızca cron ile çalıştırılabilir.');
+}
+
 date_default_timezone_set('Europe/Istanbul');
 
 define('VISITORS_DATA_FILE', __DIR__ . '/../data/visitors.json');

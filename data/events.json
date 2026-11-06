@@ -1,0 +1,47 @@
+[
+    {
+        "id": 2,
+        "title": "Seyr-i İstanbul Yeditepe Şehir Yolculuğu",
+        "institutionName": "Rami Kütüphanesi",
+        "institutionType": "muze",
+        "district": "Rami",
+        "neighborhood": "",
+        "startDate": "2026-11-22",
+        "endDate": null,
+        "ageGroup": "18+",
+        "participants": null,
+        "description": "İstanbul’un yedi tepesinde, yüzyılların biriktirdiği hikâyelerin, mimarinin ve kent belleğinin izini sürmeye hazır mısınız?\n\nBu kez rotamız, büyük usta Mimar Sinan’ın İstanbul’da bıraktığı izler.\n\nSokakların, külliyelerin, sarayların, çeşmelerin ve meydanların anlattıklarına kulak vereceğimiz bu yolculukta; İstanbul’u yalnızca bir manzara olarak değil, katman katman okunmayı bekleyen yaşayan bir şehir olarak keşfedeceğiz.\n\nMimari eserlerin kentle kurduğu ilişkiyi konuşacak, tarihî yapıların izinde geçmişle bugünü buluşturacağız.\n\nSeyr-i İstanbul: Yedi Tepede Şehir Yolculuğu\nMimar Sinan’ın İzinde İstanbul Rotası\n\n📅 22 Kasım 2026, Pazar\n🕚 11.00–13.00\n📍 Buluşma: Sultanahmet Camii\n👥 18+ yaş\n\n🎙️ Moderatör: Dr. Şehir Plancısı Seçil Avcıoğlu\n\nGezi rotamız:\n• Sokollu Mehmet Paşa Külliyesi\n• İbrahim Paşa Sarayı\n• Haseki Hürrem Sultan Hamamı\n• Sultan Selim (II) Türbesi\n• Soğuk Çeşme Sokak\n• Kapıağası Cafer Ağa Medresesi\n• Gülhane Parkı\n\nBazen bir şehri anlamak için sadece yürümek değil; durup bakmak, izleri takip etmek ve doğru soruları sormak gerekir.\n\nÇünkü her şehrin bir hikâyesi vardır. İstanbul’un ise anlatacak çok şeyi…",
+        "images": [
+            {
+                "src": "event-photos/b0b9303ba772a1e1.jpg",
+                "alt": ""
+            }
+        ],
+        "videos": [],
+        "link": "https://ramikutuphanesi.gov.tr/tr/etkinlikler/tum-etkinlikler/0f4f189d-c14d-4c01-a98d-da57bdb5b6d8",
+        "status": "published",
+        "createdAt": "2026-11-06T20:00:38+00:00"
+    },
+    {
+        "id": 1,
+        "title": "Öğretmenlerle Eski Evler Yeni Hayaller Atölyesi",
+        "institutionName": "Tuzla İlçe Milli Eğitim Müdürlüğü",
+        "institutionType": "okul",
+        "district": "Tuzla",
+        "neighborhood": "",
+        "startDate": "2026-10-24",
+        "endDate": null,
+        "ageGroup": "",
+        "participants": null,
+        "description": "Harmony Atölye olarak Tuzla İlçe Millî Eğitim Müdürlüğü tarafından düzenlenen Cumartesi Atölyeleri kapsamında öğretmenlerimizle bir araya geldik.\n\nEski Evler Yeni Hayaller atölyemizde geleneksel mimarimizden ilham alarak geçmişin izlerini özgün tasarımlara dönüştürdük.",
+        "images": [],
+        "videos": [
+            {
+                "src": "event-videos/37c033e356678e67e9a485291660928a.mp4"
+            }
+        ],
+        "link": "",
+        "status": "published",
+        "createdAt": "2026-11-03T14:19:02+00:00"
+    }
+]

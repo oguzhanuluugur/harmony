@@ -1,0 +1,63 @@
+  <!-- NAVBAR (ana sayfayla birebir aynı) -->
+  <header class="sticky top-0 z-50 bg-[#fbf8f4]/90 backdrop-blur-md border-b border-ink-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      <a href="/index.html#top" class="flex items-center gap-3 group">
+        <span class="block h-20 w-20 shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <img src="/brand/harmony-logo-transparent.webp" width="160" height="160"
+            alt="Harmony - Urban Lab for Children" class="h-full w-full object-contain" />
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-9 text-[15px] font-medium text-ink-600">
+        <a href="/index.html#hakkimizda" class="nav-link py-1">Hakkımızda</a>
+        <a href="/index.html#atolyeler" class="nav-link py-1">Atölyeler</a>
+        <a href="/okul-ve-kurum-etkinlikleri/" class="nav-link active py-1 text-clay-600" aria-current="page">Etkinlikler</a>
+        <a href="/index.html#blog" class="nav-link py-1">Blog</a>
+        <a href="/index.html#iletisim" class="nav-link py-1">İletişim</a>
+      </nav>
+
+      <button type="button" data-whatsapp-cta
+        class="cta-btn hidden sm:inline-flex items-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold pl-5 pr-4 py-3 shadow-soft hover:shadow-lifted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500">
+        Hemen Kaydol
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </button>
+
+      <button id="menu-toggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu"
+        class="md:hidden flex h-10 w-10 items-center justify-center rounded-lg border border-ink-200 text-ink-700 hover:border-clay-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-clay-500 transition-colors">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="7" y2="7" />
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="17" y2="17" />
+        </svg>
+        <svg id="icon-close" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav id="mobile-menu"
+      class="hidden md:hidden border-t border-ink-100 bg-[#fbf8f4] px-6 py-5 flex flex-col gap-4 text-[15px] font-medium text-ink-600">
+      <a href="/index.html#hakkimizda" class="py-1">Hakkımızda</a>
+      <a href="/index.html#atolyeler" class="py-1">Atölyeler</a>
+      <a href="/okul-ve-kurum-etkinlikleri/" class="py-1 text-clay-600" aria-current="page">Etkinlikler</a>
+      <a href="/index.html#blog" class="py-1">Blog</a>
+      <a href="/index.html#iletisim" class="py-1">İletişim</a>
+      <button type="button" data-whatsapp-cta
+        class="cta-btn inline-flex items-center justify-center gap-2 rounded-full bg-ink-900 text-white text-sm font-semibold px-5 py-3 shadow-soft mt-1">
+        Hemen Kaydol
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </button>
+    </nav>
+  </header>
